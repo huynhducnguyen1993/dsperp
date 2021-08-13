@@ -601,39 +601,38 @@ class Quanlydexuat_dagiaichi(LoginRequiredMixin,View):
     login_url ="login/"
     def get(self,request):
         user = request.user 
-        if str(user) == "phuhuu": 
+        if user.username == "phuhuu": 
             
             pb = Phongban.objects.all()
-            dx = Giaichi.objects.filter( trangthaiduyet_tp = True,
+            dx = Dexuat.objects.filter( trangthaiduyet_tp = True,
                                   trangthaiduyet_sep = True,
-                                  trangthaiduyetgiaichi=True,
-                                  trangthaihuy = False,
+                                  tinhtranggiaichi=True,
+                                  tinhtranghuy = False,
                                   )
         
             context ={
                 'phongban':pb,
                 'dexuat':dx
             }
-            return render(request,'dexuat/ql_dexuat_da_tam_ung.html',context)
+            return render(request,'dexuat/ql_dexuat_da_giai_chi.html',context)
         
-        if str(user) != "phuhuu": 
+        else: 
             nv = Nhanvien.objects.get(username = user)
-            cv = Chucvu_Congviec.objects.filter(phongban=nv.phongban)
-            for item in cv:
-                if str(item.tencongviec) == "TP":
-                    dx = Giaichi.objects.filter(
-                                  phongban = item.phongban,
+            cv = Chucvu_Congviec.objects.get(nhanvien=nv)
+            
+            if cv.tencongviec == "TP":
+                dx = Dexuat.objects.filter(
+                                  phongban = nv.phongban,
                                   trangthaiduyet_tp = True,
                                   trangthaiduyet_sep = True,
-                                  trangthaiduyetgiaichi=True,
-                                  trangthaihuy = False,
+                                  tinhtranggiaichi=True,
+                                  tinhtranghuy = False,
                                   )
         
-                    context ={
-                
-                            'dexuat':dx
+                context ={
+                        'dexuat':dx
                         }
-                    return render(request,'dexuat/ql_dexuat_da_giai_chi.html',context)
+            return render(request,'dexuat/ql_dexuat_da_giai_chi.html',context)
     
 
 class Quanlydexuat_dahuy(LoginRequiredMixin,View):

@@ -85,6 +85,10 @@ def Dexuat_total(request):
             if cv:
                 if cv.tencongviec == "TP":
                     dxht_tp = Dexuat.objects.filter(phongban = nv.phongban,trangthaiduyet_sep = True,trangthaiduyet_tp=True)
+                    dxgc_tp = Dexuat.objects.filter(phongban = nv.phongban,trangthaiduyet_sep = True,trangthaiduyet_tp=True,tinhtranggiaichi=True,tinhtranghuy=False)
+                    for item in dxgc_tp:
+                        dem_dx_gc_tp+=1
+                    
                     for item in dxht_tp:
                         dem_ht_tp+=1
                     dxtu_tp = Dexuat.objects.filter(phongban = nv.phongban,
@@ -104,14 +108,16 @@ def Dexuat_total(request):
                     dem_ht_tp = 0
                     dem_tu_tp = 0
                     dem_huy_tp =0
+                    dem_dx_gc_tp =0
             else:
                 dem_ht_tp = 0
                 dem_tu_tp = 0
                 dem_huy_tp =0
+                dem_dx_gc_tp =0
         else:
             dem_ht_tp = 0
             dem_tu_tp = 0
-        
+            dem_dx_gc_tp =0
         pb = Dexuat.objects.filter(phongban = nv.phongban,trangthaiduyet_tp=False)
         if pb:
             for item in pb:
@@ -161,6 +167,7 @@ def Dexuat_total(request):
                  'demht':demht,
                  'demtu':demtu,
                  'demhuy':demhuy,
+                 'demdxgc_tp':dem_dx_gc_tp,
                 }
         return {'duyet_tp':context}
     else:
