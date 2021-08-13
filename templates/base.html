@@ -403,12 +403,22 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              {% if cv.tp == True  %}
               <li class="nav-item">
                <a href="{% url 'quan-ly-giai-chi-tp'%}" class="nav-link">
                   <i class="far fa-circle ion-gear-b  nav-icon"></i>
                   <p>Quản Lý </p>
                 </a>  
               </li>
+              {%endif%}
+              {% if cv.sep  == True  %}
+              <li class="nav-item">
+               <a href="{% url 'quan-ly-giai-chi-sep' %}" class="nav-link">
+                  <i class="far fa-circle ion-gear-b  nav-icon"> </i>
+                  <p> Quản Lý </p>
+                </a>  
+              </li>
+              {%endif%}
               <li class="nav-item">
                 <a href="{% url 'bao-cao-giai-chi'%}" class="nav-link">
                    <i class="far fa-circle ion-gear-b  nav-icon"></i>
