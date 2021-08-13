@@ -1,0 +1,859 @@
+{% extends 'base.html'%}
+{%load static%}
+
+{%block form-view-giai-chi%}
+{%if giaichi%}
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+ 
+ <div style="padding:50px">
+
+    {% if giaichi.hangmuc == "1" %}   
+        <h1 style="color: rgb(43, 170, 243); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">Duyệt Giải Chi Mã Giải Chi <a href="{% url 'view-giai-chi' giaichi.id %}">{{giaichi.id}}</a> </h1><br>
+        {%if giaichi.trangthaihoanthanh == True %}
+        <h2 style="color: green;">( ĐÃ THANH TOÁN ) </h2>
+       {%endif%}
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{giaichi.nhanvien}}"  disabled class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{giaichi.nhanvien.email}}" readonly name="email" type="text"  >
+
+                    </h6>
+
+                    <h6>Giải Chi Thuộc Phòng Ban:
+                        
+                        <select name="phongbanguiduyet" id="phongbanguiduyet" class="form-control">
+                            <option value="{{giaichi.phongban}}"> {{giaichi.phongban}}</option>
+                            
+                        </select>
+                    </h6>
+                </div>
+                <div class="col col-4">
+                    <h6>File Hóa Đơn: {%if giaichi.filegiaichi %}<a  target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/media/{{giaichi.filegiaichi}}" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >click xem chi tiết</a>
+                        {%else%}
+                        <a href="#" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >Không có files</a>
+                        {%endif%}
+                     </h6>
+                    <h6 style="color: rgb(81, 125, 248);">
+                        Số Tiền Đã Tạm Ứng 
+                        <input type="number" value="{{giaichi.tientamung}}" disabled style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tientamung" class="form-control">
+                     </h6>
+                     <h6 style="color: rgb(81, 125, 248);">
+                        Số  Tiền Giải Chi
+                        <input type="text" value="{{giaichi.tiengiaichi}}"  disable style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tiengiaichi" id="tiengiaichi" class="form-control">
+                     </h6>
+                </div>
+                <div class="col col-4">
+
+                    
+                    <h6>Ghi chú:
+
+                    	<input type="text" name="ghichu" class="form-control"  rows="2" value="{{giaichi.ghichu}}">
+
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt TP :
+                        {%if giaichi.trangthaiduyet_tp == True %}
+                        <input type="text" value="Đã Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%else%}
+                        <input type="text" value="Chưa Phê Duyệt" class="form-control" style="background-color: rgb(119, 8, 8);color: rgb(245, 240, 240);">
+                        {%endif%}
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt Sep :
+                        {%if giaichi.trangthaiduyet_tp == True %} 
+                            {%if giaichi.trangthaiduyet_sep == False %} 
+                             <input type="text" value="Chưa Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                            {%endif%}
+                           
+                            {%if giaichi.trangthaiduyet_sep == True %} 
+                                <input type="text" value="Đã Duyêt" class="form-control" style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                            {%endif%}
+
+                        {%endif%}
+                    
+                       
+                        {%if giaichi.trangthaiduyet_tp == False %} 
+                        {%if giaichi.trangthaiduyet_sep == False %} 
+                        <input type="text" value="Chưa Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%if giaichi.trangthaiduyet_sep == True %} 
+                        <input type="text" value="Chỉ Cần Tp duyệt" class="form-control" style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%endif%}
+                        
+                    </h6>
+                    
+                </div>
+                
+
+                          
+            </div>  
+            <div class="row">
+                <div class="col col-12">
+                   
+                    <table class="table table-hover border">
+                        <tr style="background-color: rgb(55, 175, 245); color: floralwhite;">
+                            <th> {{giaichi.tieude}} </th>
+                        </tr>
+                        
+                        
+                    </table>
+                    <table class="table table-bordered">
+                        
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên Thiết Bị</th>
+                            <th>Số Lượng</th>
+                            <th>Đơn Giá</th>
+                            <th>Thành Tiền</th>
+                        </tr>
+                       
+                        <tr>
+                            <td>1</td>
+                            <td>{{ giaichi.giaichithietbi.hanghoa_1 }}</td>
+                            <td>{{ giaichi.giaichithietbi.soluong_1}}</td>
+                            <td>{{ giaichi.giaichithietbi.dongia_1}}</td>
+                            <td>{{ giaichi.giaichithietbi.thanhtien_1}}</td>
+                        </tr>
+                        {%if giaichi.giaichithietbi.hanghoa_2 %}
+                        <tr>
+                            <td>2</td>
+                            <td>{{ giaichi.giaichithietbi.hanghoa_2 }}</td>
+                            <td>{{ giaichi.giaichithietbi.soluong_2}}</td>
+                            <td>{{ giaichi.giaichithietbi.dongia_2}}</td>
+                            <td>{{ giaichi.giaichithietbi.thanhtien_2}}</td>
+                        </tr>
+                        {%endif%}
+                        {%if giaichi.giaichithietbi.hanghoa_3 %}
+                        <tr>
+                            <td>3</td>
+                            <td>{{ giaichi.giaichithietbi.hanghoa_3}}</td>
+                            <td>{{ giaichi.giaichithietbi.soluong_3}}</td>
+                            <td>{{ giaichi.giaichithietbi.dongia_3}}</td>
+                            <td>{{ giaichi.giaichithietbi.thanhtien_3}}</td>
+                        </tr>
+                        {%endif%}
+                        {%if giaichi.giaichithietbi.hanghoa_4 %}
+                        <tr>
+                            <td>4</td>
+                            <td>{{ giaichi.giaichithietbi.hanghoa_4}}</td>
+                            <td>{{ giaichi.giaichithietbi.soluong_4}}</td>
+                            <td>{{ giaichi.giaichithietbi.dongia_4}}</td>
+                            <td>{{ giaichi.giaichithietbi.thanhtien_4}}</td>
+                        </tr>
+                        {%endif%}
+                    </table>
+                    
+                </div>
+
+
+            </div>    
+                
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: absolute;
+            left: 60%;margin-left: -60px;">
+             <a href="javascript:history.back()" class="btn btn-info"> Quay Lại </a>
+            </div>
+                
+            </div>
+
+        </form>
+        {%endif%}
+
+    
+        {%if giaichi.hangmuc == "2" %}
+        <h1 style="color: rgb(57, 201, 245); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">Duyệt Giải Chi : <a href="#">{{giaichi.id}}</a></h1><br>
+        {%if giaichi.trangthaihoanthanh == True %}
+        <h2 style="color: green;">( ĐÃ THANH TOÁN ) </h2>
+       {%endif%}
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{giaichi.nhanvien.tennv}}"  disabled class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{giaichi.nhanvien.email}}" readonly name="email" type="text"  >
+
+                    </h6>
+
+                    <h6>Giải Chi Thuộc Phòng Ban:
+                        
+                        <select disabled name="phongbanguiduyet" id="phongbanguiduyet" class="form-control">
+                            <option value="{{giaichi.phongban}}"> {{giaichi.phongban}}</option>
+                           
+                        </select>
+                    </h6>
+                </div>
+                <div class="col col-4">
+                    <h6>
+                        File Hóa Đơn chứng từ (nếu Có): 
+                        {%if giaichi.filegiaichi %}<a  target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/media/{{giaichi.filegiaichi}}" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >click xem chi tiết</a>
+                        {%else%}
+                        <a href="#" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >Không có files</a>
+                        {%endif%}
+                    </h6>
+                    <h6 style="color: rgb(81, 125, 248);">
+                        Số Tiền Đã Tạm Ứng 
+                        <input type="number" value="{{giaichi.tientamung}}" disabled style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tientamung" class="form-control">
+                     </h6>
+                     <h6 style="color: rgb(81, 125, 248);">
+                        Số  Tiền Giải Chi
+                        <input type="text" style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tiengiaichi" id="tiengiaichi" class="form-control"  disabled value="{{giaichi.tiengiaichi}}">
+                     </h6>
+                </div>
+                <div class="col col-4">
+
+                    
+                    <h6>Ghi chú:
+
+                    	<input type="text" name="ghichu" class="form-control"  rows="2" value="{{giaichi.ghichu}}">
+
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt TP :
+                        {%if dexuat.trangthaiduyet_tp == True %}
+                        <input type="text" value="Đã Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%else%}
+                        <input type="text" value="Chưa Phê Duyệt" class="form-control" style="background-color: rgb(119, 8, 8);color: rgb(245, 240, 240);">
+                        {%endif%}
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt Sep :
+                        {%if giaichi.trangthaiduyet_tp == True %} 
+                            {%if giaichi.trangthaiduyet_sep == False %} 
+                             <input type="text" value="Chưa Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                            {%endif%}
+                           
+                            {%if giaichi.trangthaiduyet_sep == True %} 
+                                <input type="text" value="Đã Duyêt" class="form-control" style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                            {%endif%}
+
+                        {%endif%}
+                    
+                       
+                        {%if giaichi.trangthaiduyet_tp == False %} 
+                        {%if giaichi.trangthaiduyet_sep == False %} 
+                        <input type="text" value="Chưa Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%if giaichi.trangthaiduyet_sep == True %} 
+                        <input type="text" value="Chỉ Cần Tp duyệt" class="form-control" style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%endif%}
+                        
+                    </h6>
+                    
+                </div>
+                <table class="table table-hover border">
+                    <tr style="background-color: rgb(57, 201, 245);">
+                        <th>{{giaichi.tieude}} </th>
+                    </tr>
+                    
+                   <tr>
+                     <td>
+                        {{giaichi.giaichikhac|safe }}
+                     </td>
+                   </tr>
+                </table>
+                   
+                
+
+                          
+            </div>  
+            
+                
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: absolute;
+            left: 60%;margin-left: -60px;">
+                <a href="javascript:history.back()" class="btn btn-info"> Quay Lại </a>
+            </div>
+                
+            </div>
+
+        </form>
+    {% endif %}
+    {%if giaichi.hangmuc == "0" %}
+        <h1 style="color: rgb(57, 201, 245); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">Duyệt Giải Chi : <a href="#">{{giaichi.id}}</a></h1><br>
+        {%if giaichi.trangthaihoanthanh == True %}
+        <h2 style="color: green;">( ĐÃ THANH TOÁN ) </h2>
+       {%endif%}
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{giaichi.nhanvien.tennv}}"  disabled class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{giaichi.nhanvien.email}}" readonly name="email" type="text"  >
+
+                    </h6>
+
+                    <h6>Giải Chi Thuộc Phòng Ban:
+                        
+                        <select disabled name="phongbanguiduyet" id="phongbanguiduyet" class="form-control">
+                            <option value="{{giaichi.phongban}}"> {{giaichi.phongban}}</option>
+                           
+                        </select>
+                    </h6>
+                </div>
+                <div class="col col-4">
+                    <h6>
+                        File Hóa Đơn chứng từ (nếu Có): 
+                        {%if giaichi.filegiaichi %}<a  target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/media/{{giaichi.filegiaichi}}" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >click xem chi tiết</a>
+                        {%else%}
+                        <a href="#" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >Không có files</a>
+                        {%endif%}
+                    </h6>
+                    <h6 style="color: rgb(81, 125, 248);">
+                        Số Tiền Đã Tạm Ứng 
+                        <input type="number" value="{{giaichi.tientamung}}" disabled style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tientamung" class="form-control">
+                     </h6>
+                     <h6 style="color: rgb(81, 125, 248);">
+                        Số  Tiền Giải Chi
+                        <input type="text" style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tiengiaichi" id="tiengiaichi" class="form-control"  disabled value="{{giaichi.tiengiaichi}}">
+                     </h6>
+                </div>
+                <div class="col col-4">
+
+                    
+                    <h6>Ghi chú:
+
+                    	<input type="text" name="ghichu" class="form-control"  rows="2" value="{{giaichi.ghichu}}" disabled>
+
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt TP :
+                        {%if giaichi.trangthaiduyet_tp == True %}
+                        <input type="text" value="Đã Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%if giaichi.trangthaiduyet_tp == False %}
+                        <input type="text" value="Chưa Phê Duyệt" class="form-control" style="background-color: rgb(119, 8, 8);color: rgb(245, 240, 240);">
+                        {%endif%}
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt Sep :
+                        {%if giaichi.trangthaiduyet_tp == True %} 
+                            {%if giaichi.trangthaiduyet_sep == False %} 
+                             <input type="text" value="Chưa Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                            {%endif%}
+                           
+                            {%if giaichi.trangthaiduyet_sep == True %} 
+                                <input type="text" value="Đã Duyêt" class="form-control" style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                            {%endif%}
+
+                        {%endif%}
+                    
+                       
+                        {%if giaichi.trangthaiduyet_tp == False %} 
+                        {%if giaichi.trangthaiduyet_sep == False %} 
+                        <input type="text" value="Chưa Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%if giaichi.trangthaiduyet_sep == True %} 
+                        <input type="text" value="Chỉ Cần Tp duyệt" class="form-control" style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%endif%}
+                        
+                    </h6>
+                    
+                </div>
+                <table class="table table-hover border">
+                    <tr style="background-color: rgb(57, 201, 245);">
+                        <th>{{giaichi.tieude}} </th>
+                    </tr>
+                    
+                   <tr>
+                     <td>
+                        {{giaichi.giaichihanghoa|safe }}
+                     </td>
+                   </tr>
+                </table>
+                   
+                
+
+                          
+            </div>  
+            
+                
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: absolute;
+            left: 60%;margin-left: -60px;">
+                 <a href="javascript:history.back()" class="btn btn-info"> Quay Lại </a>
+            </div>
+                
+            </div>
+
+        </form>
+    {% endif %}
+    </div>
+    </div>
+    </section>
+ 
+</div>
+
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{%endif%}
+
+
+
+{%if cv.tp == True %}
+
+{% if giaichi_tp %}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+ 
+ <div style="padding:50px">
+
+    {% if giaichi_tp.hangmuc == "1" %}   
+        <h1 style="color: rgb(43, 170, 243); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">Duyệt Giải Chi Mã Giải Chi <a href="{% url 'view-giai-chi' giaichi_tp.id %}">{{giaichi_tp.id}}</a> </h1><br>
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                {%if giaichi_tp.trangthaihoanthanh == True %}
+                         <h2 style="color: green;">( ĐÃ THANH TOÁN ) </h2>
+                        {%endif%}
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{giaichi_tp.nhanvien}}"  disabled class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{giaichi_tp.nhanvien.email}}" readonly name="email" type="text"  >
+
+                    </h6>
+
+                    <h6>Giải Chi Thuộc Phòng Ban:
+                        
+                        <select name="phongbanguiduyet" id="phongbanguiduyet" class="form-control">
+                            <option value="{{giaichi_tp.phongban}}"> {{giaichi.phongban}}</option>
+                            
+                        </select>
+                    </h6>
+                </div>
+                <div class="col col-4">
+                    <h6>File Hóa Đơn: {%if giaichi_tp.filegiaichi %}<a  target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/media/{{giaichi_tp.filegiaichi}}" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >click xem chi tiết</a>
+                        {%else%}
+                        <a href="#" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >Không có files</a>
+                        {%endif%}
+                     </h6>
+                    <h6 style="color: rgb(81, 125, 248);">
+                        Số Tiền Đã Tạm Ứng 
+                        <input type="number" value="{{giaichi_tp.tientamung}}" disabled style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tientamung" class="form-control">
+                     </h6>
+                     <h6 style="color: rgb(81, 125, 248);">
+                        Số  Tiền Giải Chi
+                        <input type="text" value="{{giaichi_tp.tiengiaichi}}"  disable style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tiengiaichi" id="tiengiaichi" class="form-control">
+                     </h6>
+                </div>
+                <div class="col col-4">
+
+                    
+                    <h6>Ghi chú:
+
+                    	<input type="text" name="ghichu" class="form-control"  rows="2" value="{{giaichi_tp.ghichu}}">
+
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt TP :
+                        {%if giaichi_tp.trangthaiduyet_tp == True %}
+                        <input type="text" value="Đã Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%if giaichi_tp.trangthaiduyet_tp == False %}
+                        <input type="text" value="Chưa Phê Duyệt" class="form-control" style="background-color: rgb(119, 8, 8);color: rgb(245, 240, 240);">
+                        {%endif%}
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt Sep :
+                        {%if giaichi_tp.trangthaiduyet_tp == True %} 
+                            {%if giaichi_tp.trangthaiduyet_sep == False %} 
+                             <input type="text" value="Chưa Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                            {%endif%}
+                           
+                            {%if giaichi_tp.trangthaiduyet_sep == True %} 
+                                <input type="text" value="Đã Duyêt" class="form-control" style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                            {%endif%}
+
+                        {%endif%}
+                    
+                       
+                        {%if giaichi_tp.trangthaiduyet_tp == False %} 
+                        {%if giaichi_tp.trangthaiduyet_sep == False %} 
+                        <input type="text" value="Chưa Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%if giaichi_tp.trangthaiduyet_sep == True %} 
+                        <input type="text" value="Chỉ Cần Tp duyệt" class="form-control" style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%endif%}
+                        
+                    </h6>
+                    
+                </div>
+                
+
+                          
+            </div>  
+            <div class="row">
+                <div class="col col-12">
+                   
+                    <table class="table table-hover border">
+                        
+                        
+                        <tr style="background-color: rgb(55, 175, 245); color: floralwhite;">
+                            <th> {{giaichi_tp.tieude}} </th>
+                        </tr>
+                        
+                        
+                    </table>
+                    <table class="table table-bordered">
+                        
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên Thiết Bị</th>
+                            <th>Số Lượng</th>
+                            <th>Đơn Giá</th>
+                            <th>Thành Tiền</th>
+                        </tr>
+                       
+                        <tr>
+                            <td>1</td>
+                            <td>{{ giaichi_tp.giaichithietbi.hanghoa_1 }}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.soluong_1}}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.dongia_1}}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.thanhtien_1}}</td>
+                        </tr>
+                        {%if giaichi_tp.giaichithietbi.hanghoa_2 %}
+                        <tr>
+                            <td>2</td>
+                            <td>{{ giaichi_tp.giaichithietbi.hanghoa_2 }}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.soluong_2}}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.dongia_2}}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.thanhtien_2}}</td>
+                        </tr>
+                        {%endif%}
+                        {%if giaichi_tp.giaichithietbi.hanghoa_3 %}
+                        <tr>
+                            <td>3</td>
+                            <td>{{ giaichi_tp.giaichithietbi.hanghoa_3}}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.soluong_3}}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.dongia_3}}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.thanhtien_3}}</td>
+                        </tr>
+                        {%endif%}
+                        {%if giaichi_tp.giaichithietbi.hanghoa_4 %}
+                        <tr>
+                            <td>4</td>
+                            <td>{{ giaichi_tp.giaichithietbi.hanghoa_4}}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.soluong_4}}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.dongia_4}}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.thanhtien_4}}</td>
+                        </tr>
+                        {%endif%}
+                        {%if giaichi_tp.giaichithietbi.hanghoa_5 %}
+                        <tr>
+                            <td>5</td>
+                            <td>{{ giaichi_tp.giaichithietbi.hanghoa_5}}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.soluong_5}}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.dongia_5}}</td>
+                            <td>{{ giaichi_tp.giaichithietbi.thanhtien_5}}</td>
+                        </tr>
+                        {%endif%}
+                    </table>
+                    
+                </div>
+
+
+            </div>    
+                
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: absolute;
+            left: 60%;margin-left: -60px;">
+             <a href="javascript:history.back()" class="btn btn-info"> Quay Lại </a>
+            </div>
+                
+            </div>
+
+        </form>
+        {%endif%}
+
+    
+        {%if giaichi_tp.hangmuc == "2" %}
+        <h1 style="color: rgb(57, 201, 245); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">Duyệt Giải Chi : <a href="#">{{giaichi.id}}</a></h1><br>
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            {%if giaichi_tp.trangthaihoanthanh == True %}
+            <h2 style="color: green;">( ĐÃ THANH TOÁN ) </h2>
+           {%endif%}
+            <div class="row">
+
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{giaichi_tp.nhanvien.tennv}}"  disabled class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{giaichi_tp.nhanvien.email}}" readonly name="email" type="text"  >
+
+                    </h6>
+
+                    <h6>Giải Chi Thuộc Phòng Ban:
+                        
+                        <select disabled name="phongbanguiduyet" id="phongbanguiduyet" class="form-control">
+                            <option value="{{giaichi_tp.phongban}}"> {{giaichi_tp.phongban}}</option>
+                           
+                        </select>
+                    </h6>
+                </div>
+                <div class="col col-4">
+                    <h6>
+                        File Hóa Đơn chứng từ (nếu Có): 
+                        {%if giaichi_tp.filegiaichi %}<a  target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/media/{{giaichi.filegiaichi}}" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >click xem chi tiết</a>
+                        {%else%}
+                        <a href="#" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >Không có files</a>
+                        {%endif%}
+                    </h6>
+                    <h6 style="color: rgb(81, 125, 248);">
+                        Số Tiền Đã Tạm Ứng 
+                        <input type="number" value="{{giaichi_tp.tientamung}}" disabled style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tientamung" class="form-control">
+                     </h6>
+                     <h6 style="color: rgb(81, 125, 248);">
+                        Số  Tiền Giải Chi
+                        <input type="text" style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tiengiaichi" id="tiengiaichi" class="form-control"  disabled value="{{giaichi_tp.tiengiaichi}}">
+                     </h6>
+                </div>
+                <div class="col col-4">
+
+                    
+                    <h6>Ghi chú:
+
+                    	<input type="text" name="ghichu" class="form-control"  rows="2" value="{{giaichi.ghichu}}">
+
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt TP :
+                        {%if giaichi_tp.trangthaiduyet_tp == True %}
+                        <input type="text" value="Đã Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%if giaichi_tp.trangthaiduyet_tp == False %}
+                        <input type="text" value="Chưa Phê Duyệt" class="form-control" style="background-color: rgb(119, 8, 8);color: rgb(245, 240, 240);">
+                        {%endif%}
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt Sep :
+                        {%if giaichi_tp.trangthaiduyet_tp == True %} 
+                            {%if giaichi_tp.trangthaiduyet_sep == False %} 
+                             <input type="text" value="Chưa Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                            {%endif%}
+                           
+                            {%if giaichi_tp.trangthaiduyet_sep == True %} 
+                                <input type="text" value="Đã Duyêt" class="form-control" style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                            {%endif%}
+
+                        {%endif%}
+                    
+                       
+                        {%if giaichi_tp.trangthaiduyet_tp == False %} 
+                        {%if giaichi_tp.trangthaiduyet_sep == False %} 
+                        <input type="text" value="Chưa Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%if giaichi_tp.trangthaiduyet_sep == True %} 
+                        <input type="text" value="Chỉ Cần Tp duyệt" class="form-control" style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%endif%}
+                        
+                    </h6>
+                    
+                </div>
+                <table class="table table-hover border">
+                    <tr style="background-color: rgb(57, 201, 245);">
+                        <th>{{giaichi_tp.tieude}} </th>
+                    </tr>
+                    
+                   <tr>
+                     <td>
+                        {{giaichi_tp.giaichikhac|safe }}
+                     </td>
+                   </tr>
+                </table>
+                   
+                
+
+                          
+            </div>  
+            
+                
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: absolute;
+            left: 60%;margin-left: -60px;">
+                <a href="javascript:history.back()" class="btn btn-info"> Quay Lại </a>
+            </div>
+                
+            </div>
+
+        </form>
+    {% endif %}
+    {%if giaichi_tp.hangmuc == "0" %}
+        <h1 style="color: rgb(57, 201, 245); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">Duyệt Giải Chi : <a href="#">{{giaichi.id}}</a></h1><br>
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            {%if giaichi_tp.trangthaihoanthanh == True %}
+            <h2 style="color: green;">( ĐÃ THANH TOÁN ) </h2>
+           {%endif%}
+            <div class="row">
+
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{giaichi_tp.nhanvien.tennv}}"  disabled class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{giaichi_tp.nhanvien.email}}" readonly name="email" type="text"  >
+
+                    </h6>
+
+                    <h6>Giải Chi Thuộc Phòng Ban:
+                        
+                        <select disabled name="phongbanguiduyet" id="phongbanguiduyet" class="form-control">
+                            <option value="{{giaichi_tp.phongban}}"> {{giaichi_tp.phongban}}</option>
+                           
+                        </select>
+                    </h6>
+                </div>
+                <div class="col col-4">
+                    <h6>
+                        File Hóa Đơn chứng từ (nếu Có): 
+                        {%if giaichi_tp.filegiaichi %}<a  target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/media/{{giaichi_tp.filegiaichi}}" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >click xem chi tiết</a>
+                        {%else%}
+                        <a href="#" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >Không có files</a>
+                        {%endif%}
+                    </h6>
+                    <h6 style="color: rgb(81, 125, 248);">
+                        Số Tiền Đã Tạm Ứng 
+                        <input type="number" value="{{giaichi_tp.tientamung}}" disabled style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tientamung" class="form-control">
+                     </h6>
+                     <h6 style="color: rgb(81, 125, 248);">
+                        Số  Tiền Giải Chi
+                        <input type="text" style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tiengiaichi" id="tiengiaichi" class="form-control"  disabled value="{{giaichi_tp.tiengiaichi}}">
+                     </h6>
+                </div>
+                <div class="col col-4">
+
+                    
+                    <h6>Ghi chú:
+
+                    	<input type="text" name="ghichu" class="form-control"  rows="2" value="{{giaichi_tp.ghichu}}" disabled>
+
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt TP :
+                        {%if giaichi.trangthaiduyet_tp == True %}
+                        <input type="text" value="Đã Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%if giaichi.trangthaiduyet_tp == False %}
+                        <input type="text" value="Chưa Phê Duyệt" class="form-control" style="background-color: rgb(119, 8, 8);color: rgb(245, 240, 240);">
+                        {%endif%}
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt Sep :
+                        {%if giaichi_tp.trangthaiduyet_tp == True %} 
+                            {%if giaichi_tp.trangthaiduyet_sep == False %} 
+                             <input type="text" value="Chưa Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                            {%endif%}
+                           
+                            {%if giaichi.trangthaiduyet_sep == True %} 
+                                <input type="text" value="Đã Duyêt" class="form-control" style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                            {%endif%}
+
+                        {%endif%}
+                    
+                       
+                        {%if giaichi_tp.trangthaiduyet_tp == False %} 
+                        {%if giaichi_tp.trangthaiduyet_sep == False %} 
+                        <input type="text" value="Chưa Duyệt" class="form-control" style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%if giaichi_tp.trangthaiduyet_sep == True %} 
+                        <input type="text" value="Chỉ Cần Tp duyệt" class="form-control" style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%endif%}
+                        
+                    </h6>
+                    
+                </div>
+                <table class="table table-hover border">
+                    <tr style="background-color: rgb(57, 201, 245);">
+                        <th>{{giaichi_tp.tieude}} </th>
+                    </tr>
+                    
+                   <tr>
+                     <td>
+                        {{giaichi_tp.giaichihanghoa|safe }}
+                     </td>
+                   </tr>
+                </table>
+                   
+                
+
+                          
+            </div>  
+            
+                
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: absolute;
+            left: 60%;margin-left: -60px;">
+                 <a href="javascript:history.back()" class="btn btn-info"> Quay Lại </a>
+            </div>
+                
+            </div>
+
+        </form>
+    {% endif %}
+    </div>
+    </div>
+    </section>
+ 
+</div>
+
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+{%endif%}
+{%endif%}
+{%endblock%}

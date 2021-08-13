@@ -1,0 +1,102 @@
+{% extends 'base.html'%}
+{%load static%}
+
+{%block form-dexuat-sep%}
+
+<div class="content-wrapper">
+
+ <section style="padding:100px">
+
+
+        <h1> PHÊ DUYỆT ĐỀ XUẤT </h1><br><br>
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{dexuat.nhanvien}}"  disabled class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{dexuat.nhanvien.email}}" readonly name="email" type="text"  >
+
+                    </h6>
+
+                    <h6>Chi Phí Dự Trù:
+                        <input class="form-control " value="{{dexuat.kinhphi}}"  name="kinhphi" style="background-color: rgb(253, 253, 253); color: indianred; block-size: 0%;border: indianred;" disabled type="text" >
+                    </h6>
+                </div>
+                <div class="col col-4">
+                    <h6>Phòng Ban :
+                         <input type="text" value="{{dexuat.phongban}}" disabled class="form-control">
+
+                    </select></h6>
+                    <h6>Thời Gian Dự Kiến Hoàn Thành:<input type="text" disabled="True" name="thoigiandukien" value="{{dexuat.thoigianhoanthanh}}"  class="form-control"></h6>
+                    <h6>File Đính Kèm (nếu Có): {%if dexuat.files %}<a  target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/media/{{dexuat.files}}" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >click xem chi tiết</a>
+                    {%else%}
+                    <a href="#" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >Không có files</a>
+                    {%endif%}
+                    </h6>
+                </div>
+                <div class="col col-3">
+
+                    
+                    <h6>Ghi chú:
+
+                    	<textarea name="ghichu" id="inputGhichu" class="form-control"  rows="3" >{{dexuat.ghichu}}</textarea>
+
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt:
+                        <select style="background-color: forestgreen; color: ghostwhite;"class="form-control" name="tinhtrangduyet_sep" id="">
+                            <option value="1"> Phê Duyệt  </option>  
+                            <option value="0"> Không Phê Duyệt</option>
+                        </select>
+                    </h6>
+                </div>
+                
+
+                          
+            </div>  
+            <div class="row">
+                <div class=" col col-11">
+                   
+                    <table class="noidung  table table-hover border">
+                        <tr style="background-color: rgb(250, 234, 145);">
+                            <th> {{dexuat.tieude}} </th>
+                        </tr>
+                        <tr>
+                            <td>{{dexuat.noidung|safe }}</td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>   
+            <style>
+                .noidung{
+                    
+                    overflow: scroll;
+                }
+            </style> 
+                <br>
+            <div style="float: left;">
+                <button type="submit" class="btn btn-info">Xác Nhận</button>
+                <a href="javascript:history.back()" class="btn btn-info"> Quay Lại </a>
+             
+            </div>
+                
+            </div>
+
+        </form>
+    </section>
+</div>
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+{%endblock%}

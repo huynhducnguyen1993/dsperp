@@ -1,0 +1,265 @@
+{% extends 'base.html'%}
+{%load static%}
+ {% block cssnhanvien %}
+  <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'%}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css'%}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css'%}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css'%}">
+  {%endblock%}
+{% block da-tam-ung %}
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="./">Home</a></li>
+              <li class="breadcrumb-item active">Tạm Ứng</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+<section class="content">
+      <div class="container-fluid">
+<table class="table">
+                    <thead>
+                   
+
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td>
+
+
+                            <div class="row">
+                                
+                                
+                                <!-- ./col -->
+                                <div class="col-lg-6 col-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-warning ">
+                                        <div class="inner">
+                                            <h3>{% if tamung %} {{tamung.dem_tamung_cn}}{%else%} 0 {%endif%}</h3>
+
+                                            <p>Đề Xuất Chưa Tạm Ứng</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-edit"></i>
+                                        </div>
+                                        <a href="{% url 'nhap-tam-ung'%}" class="small-box-footer">Xem <i
+                                                class="fas fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                                <!-- ./col -->
+                                <div class="col-lg-6 col-6">
+                                    <!-- small box -->
+                                    <div class="small-box bg-success">
+                                        <div class="inner">
+                                            <h3>{% if tamung %} {{tamung.dem_tamung_dn}}{%else%} 0 {%endif%}</h3>
+
+                                            <p>Đề Xuất Đã Tạm Ứng</p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-arrow-swap"></i>
+                                        </div>
+                                        <a href="{% url 'da-tam-ung'%}" class="small-box-footer">Xem <i
+                                                class="fas fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                                <!-- ./col -->
+                                
+                                <!-- ./col -->
+                            </div>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+      </div>
+    <!-- /.content -->
+ <!-- Main content -->
+ <section class="content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-12">
+             
+
+              <div class="card">
+                  <div class="card-header" style="background-color: #28a745;">
+                      <h3 class="card-title badge badge-pill badge-success ">DANH SÁCH ĐỀ XUẤT ĐÃ TẠM ỨNG 
+
+                      </h3>
+                      <br><br>
+                      <form>
+                      <div class="col col-3">
+                      
+                        <select name="selectpb" id="selectpb" class="form-control">
+                       <option value="100">__xem tất cả__</option>
+
+                        {%for item in phongban%}
+                        <option value="{{item.id}}"> {{item.tenpb}}</option>
+                        {%endfor%}
+                        </select>
+                        
+                        </div>
+
+                        
+                            
+
+                    </form>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                      <table id="example1" class="table table-bordered table-striped">
+                          <thead>
+                          <tr>
+                              <th>Mã</th>
+                              <th>Ngày Gửi</th>
+                              <th>Nhân Viên</th>
+                              <th>Phòng Ban</th>
+                              <th>Nội Dung</th>
+                              <th>Số Tiền Dự Trù</th>
+                              <th>Tiền Đã Tạm Ứng</th>
+                              <th>Ghi Chú</th>
+                             
+                              <th>action</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          {%for item in dexuat %}
+                          
+                          <tr>
+                            <td><a href="{%url 'form-dieu-chinh-tam-ung' item.id%}">{{item.id}}</a></td>
+                              <td>
+
+                                  {{item.created_at|date:"d-m-y"}}
+                                  
+                              </td>
+                              <td>
+                                  {{item.nhanvien}}
+                              </td>
+                              <td>{{item.phongban}}</td>
+                              <td>{{item.tieude}}</td>
+                              <td> {% load humanize %}
+                                  {{item.kinhphi|floatformat:0|intcomma}}</td>
+                              <td>{{item.tientamung}}</td>
+                              <td>{{item.ghichu}}</td>
+                             
+                              <td>
+                                
+                                <a href="{%url 'form-dieu-chinh-tam-ung' item.id%}" class="btn btn-sm btn-success">Điều Chỉnh Tạm Ứng</a>
+                                
+
+                              </td>
+                          </tr>
+                          
+                          {%endfor%}
+
+                          </tbody>
+                          <tfoot>
+                          <tr>
+                              <th>Mã</th>
+                              <th>Ngày Gửi</th>
+                              <th>Nhân Viên</th>
+                              <th>Phòng Ban</th>
+                              <th>Nội Dung</th>
+                              <th>Số Tiền Dự Trù</th>
+                              <th>Tiền Đã Tạm Ứng </th>
+                              <th>Ghi Chú</th>
+                              
+                              <th>action</th>
+                          </tr>
+                          </tfoot>
+                      </table>
+                  </div>
+                  <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+          </div>
+          <!-- /.col -->
+      </div>
+      <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+
+
+<style>
+  .page-item.active .page-link{
+      z-index: 3;
+      color: #fff;
+      background-color: #28a745;
+      border-color: #28a745;
+
+
+  }
+  .btn-secondary {
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+  box-shadow: none;
+  }
+  .btn-secondary:hover{
+      color: #fff;
+      background-color: #28a745;
+      border-color: #28a745;
+  }
+</style>
+
+
+  </div>
+{%endblock%}
+
+{% block scripttable %}
+
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/jszip/jszip.min.js'%}"></script>
+<script src="{% static 'plugins/pdfmake/pdfmake.min.js'%}"></script>
+<script src="{% static 'plugins/pdfmake/vfs_fonts.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js'%}"></script>
+<!-- AdminLTE App -->
+<!--<script src="{% static 'dist/js/adminlte.min.js'%}"></script>-->
+<!--XOA-->
+
+
+
+
+<!-- AdminLTE for demo.html purposes -->
+<script src="{% static 'dist/js/demo.js'%}"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": [ "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+
+
+{% endblock%}

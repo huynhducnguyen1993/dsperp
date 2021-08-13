@@ -1,0 +1,117 @@
+{% extends 'base.html'%}
+{%load static%}
+
+{%block form-khach_hang_lon%}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+
+
+ <div style="padding:50px">
+
+
+        <h1>XEM KHÁCH HÀNG LỚN  </h1><br>
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{khachhanglon.nhanvien}}"  readonly id="id_nhanvien" name="nhanvien" class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{khachhanglon.nhanvien.email}}" disabled name="email" type="text"  >
+
+                    </h6>
+                    <h6>Phòng Ban :
+                        <input type="text" value="{{khachhanglon.phongban}}" name="phongban" id="id_phongban" readonly class="form-control">
+
+                   </h6>
+                   <br>
+                   <h6>
+                       Tiến Độ Khách Hàng :
+                       {% if khachhanglon.baogia == True %} <input type="text" value="Báo Giá" readonly class="form-control"> {%endif%}
+                       {% if khachhanglon.thuongthaohopdong == True %} <input type="text" value="Thương Thảo Hợp Đồng" readonly class="form-control">{%endif%}
+                       {% if khachhanglon.kyhopdong == True %} <input type="text" value="Ký Hợp Đồng" readonly class="form-control" > {%endif%}
+                       {% if khachhanglon.huytheo == True %} <input type="text" value="Hủy Theo" readonly class="form-control" > {%endif%}
+                      
+                   </h6>
+                   
+                </div>
+                <div class="col col-8">
+                    <h6>Tên Khách Hàng :
+                        <input type="text" value="{{khachhanglon.tenkhachhang}}" readonly class="form-control">
+                    </h6>
+                    <h6>Địa Chỉ Khách Hàng:
+                         <input type="text" value="{{khachhanglon.diachikh}}" readonly class="form-control">
+
+                    </h6>
+                    
+                    <h6>Hạng Mục:
+                        {% if khachhanglon.hangmuc == "0" %} <input type="text" value="Hàng Hóa" readonly class="form-control" > {%endif%}
+                        {% if khachhanglon.hangmuc == "1" %}<input type="text" value="Lắp Đặt" readonly class="form-control" > {%endif%}
+                        {% if khachhanglon.hangmuc == "2" %}<input type="text" value="Phân Phối Lắp Đặt" readonly class="form-control" >{%endif%}
+                        {% if khachhanglon.hangmuc == "3" %}<input type="text" value="Dịch Vụ" readonly class="form-control" >{%endif%}
+                        
+                    </h6>
+                    
+                    
+                    
+                    
+                </div>
+               
+               
+                <div class="col col-12 ">
+                    
+                    <h6>Tên Công Trình :</h6>
+                    
+                    <textarea  class="form-control" readonly rows="1" > {{khachhanglon.tencongtrinh}}</textarea>
+                    
+                    
+                    <h6>Địa Chỉ Công Trình :</h6>
+                    <textarea  class="form-control" readonly rows="1" > {{khachhanglon.diachicongtrinh}}</textarea>
+                    
+                    
+                    <div>
+                        <h6>Nội Dung Chi Tiết    :</h6>
+                        {{khachhanglon.noidung|safe}}
+                    </div>
+                </div>
+            </div>
+            
+            <br>
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: absolute;
+            left: 50%;margin-left: -60px;">
+                {%if khachhanglon.username == request.user%}
+                <a href="{% url 'sua-khach-hang-lon' khachhanglon.id %}" class="btn btn-bg btn-warning ">Chỉnh Sửa </a>
+                {%endif%}
+                <a href="javascript:history.back()" class="btn btn-dark"> Quay Lại </a>
+           
+            </div>
+                
+
+            </div>
+
+
+
+
+
+        </form>
+</div>
+</section>
+</div>
+</div>
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+{%endblock%}

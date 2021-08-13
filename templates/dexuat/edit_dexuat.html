@@ -1,0 +1,90 @@
+{% extends 'base.html'%}
+{%load static%}
+
+{%block form-dexuat-edit%}
+
+<div class="content-wrapper">
+
+ <section style="padding:100px">
+
+
+        <h1>ĐỀ XUẤT </h1><br><br>
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{dexuat.nhanvien}}"  readonly class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{dexuat.nhanvien.email}}" readonly name="email" type="text"  >
+
+                    </h6>
+
+                    <h6>Chi Phí Dự Trù:
+                    {{form.kinhphi}}   
+                    </h6>
+                </div>
+                <div class="col col-4">
+                    <h6>Phòng Ban :
+                         <input type="text" value="{{dexuat.phongban}}" disabled class="form-control">
+
+                    </select></h6>
+                    <h6>Thời Gian Dự Kiến Hoàn Thành :{{form.thoigianhoanthanh}}</h6>
+                    <h6>{{form.files}}
+                    </h6>
+                </div>
+                <div class="col col-3">
+
+                    
+                    <h6>
+                        Ghi chú:
+                        {{form.ghichu}}
+                    </h6>
+                    <h6>Hạng mục:
+                        {{form.hangmuc}}
+                    </h6>
+                    
+                    
+                </div>
+                
+
+                          
+            </div>  
+            <div class="row">
+                <div class=" noidung col col-11">
+                   
+                    <table class=" noidung table table-hover border">
+                        <tr style="background-color: rgb(21, 158, 238);">
+                            <th>{{form.tieude}} </th>
+                        </tr>
+                        <tr>
+                            <td>{{form.noidung }}</td>
+                        </tr>
+                       
+                    </table>
+                </div>
+
+
+            </div>    
+                <br>
+            <div style="float: left;">
+                <button class="btn btn-info ">Cập Nhật </button>
+                <a href="javascript:history.back()" class="btn btn-dark"> Quay Lại </a>
+            </div>
+                
+            </div>
+
+        </form>
+    </section>
+</div>
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+{%endblock%}

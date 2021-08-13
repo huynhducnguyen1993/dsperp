@@ -1,0 +1,111 @@
+{% extends 'base.html'%}
+{%load static%}
+
+{%block form-khach_hang_lon%}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+
+
+ <div style="padding:50px">
+
+
+        <h1>NHẬP KHÁCH HÀNG LỚN </h1><br>
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{nhanvien}}"  readonly id="id_nhanvien" name="nhanvien" class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{nhanvien.email}}" disabled name="email" type="text"  >
+
+                    </h6>
+                    <h6>Phòng Ban :
+                        <input type="text" value="{{phongban}}" name="phongban" id="id_phongban" readonly class="form-control">
+
+                   </h6>
+                   <br>
+                   <h6>
+                       Tình Trạng Khách Hàng :
+                       <select class="form-control" name = "tinhtrang">
+                            <option value="0">  Báo Giá  </option>
+                            <option value="1">  Thương Thảo Hợp Đồng  </option> 
+                            <option value="2">  Ký Hợp Đồng </option>      
+                       </select>
+                   </h6>
+                   
+                </div>
+                <div class="col col-8">
+                    <h6>Tên Khách Hàng :
+                        <input type="text" value="" name="tenkhachhang" id="id_tenkhachhang" placeholder="Nhập Tên Khách Hàng" required class="form-control">
+                    </h6>
+                    <h6>Địa Chỉ Khách Hàng:
+                         <input type="text" value="" name="diachikh" id="id_diachikh" placeholder="Nhập Địa Chỉ Khách Hàng" required class="form-control">
+
+                    </h6>
+                    
+                    <h6>Hạng Mục:
+                        {{form.hangmuc}}   
+                        
+                    </h6>
+                    
+                    
+                    
+                    
+                </div>
+               
+               
+                <div class="col col-12 ">
+                    
+                    <h6>Tên Công Trình :</h6>
+                    
+                    <textarea name="tencongtrinh" id="id_tencongtrinh" class="form-control" placeholder="Nhập Tên Công Trình" required rows="1" ></textarea>
+                    
+                    
+                    <h6>Địa Chỉ Công Trình :</h6>
+                    <textarea name="diachicongtrinh" id="id_diachicongtrinh" class="form-control" placeholder="Nhập Địa Chỉ Công Trình" required rows="1" ></textarea>
+                    
+                    <div>
+                        <h6>Nội Dung Chi Tiết    :</h6>
+                        {{form.noidung}}
+                    </div>
+                </div>
+            </div>
+            
+            <br>
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: absolute;
+            left: 50%;margin-left: -60px;">
+                <button type="submit" class="btn btn-bg btn-info">Cập Nhật Khách Hàng Lớn</button>
+                <a href="javascript:history.back()" class="btn btn-dark"> Quay Lại </a>
+           
+            </div>
+                
+
+            </div>
+
+
+
+
+
+        </form>
+</div>
+</section>
+</div>
+</div>
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+{%endblock%}

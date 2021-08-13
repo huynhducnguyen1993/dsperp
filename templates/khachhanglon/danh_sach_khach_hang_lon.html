@@ -1,0 +1,263 @@
+{% extends 'base.html'%}
+{%load static%}
+ {% block cssnhanvien %}
+  <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'%}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css'%}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css'%}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css'%}">
+  {%endblock%}
+{% block danh-sach-khach-hang-lon %}
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="./">Home</a></li>
+              <li class="breadcrumb-item active">Khách Hàng Lớn</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+<section class="content">
+      <div class="container-fluid">
+      {% if messages %}
+        {% for message in messages %}
+          <input class="thongbao" id="thongbao" value="{{ message }}" hidden>  
+        {% endfor %}
+      {% endif %}
+      <script>
+          var i = $("#thongbao").val()
+          if(i){
+                  alert(i)
+               }
+       </script>
+<table class="table">
+                    <thead>
+                    
+                    
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td>
+
+
+                            <div class="row">
+                                
+                                
+                                <!-- ./col -->
+                                <div class="col-lg-12 col-12">
+                                    <!-- small box -->
+                                  <div class="col col-4">
+                                      <a href="{% url 'nhap-khach-hang-lon' %}" class="btn btn-bg btn-warning" > Thêm Khách Hàng Lớn</a>
+
+                                  </div>
+                                  <div></div>
+                                </div>
+
+                                
+                            </div>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <style>
+                  .page-item.active .page-link{
+                      z-index: 3;
+                      color: #fff;
+                      background-color: #17a2b8;
+                      border-color: #17a2b8;
+              
+              
+                  }
+                  .btn-secondary {
+                  color: #fff;
+                  background-color: #17a2b8;
+                  border-color: #17a2b8;
+                  box-shadow: none;
+                  }
+                  .btn-secondary:hover{
+                      color: #fff;
+                      background-color: #17a2b8;
+                      border-color: #17a2b8;
+                  }
+              </style>
+              
+              
+      </div>
+    <!-- /.content -->
+ <!-- Main content -->
+ <section class="content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-12">
+             
+
+              <div class="card">
+                  <div class="card-header">
+                      <h3 class="card-title badge badge-pill badge-info ">DANH SÁCH KHÁCH HÀNG LỚN 
+
+                      </h3>
+                     
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                      <table id="example1" class="table table-bordered table-striped">
+                          <thead>
+                          <tr>
+                              <th>Mã</th>
+                              <th>Ngày Gửi</th>
+                              <th>Ngày Chỉnh Sữa</th>
+                              <th>Nhân Viên</th>
+                              <th>Phòng Ban</th>
+                              <th>Tên Khách Hàng</th>
+                              <th>Địa Chỉ Khách Hàng</th>
+                              <th>Tên Công Trình</th>
+                              <th>Hạng Mục</th>
+                              <th>Địa Chỉ Công Trình</th>
+                              <th>Tiến Độ</th>
+                              <th>action</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          {%for item in khachhanglon %}
+                          
+                          <tr>
+                            <td><a href="#">{{item.id}}</a></td>
+                              <td>
+
+                                  {{item.created_at|date:"d-m-y"}}
+                                  
+                              </td>
+                              <td>
+
+                                {{item.updated_at|date:"d-m-y"}}
+                                
+                            </td>
+                                
+                              <td>
+                                  {{item.nhanvien}}
+                              </td>
+                              <td>{{item.phongban}}</td>
+                              <td>
+                                {{item.tenkhachhang}}
+                                </td>
+                              <td>{{item.diachikh}}</td>
+                              <td> 
+                                  {{item.tencongtrinh}}</td>
+                             
+                              <td>
+                                  {% if item.hangmuc == "0" %}Hàng Hóa {%endif%}
+                                  {% if item.hangmuc == "1" %}Lắp Đặt {%endif%}
+                                  {% if item.hangmuc == "2" %}Phân Phối Lắp Đặt {%endif%}
+                                  {% if item.hangmuc == "3" %}Dịch Vụ {%endif%}
+                              </td>
+                              <td>{{item.diachicongtrinh}}</td>
+                              <td>
+                                {% if item.baogia == True %} <span style="background-color: rgb(248, 250, 252);">Báo Giá</span>  {%endif%}
+                                {% if item.thuongthaohopdong == True %} Thưong Thảo HĐ{%endif%}
+                                {% if item.kyhopdong == True %} Ký HD {%endif%}
+                                {% if item.huytheo == True %} Hủy Theo {%endif%}
+                              </td>
+                             
+                              <td>
+                                {%if item.username == request.user  %}
+                                <a style="width: 60px;" href="{% url 'xem-khach-hang-lon' item.id %}" class="btn btn-sm btn-success">view </a>
+                                <a style="width: 60px;" href="{% url 'sua-khach-hang-lon' item.id %}" class="btn btn-sm btn-info">update</a>
+                                {%else%}
+                                <a href="{% url 'xem-khach-hang-lon' item.id %}" class="btn btn-sm btn-success">Xem </a>
+                                {%endif%}
+
+                              </td>
+                          </tr>
+                          
+                          {%endfor%}
+
+                          </tbody>
+                          <tfoot>
+                          <tr>
+                            <th>Mã</th>
+                            <th>Ngày Gửi</th>
+                            <th>Ngày Chỉnh Sữa</th>
+                            <th>Nhân Viên</th>
+                            <th>Phòng Ban</th>
+                            <th>Tên Khách Hàng</th>
+                            <th>Địa Chỉ Khách Hàng</th>
+                            <th>Tên Công Trình</th>
+                            <th>Hạng Mục</th>
+                            <th>Địa Chỉ Công Trình</th>
+                            <th>Tiến Độ</th>
+                            <th>action</th>
+                          </tr>
+                          </tfoot>
+                      </table>
+                  </div>
+                  <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+          </div>
+          <!-- /.col -->
+      </div>
+      <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+
+
+  </div>
+{%endblock%}
+
+{% block scripttable %}
+
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/jszip/jszip.min.js'%}"></script>
+<script src="{% static 'plugins/pdfmake/pdfmake.min.js'%}"></script>
+<script src="{% static 'plugins/pdfmake/vfs_fonts.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js'%}"></script>
+<!-- AdminLTE App -->
+<!--<script src="{% static 'dist/js/adminlte.min.js'%}"></script>-->
+<!--XOA-->
+
+
+
+
+<!-- AdminLTE for demo.html purposes -->
+<script src="{% static 'dist/js/demo.js'%}"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": [ "Danh Sách Khách Hàng Lớn","","",]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+
+
+{% endblock%}

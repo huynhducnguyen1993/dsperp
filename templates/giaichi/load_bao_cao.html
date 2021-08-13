@@ -1,0 +1,22 @@
+{%if giaichi%}
+{% for item in giaichi %}
+<tr>
+    <td>{{item.id}}</td>
+    <td>{{item.created_at}}</td>
+    <td>{{item.tieude}}</td>
+    <td>{{item.phongban}}</td>
+    <td> 
+        <h6>{%if item.filegiaichi %}<a  target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/media/{{item.filegiaichi}}" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >click xem chi tiết</a>
+            {%else%}
+            <a href="#" class="btn form-control" style="background-color: rgb(250, 248, 248); color: mediumblue;" >Không có files</a>
+            {%endif%}
+         </h6>
+    </td>
+</tr>
+{% endfor %}
+
+{%else%}
+<tr>
+    <td colspan="5"><h3>Chưa có giải chi</h3></td>
+</tr>
+{%endif%}

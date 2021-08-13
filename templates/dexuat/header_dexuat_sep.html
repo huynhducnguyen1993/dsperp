@@ -1,0 +1,67 @@
+<div class="row">
+                          
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>{% if duyet_tp.demsep %} {{duyet_tp.demsep}} {%else%} 0 {%endif%} </h3>
+
+                <p>Đễ Xuất Chờ Sếp Duyệt</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-edit"></i>
+            </div>
+            <a href="{% url 'quan-ly-de-xuat-sep'%}" class="small-box-footer"> Xem <i
+                    class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+            <div class="inner">
+                <h3>{% if duyet_tp.demht %} {{duyet_tp.demht}} {%else%} 0 {%endif%} </h3>
+
+                <p>Đề Xuất Đã Duyệt</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-checkmark-circled"></i>
+            </div>
+            <a href="{% url 'quan-ly-de-xuat-da-duyet'%}" class="small-box-footer">Xem 
+                <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-sercondary">
+            <div class="inner">
+                <h3>{% if duyet_tp.demtu %} {{duyet_tp.demtu}} {%else%} 0 {%endif%} </h3>
+
+                <p>Đề Xuất Đã Tạm Ứng</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-arrow-swap"></i>
+            </div>
+            <a href="{% url 'quan-ly-de-xuat-da-tam-ung'%}" class="small-box-footer">Xem <i
+                    class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-danger">
+            <div class="inner">
+                <h3>{% if duyet_tp.demhuy %} {{duyet_tp.demhuy}} {%else%} 0 {%endif%} </h3>
+
+                <p>Đề Xuất Bị Từ Chối</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-close-circled"></i>
+            </div>
+            <a href="{% url 'quan-ly-de-xuat-da-huy'%}" class="small-box-footer">Xem<i
+                    class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+</div>

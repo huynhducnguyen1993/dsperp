@@ -1,0 +1,101 @@
+{% extends 'base.html'%}
+{%load static%}
+
+{%block form-dexuat%}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+
+
+ <div style="padding:50px">
+
+
+        <h1>ĐỀ XUẤT </h1><br><br>
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{nhanvien.tennv}}"  disabled class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{nhanvien.email}}" readonly name="email" type="text"  >
+
+                    </h6>
+
+                    <h6>Chi Phí Dự Trù:
+                        <input class="form-control " value=""  name="kinhphi" type="number" max="1000000000" min="10000" required>
+                    </h6>
+                </div>
+                <div class="col col-4">
+                    <h6>Phòng Ban :
+                         <input type="text" value="{{phongban.tenpb}}" disabled class="form-control">
+
+                    </select></h6>
+                    <h6>Thời Gian Dự Kiến Hoàn Thành:<input type="date" name="thoigiandukien" value=""  class="form-control"></h6>
+                    <h6>File Đính Kèm (nếu Có):<input type="file" name="files" id="id_file" value="" class="form-control" required="False" >
+                    </h6>
+                    
+                </div>
+                <div class="col col-3">
+
+                    <h6>Hạng Mục Đề Xuất
+                        {{form.hangmuc}}
+                    </h6>
+                    <h6>Gửi Duyệt:
+                       {{form.guiduyet}}
+                    </h6>
+                    <h6>Ghi chú:
+                       
+                    	<textarea name="ghichu" id="inputGhichu" class="form-control" rows="1" >Nhan Vien :</textarea>
+
+                    </h6>
+                </div>
+                <div class="col col-11 ">
+                    <h6>Tiêu Đề :</h6>
+                    <div style="background-color: rgb(188, 208, 245);">
+                        <textarea name="tieude" id="inputtieude" class="form-control" rows="1" ></textarea>
+                    
+                    </div> <br>
+                    <div>
+                        <h6>Nội Dung Chi Tiết :</h6>
+                        {{form.noidung}}
+                    </div>
+                </div>
+            </div>
+            
+            <br>
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: absolute;
+            left: 50%;margin-left: -60px;">
+                <button type="submit" class="btn btn-bg btn-info">Gửi Đề Xuất</button>
+                <a href="javascript:history.back()" class="btn btn-info"> Quay Lại </a>
+           
+            </div>
+                
+
+            </div>
+
+
+
+
+
+        </form>
+</div>
+</section>
+</div>
+</div>
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+{%endblock%}

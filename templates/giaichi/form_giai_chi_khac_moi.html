@@ -1,0 +1,400 @@
+{% extends 'base.html'%}
+{%load static%}
+
+{%block form-giai-chi-khac-moi%}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+    
+ <div style="padding:50px">
+
+
+        <h1 style="color: rgb(12, 106, 134); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">Tạo Giải Chi Mới Không Có Đề Xuất </h1><br>
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{nhanvien.tennv}}"  disabled class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{nhanvien.email}}" readonly name="email" type="text"  >
+
+                    </h6>
+
+                    <h6>Giải Chi Thuộc Phòng Ban:
+                        
+                        <select name="phongbanguiduyet" id="phongbanguiduyet" required class="form-control">
+                            <option value=""> -- Chọn Phòng Ban ---</option>
+                            {%for item in phongban%}
+                            <option value="{{item.id}}"> {{item.tenpb}}</option>
+                            {%endfor%}
+                        </select>
+                    </h6>
+                </div>
+                <div class="col col-4">
+                    <h6>
+                        File Hóa Đơn chứng từ (nếu Có): 
+                        <input type="file" id="filegiaichi" name="filegiaichi" class="form-control" required>
+                    
+                    </h6>
+                    <h6 style="color: rgb(81, 125, 248);">
+                        Số Tiền Đã Tạm Ứng 
+                        <input type="number" value="{{giaichi.tientamung}}" disabled style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tientamung" class="form-control">
+                     </h6>
+                     <h6 style="color: rgb(81, 125, 248);">
+                        Số  Tiền Giải Chi
+                        <input type="text" style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tiengiaichi" id="tiengiaichi" class="form-control">
+                     </h6>
+                </div>
+                <div class="col col-4">
+
+                    
+                    <h6>Ghi chú:
+
+                    	<textarea name="ghichu" id="inputGhichu" class="form-control"  rows="3" placeholder="Nhập Ghi Chú"></textarea>
+
+                    </h6>
+                    <h6>
+                        Gửi Duyệt :
+                        <select class="form-control" id="guiduyet" name="guiduyet" style="background-color: deepskyblue;">
+                            <option value  = 0> Gửi Sếp Duyệt </option>
+                             <option value = 1 > Chỉ Gửi Trưởng Phòng Duyệt</option>
+                         </select>
+                         <input type="text"  value="0" name="hangmuc" id="hangmuc" hidden>
+                    </h6>
+                    
+                </div>
+                <table class="table table-hover border">
+                    <tr style="background-color: rgb(12, 106, 134);">
+                        <th><input type="text"  name="tieude" id="tieude" class="form-control" required placeholder="Nhập Tiêu Đề Giải Chi"> </th>
+                    </tr>
+                   <tr>
+                     <td>
+                        {{form.giaichihanghoa}}
+                     </td>
+                   </tr>
+                </table>
+                   
+                
+
+                          
+            </div>  
+            <!-- <div class="row">
+                <div class="col col-12">
+                   
+                    <table class="table table-hover border">
+                        <tr style="background-color: rgb(57, 201, 245);">
+                            <th><input type="text"  name="tieude" id="tieude" class="form-control" required placeholder="Nhập Tiêu Đề Giải Chi"> </th>
+                        </tr>
+                       
+                    </table>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>STT</th>
+                            <th >Tên Hàng Hóa</th>
+                            <th>Số Lượng</th>
+                            <th>Đơn Giá</th>
+                            <th>Thành Tiền</th>
+                        </tr>
+                        <tr class = "hang_1" id="hang_1">
+                            <td style="background-color: rgb(226, 224, 214);"> 1</td>
+                            <td ><textarea class="form-control " name="hanghoa_1" id="hanghoa_1"  rows="1"></textarea></td>
+                            <td> <input type="number" name="soluong_1" id="soluong_1" class="form-control"  value="0"></td>
+                            <td> <input type="number" name="dongia_1" id="dongia_1" class="form-control" value="0"></td>
+                            <td> <input type="text" name="thanhtien_1" id="thanhtien_1" class="form-control" disabled></td>
+
+                        </tr>
+                        <tr class = "hang_2" id="hang_2">
+                            <td style="background-color: rgb(209, 208, 204);"> 2</td>
+                            <td ><textarea class="form-control " name="hanghoa_2" id="hanghoa_2"  rows="1"></textarea></td>
+                            <td> <input type="number" name="soluong_2" id="soluong_2" class="form-control"  value="0"></td>
+                            <td> <input type="number" name="dongia_2" id="dongia_2" class="form-control"  value="0"></td>
+                            <td> <input type="text" name="thanhtien_2" id="thanhtien_2" class="form-control" disabled></td>
+
+                        </tr>
+                        <tr class = "hang_3" id="hang_3">
+                            <td style="background-color: rgb(199, 188, 144);">3</td>
+                            <td ><textarea class="form-control " name="hanghoa_3" id="hanghoa_3"  rows="1"></textarea></td>
+                            <td> <input type="number" name="soluong_3" id="soluong_3"  value="0" class="form-control"></td>
+                            <td> <input type="number" name="dongia_3" id="dongia_3"  value="0" class="form-control"></td>
+                            <td> <input type="text" name="thanhtien_3" id="thanhtien_3" class="form-control" disabled></td>
+
+                        </tr>
+                        <tr class = "hang_4" id="hang_4">
+                            <td  style="background-color: rgb(221, 190, 66);" >4</td>
+                            <td ><textarea class="form-control " name="hanghoa_4" id="hanghoa_4"  rows="1"></textarea></td>
+                            <td> <input type="number" name="soluong_4" id="soluong_4"  value="0" class="form-control"></td>
+                            <td> <input type="number" name="dongia_4" id="dongia_4"  value="0" class="form-control"></td>
+                            <td> <input type="text" name="thanhtien_4" id="thanhtien_4" class="form-control" disabled></td>
+
+                        </tr>
+                        <tr  class = "hang_5" id="hang_5">
+                            <td style="background-color: rgb(161, 131, 8);">5</td>
+                            <td ><textarea style="color: cornflowerblue;" class="form-control"  name="hanghoa_5" id="hanghoa_5"  rows="1"></textarea></td>
+                            <td> <input type="number" name="soluong_5" id="soluong_5"  value="0" class="form-control"></td>
+                            <td> <input type="number" name="dongia_5" id="dongia_5"  value="0" class="form-control"></td>
+                            <td> <input type="text" name="thanhtien_5" id="thanhtien_5"  value="0" class="form-control" disabled>
+                                
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th colspan="4">Tổng Tiền Giải Chi</th>
+                            <th><input type="text" name="thanhtien_6" id="thanhtien_6" class="form-control" disabled></th>
+                        </tr>
+                        <tr>
+                            <th colspan="5">
+                                <a href="#themhang2" class="btn btn-success" name="themhang_1" id="themhang_1"> Thêm Hàng </a>
+                                <a href="#themhang3" class="btn btn-success" name="themhang_2" id="themhang_2"> Thêm Hàng </a>
+                                <a href="#themhang4" class="btn btn-success" name="themhang_3" id="themhang_3"> Thêm Hàng </a>
+                                <a href="#themhang5" class="btn btn-success" name="themhang_4" id="themhang_4"> Thêm Hàng </a>
+                                <a href="#xoahang2" class="btn btn-danger" name="xoahang_1" id="xoahang_1"> Xóa Hàng </a>
+                                <a href="#xoahang3" class="btn btn-danger" name="xoahang_2" id="xoahang_2"> Xóa Hàng </a>
+                                <a href="#xoahang4" class="btn btn-danger" name="xoahang_3" id="xoahang_3"> Xóa Hàng </a>
+                                <a href="#xoahang5" class="btn btn-danger" name="xoahang_4" id="xoahang_4"> Xóa Hàng </a>
+                            </th>
+                        </tr>
+
+
+                    </table>
+                    <script>
+
+                        $(document).ready(function(){
+                            $('#filegiaichi').attr("multiple","true");
+
+                        })
+                        $("#hang_2").hide();
+                        $("#hang_3").hide();
+                        $("#hang_4").hide();
+                        $("#hang_5").hide();
+                        $("#xoahang_1").hide();
+                        $("#xoahang_2").hide();
+                        $("#xoahang_3").hide();
+                        $("#xoahang_4").hide();
+                        $("#themhang_2").hide();
+                        $("#themhang_3").hide();
+                        $("#themhang_4").hide();
+                        $("#themhang_5").hide();
+
+
+                        $("#themhang_1").click("this",function(){
+                            $("#hang_2").show();
+                            $("#themhang_1").hide();
+                            $("#themhang_2").show();
+                            $("#themhang_3").hide();
+                            $("#themhang_4").hide();
+                            $("#xoahang_1").show();
+                            $("#xoahang_1").click("this",function(){
+                                $("#hang_2").hide();
+                                $("#themhang_1").show();
+                                $("#themhang_2").hide();
+                                $("#themhang_3").hide();
+                                $("#themhang_4").hide();
+                                $("#xoahang_2").hide();
+                                $("#xoahang_1").hide();
+                            });
+                            
+                        });
+                        $("#themhang_2").click("this",function () {
+                            $("#hang_3").show();
+                            $("#themhang_1").hide();
+                            $("#themhang_2").hide();
+                            $("#themhang_3").show();
+                            $("#themhang_4").hide();
+                            $("#xoahang_1").hide();
+                            $("#xoahang_2").show();
+                           
+                            $("#xoahang_2").click("this",function(){
+                                $("#hang_3").hide();
+                                $("#themhang_1").hide();
+                                 $("#themhang_2").show();
+                                 $("#themhang_3").hide();
+                                 $("#themhang_4").hide();
+                                 $("#xoahang_1").show();
+                                 $("#xoahang_2").hide();    
+                            });
+                            
+                            
+                        })
+                        $("#themhang_3").click("this",function () {
+                            $("#hang_4").show();
+                            $("#themhang_1").hide();
+                            $("#themhang_2").hide();
+                            $("#themhang_3").hide();
+                            $("#themhang_4").show();
+                            $("#xoahang_1").hide();
+                            $("#xoahang_2").hide();
+                            $("#xoahang_3").show();
+                           
+                            $("#xoahang_3").click("this",function(){
+                                $("#hang_4").hide();
+                                $("#themhang_1").hide();
+                                $("#themhang_2").hide();
+                                 $("#themhang_3").show();
+                                 
+                                 $("#themhang_4").hide();
+                                 $("#xoahang_1").hide();
+                                 $("#xoahang_2").show();
+                                 $("#xoahang_3").hide();    
+                            });
+                            
+                            
+                        })
+
+                        $("#themhang_4").click("this",function () {
+                            $("#hang_5").show();
+                            $("#themhang_1").hide();
+                            $("#themhang_2").hide();
+                            $("#themhang_3").hide();
+                            $("#themhang_4").hide();
+
+                            $("#xoahang_1").hide();
+                            $("#xoahang_2").hide();
+                            $("#xoahang_3").hide();
+                            $("#xoahang_4").show();
+                            $("#xoahang_4").click("this",function(){
+                                $("#hang_5").hide();
+                                $("#themhang_1").hide();
+                                $("#themhang_2").hide();
+                                $("#themhang_3").hide();
+                                 
+                                 $("#themhang_4").show();
+                                 $("#xoahang_1").hide();
+                                 $("#xoahang_2").hide();
+                                 $("#xoahang_3").show(); 
+                                 $("#xoahang_4").hide();    
+                            });
+                            
+                            
+                        })
+
+                        function formatNumber(nStr, decSeperate, groupSeperate) {
+                            nStr += '';
+                            x = nStr.split(decSeperate);
+                            x1 = x[0];
+                            x2 = x.length > 1 ? '.' + x[1] : '';
+                            var rgx = /(\d+)(\d{3})/;
+                            while (rgx.test(x1)) {
+                                x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
+                            }
+                            return x1 + x2;
+                        }
+
+                        $(function() {
+                                
+
+                            
+                                $('#soluong_1').keyup(function() {  
+                                    updateTotal();
+                                });
+                                
+                                $('#dongia_1').keyup(function() {  
+                                    updateTotal();
+                                });
+                                $('#soluong_2').keyup(function() {  
+                                    updateTotal();
+                                });
+                                $('#dongia_2').keyup(function() {  
+                                    updateTotal();
+                                });
+                                $('#soluong_3').keyup(function() {  
+                                    updateTotal();
+                                });
+                                $('#dongia_3').keyup(function() {  
+                                    updateTotal();
+                                });
+                                $('#soluong_4').keyup(function() {  
+                                    updateTotal();
+                                });
+                                $('#dongia_4').keyup(function() {  
+                                    updateTotal();
+                                });
+                                $('#dongia_5').keyup(function() {  
+                                    updateTotal();
+                                });
+                                var updateTotal = function () {
+                                
+                                var input1 = parseInt($('#soluong_1').val());
+                                var input2 = parseInt($('#dongia_1').val());
+                                var input11 = parseInt($('#soluong_2').val());
+                                var input22 = parseInt($('#dongia_2').val());
+                                var input113 = parseInt($('#soluong_3').val());
+                                var input223 = parseInt($('#dongia_3').val());
+                                var input114 = parseInt($('#soluong_4').val());
+                                var input224 = parseInt($('#dongia_4').val());
+                                var input334 = parseInt($('#soluong_5').val());
+                                var input335 = parseInt($('#dongia_5').val());
+                                
+                                var thanhtien1 = input1 * input2;  
+                                var thanhtien2 = input11 * input22;
+                                var thanhtien3 = input113 * input223;
+                                var thanhtien4 = input114 * input224;
+                                var thanhtien5 = input334 * input335;
+                                if(isNaN(thanhtien1)) {
+                                    var thanhtien1 = 0;
+                                    }
+                                if(isNaN(thanhtien2)) {
+                                    var thanhtien2 = 0;
+                                    }
+                                if(isNaN(thanhtien3)) {
+                                    var thanhtien3 = 0;
+                                    }
+                                if(isNaN(thanhtien4)) {
+                                    var thanhtien4 = 0;
+                                    }
+                                if(isNaN(thanhtien5)) {
+                                    var thanhtien5 = 0;
+                                    }        
+                                var tong = (thanhtien1 + thanhtien2 + thanhtien3 +thanhtien4+thanhtien5);
+                                
+                                $("input[type=text][name=thanhtien_1]" ).val(formatNumber(thanhtien1, '.', ','));
+                                $("input[type=text][name=thanhtien_2]" ).val(formatNumber(thanhtien2, '.', ','));
+                                $("input[type=text][name=thanhtien_3]" ).val(formatNumber(thanhtien3, '.', ','));
+                                $("input[type=text][name=thanhtien_4]" ).val(formatNumber(thanhtien4, '.', ','));
+                                $("input[type=text][name=thanhtien_5]" ).val(formatNumber(thanhtien5, '.', ','));
+                                $("input[type=text][name=thanhtien_6]" ).val(formatNumber(tong, '.', ','));
+                                $("input[type=text][name=tiengiaichi]" ).val(formatNumber(tong, '.', ','));
+                                
+
+                                
+                                };
+
+                                
+                                });
+
+                    </script>
+                </div>
+
+
+            </div>     -->
+                
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: absolute;
+            left: 60%;margin-left: -60px;">
+                <button type="submit" class="btn btn-bg" style="background-color: rgb(12, 106, 134); color: rgb(252, 252, 252);">Gửi Giải Chi</button>
+            </div>
+                
+            </div>
+
+        </form>
+    </div>
+    </div>
+    </section>
+    
+</div>
+
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+{%endblock%}
