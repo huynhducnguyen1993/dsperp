@@ -27,19 +27,15 @@
     </section>
     <section class="content">
           <div class="container-fluid">
-                       
-    
-    
-                              
-                                   {%if cv.sep == True %}
+                 
+                 {%if cv.sep == True %}
                                     
-                                  {% include 'dexuat/header_dexuat_sep.html'%}
+                 {% include 'dexuat/header_dexuat_sep.html'%}
                                     <!-- ./col -->
-                                    {%endif%}
-                                 {% if cv.tp == True  %}{% include 'dexuat/header_dexuat_tp.html'%}
-                                 {% endif %}
-    
-                               
+                   {%endif%}
+                  {% if cv.tp == True  %}{% include 'dexuat/header_dexuat_tp.html'%}
+                   {% endif %}
+                     
           </div>
           </section>
  <!-- Main content -->
@@ -207,6 +203,7 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
+      "order": [[ 0, "desc" ]],
       "buttons": [ "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({

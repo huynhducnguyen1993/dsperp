@@ -216,11 +216,11 @@ class Dexuat(models.Model):
     tientamung = models.IntegerField(default=0)
     tinhtranggiaichi = models.BooleanField(default=False)
     ghichu = models.TextField(default="",max_length=255,blank=True,null=True)
-   
+    nhanviencc = models.JSONField( max_length=1000,blank=True,null = True)
     thoigianhoanthanh = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
     objects = models.Manager()
-
+    
     class Meta:
 
         verbose_name = "FORM ĐỀ XUẤT"

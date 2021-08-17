@@ -47,9 +47,11 @@ class Formdexuat(forms.ModelForm):
     class Meta:
         model = Dexuat
         fields =['nhanvien','phongban','hangmuc','noidung','tinhtrangxem','files','guiduyet',]
+        files =forms.FileField(required=False)
         widgets ={
             'hangmuc':forms.Select(attrs={'class':'form-control','name':'hangmuc',}),
             'guiduyet':forms.Select(attrs={'class':'form-control','name':'guiduyet'}),
+            
         }
     def __init__(self, *args, **kwargs):
         super(Formdexuat, self).__init__(*args, **kwargs)
@@ -71,14 +73,14 @@ class Formdexuat_sep(forms.ModelForm):
 class Formedit_dexuat(forms.ModelForm):
     class Meta:
         model = Dexuat
-        fields =['hangmuc','tieude','thoigianhoanthanh','files','kinhphi','noidung','ghichu']
+        fields =['hangmuc','tieude','thoigianhoanthanh','kinhphi','nhanviencc','noidung','ghichu']
         widgets={
             'tieude':forms.TextInput(attrs={'class':'form-control'}),
             'ghichu':forms.TextInput(attrs={'class':'form-control'}),
             'kinhphi':forms.TextInput(attrs={'class':'form-control'}),
             'hangmuc':forms.Select(attrs={'class':'form-control'}),
             'thoigianhoanthanh':forms.DateInput(attrs={'class':'form-control'}),
-            'fiels':forms.FileInput(attrs= {'style':'display: none;','class':'form-control', 'required': False,})
+           
         }
     def __init__(self, *args, **kwargs):
         super(Formedit_dexuat, self).__init__(*args, **kwargs)
