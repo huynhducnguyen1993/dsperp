@@ -5,6 +5,29 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 
+
+def Dexuat_lq(request):
+    user = request.user.is_authenticated
+    if user :
+        dexuat =  Dexuat.objects.filter(Q(trangthaiduyet_tp=False)|Q(trangthaiduyet_sep=False),tinhtranghuy=False)
+        nhanvien = Nhanvien.objects.get(username = request.user)
+        id = nhanvien.id
+        dem_dx = 0
+        for item in dexuat :
+            nhanviencc = item.nhanviencc
+            for key ,value in nhanviencc:
+                if str(key) == str(id):
+                    dem_dx+=1
+
+        context={
+                'cd':int(dem_dx),
+                }
+        
+        return {'dexuat_lq':context}
+    else:
+        context={'cd':0}
+        return {'dexuat_lq':context}    
+    
 def dexuat_extra(request):
     user = request.user.is_authenticated
     if user:
@@ -181,8 +204,11 @@ def Dexuat_total(request):
                  'demtu':0,
                  'demhuy':0,
                 }
+
         return {'duyet_tp':context}
+
 def Tamung(request):
+
     user = request.user.is_authenticated
     if user:
         dem_tamung_cn = 0 
@@ -457,5 +483,8 @@ def giaichi_chuaduyet(request):
 
         }
     return {'gc_nv':context}
+
+
+
 
     

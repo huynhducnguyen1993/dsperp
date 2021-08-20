@@ -154,6 +154,7 @@ TEMPLATES = [
                 'qlns.context_processors.Tamung',
                 'qlns.context_processors.sep',
                 'qlns.context_processors.giaichi_chuaduyet',
+                'qlns.context_processors.Dexuat_lq',
                 
             ],
         },

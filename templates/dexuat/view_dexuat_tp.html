@@ -43,15 +43,20 @@
                     </h6>
                     <h6>Thời Gian Dự Kiến Hoàn Thành:<input type="text" disabled="True" name="thoigiandukien"
                             value="{{dexuat.thoigianhoanthanh}}" class="form-control"></h6>
-                    <h6>File Đính Kèm (nếu Có): {%if dexuat.files %}<a target="_blank" rel="noopener noreferrer"
-                            href="/media/{{dexuat.files}}" class="btn form-control"
-                            style="background-color: rgb(250, 248, 248); color: mediumblue;">click xem chi tiết</a>
-                        {%else%}
-                        <a href="#" class="btn form-control"
-                            style="background-color: rgb(250, 248, 248); color: mediumblue;">Không có files</a>
-                        {%endif%}
-                    </h6>
+                            <h6>Nhân viên cùng tham gia</h6>
+                            <div class="form-group">
+                                <select class="form-control select2bs4" multiple="multiple" name="nhanviencc" id="id_nhanviencc"
+                                    data-placeholder="Nhập tên để thêm nhanh" disabled style="width: 100%;"
+                                    data-dropdown-css-class="select2-purple">
+                                    {%for key,val in dexuat.nhanviencc %}
+        
+                                    <option selected value="{{key}}"> {{val}}</option>
+        
+                                    {%endfor%}
+                                </select>
+                            </div>
                 </div>
+
                 <div class="col mb-3">
 
 

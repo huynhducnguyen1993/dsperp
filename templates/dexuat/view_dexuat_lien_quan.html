@@ -27,14 +27,16 @@
 
 <link rel="stylesheet" href="{% static 'plugins/dropzone/min/dropzone.min.css'%}">
 {%endblock%}
-{%block form-dexuat-edit%}
+{%block form-dexuat-tp%}
 
 <div class="content-wrapper">
 
     <section style="padding:20px">
 
 
-        <h1>ĐỀ XUẤT </h1><br><br>
+        <h1
+            style="color: darkred;font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-align: center;">
+            ĐỀ XUẤT Số : <span class="label label-primary"> {{ dexuat.id}}</span></h1><br>
         <form method="post" id="indexForm" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row">
@@ -43,7 +45,7 @@
 
                     <h6>
                         Tên Nhân Viên
-                        <input type="text" value="{{dexuat.nhanvien}}" readonly class="form-control">
+                        <input type="text" value="{{dexuat.nhanvien}}" disabled class="form-control">
                     </h6>
 
                     <h6>
@@ -52,14 +54,14 @@
                             type="text">
 
                     </h6>
-
+                    
                     <h6>Chi Phí Dự Trù:
                         <div class="input-group">
                             
-                          
-                            <input type="number"  name = "kinhphi"  id ="kinhphi" value="{{dexuat.kinhphi}}" class="form-control" min=10000 max=100000000000 style="font-size: 25px;color: blueviolet;" >
+                            <input type="text"  name = "kp" id="kp" value="{{dexuat.kinhphi}}" hidden>
+                            <input type="text"  name = "kinhphi"  class="form-control" style="font-size: 25px;color: blueviolet;" disabled>
                             <div class="input-group-append">
-                              <span class="input-group-text" id ="kp"  style="color: blue;"> VND</span>
+                              <span class="input-group-text" >VND</span>
                             </div>
                           </div>
                     </h6>
@@ -70,21 +72,17 @@
 
                         </select>
                     </h6>
-                    <h6>Thời Gian Dự Kiến Hoàn Thành :{{form.thoigianhoanthanh}}</h6>
+                    <h6>Thời Gian Dự Kiến Hoàn Thành:<input type="text" disabled="True" name="thoigiandukien"
+                            value="{{dexuat.thoigianhoanthanh}}" class="form-control"></h6>
                     <h6>Nhân viên cùng tham gia</h6>
                     <div class="form-group">
                         <select class="form-control select2bs4" multiple="multiple" name="nhanviencc" id="id_nhanviencc"
-                            data-placeholder="Nhập tên để thêm nhanh" style="width: 100%;"
+                            data-placeholder="Nhập tên để thêm nhanh" disabled style="width: 100%;"
                             data-dropdown-css-class="select2-purple">
-                            {%for  key,val in dexuat.nhanviencc %}
-                            
+                            {%for key,val in dexuat.nhanviencc %}
+
                             <option selected value="{{key}}"> {{val}}</option>
-                            
-                            {%endfor%}
-                            {%for  item in nhanviencc %}
-                            
-                            <option  value="{{item.id}}"> {{item.tennv}}</option>
-                            
+
                             {%endfor%}
                         </select>
                     </div>
@@ -92,31 +90,76 @@
                 <div class="col mb-3">
 
 
-                    <h6>
-                        Ghi chú:
-                        {{form.ghichu}}
-                    </h6>
-                    <h6>Hạng mục:
-                        {{form.hangmuc}}
-                    </h6>
-                    
+                    <h6>Ghi chú:
 
+                        <textarea name="ghichu" id="inputGhichu" disabled class="form-control"
+                            rows="1">{{dexuat.ghichu}}</textarea>
+
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt TP :
+                        {%if dexuat.trangthaiduyet_tp == True %}
+                        <input type="text" value="Đã Duyệt" class="form-control"
+                            style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%else%}
+                        <input type="text" value="Chưa Phê Duyệt" class="form-control"
+                            style="background-color: rgb(119, 8, 8);color: rgb(245, 240, 240);">
+                        {%endif%}
+                    </h6>
+                    <h6>
+                        Trạng thái Phê Duyệt Sep :
+                        {%if dexuat.trangthaiduyet_tp == True %}
+                        {%if dexuat.trangthaiduyet_sep == False %}
+                        <input type="text" value="Chưa Duyệt" class="form-control"
+                            style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%if dexuat.trangthaiduyet_sep == True %}
+                        <input type="text" value="Đã Duyêt" class="form-control"
+                            style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%endif%}
+
+                        {%if dexuat.trangthaiduyet_tp == False %}
+                        {%if dexuat.trangthaiduyet_sep == False %}
+                        <input type="text" value="Chưa Duyệt" class="form-control"
+                            style="background-color: rgb(50, 95, 5);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%if dexuat.trangthaiduyet_sep == True %}
+                        <input type="text" value="Chỉ Cần Tp duyệt" class="form-control"
+                            style="background-color: rgb(52, 178, 228);color: rgb(245, 240, 240);">
+                        {%endif%}
+                        {%endif%}
+
+                    </h6>
                 </div>
 
 
 
             </div>
             <div class="row">
-                <div class=" noidung col mb-11">
 
-                    <table class=" noidung table table-hover border">
-                        <tr style="background-color: rgb(21, 158, 238);">
-                            <th>{{form.tieude}} </th>
+
+
+                <div class=" noidung col mb-12" class="table-responsive">
+
+                    <table class=" noidung table border">
+                        
+                        <br>
+                        <tr style="background-color: rgb(179, 225, 252);">
+                            <th colspan="2" style="color: rgb(230, 29, 69);">Đề Xuất : <br> <span
+                                    style="color: rgb(9, 96, 136);">{{dexuat.tieude}}</span> </th>
                         </tr>
                         <tr>
-                            <td style="text-align: center;">{{form.noidung }}</td>
+                            <td colspan="2"> <strong>Mô Tả :</strong> <br>
+                                {{dexuat.noidung|safe }}
+                            </td>
                         </tr>
+                        <style>
+                            .noidung {
 
+                                overflow: scroll;
+                            }
+                        </style>
                     </table>
                 </div>
 
@@ -124,8 +167,7 @@
             </div>
             <br>
             <div id="quaylai" name="quaylai">
-                <button class="btn btn-info ">Cập Nhật </button>
-                <a href="javascript:history.back()" class="btn btn-dark"> Quay Lại </a>
+                <a href="javascript:history.back()" class="btn btn-lg btn-info "> Quay Lại </a>
             </div>
             <style>
                 #quaylai {
@@ -158,34 +200,10 @@
             }
             return x1 + x2;
         }
-  
-  $(function() {
-     $('#kinhphi').keyup(function() {  
-              updateTotal();
-                                  });
-     var updateTotal = function () {
-  
-    var kinhphi = $("#kinhphi").val();
-    $("#kp" ).text(formatNumber(kinhphi, '.', ',' )+' VND');
-     }
-  
-      });
-    
-  $(function() {
-     $('#kinhphi').ready(function() {  
-              updateTotal();
-                                  });
-     var updateTotal = function () {
-  
-    var kinhphi = $("#kinhphi").val();
-    $("#kp" ).text(formatNumber(kinhphi, '.', ',' )+' VND');
-     }
-  
-      });
-  </script>
-  
+    var kinhphi = $("#kp").val();
+    $("input[type=text][name=kinhphi]" ).val(formatNumber(kinhphi, '.', ','));
+</script>
 {%endblock%}
-
 
 {%block script-edit-dexuat%}
 <!-- Select2 -->

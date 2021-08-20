@@ -385,7 +385,7 @@
                 <div class="col col-4">
 
                     <h6>
-                        Tên Nhân Viên
+                        Tên Nhân Viên 
                         <input type="text" value="{{nhanvien.tennv}}"  disabled class="form-control">
                     </h6>
 
@@ -397,11 +397,11 @@
 
                     <h6>Giải Chi Thuộc Phòng Ban:
                         
-                        <select name="phongbanguiduyet" id="phongbanguiduyet" class="form-control">
+                        <select name="phongbanguiduyet" id="phongbanguiduyet"  required class="form-control">
                             
-                           
-                            <option value="{{nhanvien.phongban.id}}">{{nhanvien.phongban}} </option>
-                           
+                           {% for item in phongban %}
+                            <option value="{{item.id}}">{{item.tenpb}} </option>
+                           {%endfor%}
                         </select>
                     </h6>
                 </div>
@@ -415,10 +415,24 @@
                         Số Tiền Đã Tạm Ứng 
                         <input type="number" value="{{giaichi.tientamung}}" disabled style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tientamung" class="form-control">
                      </h6>
-                     <h6 style="color: rgb(81, 125, 248);">
-                        Số  Tiền Giải Chi
-                        <input type="text" style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tiengiaichi" id="tiengiaichi" class="form-control" required>
-                     </h6>
+
+                     
+                    
+
+                    
+
+                     <h6> Số  Tiền Giải Chi :
+                        <div class="input-group">
+        
+        
+                          <input type="number" name="tiengiaichi" id="tiengiaichi" class="form-control" min=10000 max=100000000000
+                            style="font-size: 23px;color: blueviolet;">
+                          <div class="input-group-append">
+                            <span class="input-group-text" id="kp" style="color: blue;"> VND</span>
+                          </div>
+                        </div>
+                      </h6>
+
                 </div>
                 <div class="col col-4">
 
@@ -487,7 +501,7 @@
 
                     <h6>Giải Chi Thuộc Phòng Ban:
                         
-                        <select name="phongbanguiduyet" id="phongbanguiduyet" class="form-control">
+                        <select name="phongbanguiduyet" id="phongbanguiduyet" required class="form-control">
                             <option value=""> -- Chọn Phòng Ban ---</option>
                             {%for item in phongban%}
                             <option value="{{item.id}}"> {{item.tenpb}}</option>
@@ -505,10 +519,19 @@
                         Số Tiền Đã Tạm Ứng 
                         <input type="number" value="{{giaichi.tientamung}}" disabled style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tientamung" class="form-control">
                      </h6>
-                     <h6 style="color: rgb(81, 125, 248);">
-                        Số  Tiền Giải Chi
-                        <input type="text" style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tiengiaichi" id="tiengiaichi" class="form-control" required>
-                     </h6>
+                        
+                     <h6> Số  Tiền Giải Chi :
+                        <div class="input-group">
+        
+        
+                          <input type="number" name="tiengiaichi" id="tiengiaichi" class="form-control" min=10000 max=100000000000
+                            style="font-size: 25px;color: blueviolet;">
+                          <div class="input-group-append">
+                            <span class="input-group-text" id="kp" style="color: blue;"> VND</span>
+                          </div>
+                        </div>
+                      </h6>
+
                 </div>
                 <div class="col col-4">
 
@@ -565,4 +588,30 @@
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
 <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
 
+<script>
+    function formatNumber(nStr, decSeperate, groupSeperate) {
+      nStr += '';
+      x = nStr.split(decSeperate);
+      x1 = x[0];
+      x2 = x.length > 1 ? '.' + x[1] : '';
+      var rgx = /(\d+)(\d{3})/;
+      while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
+      }
+      return x1 + x2;
+    }
+  
+    $(function () {
+      $('#tiengiaichi').keyup(function () {
+        updateTotal();
+      });
+      var updateTotal = function () {
+  
+        var kinhphi = $("#tiengiaichi").val();
+        $("#kp").text(formatNumber(kinhphi, '.', ',') + ' VND');
+      }
+  
+    });
+  </script>
+  
 {%endblock%}

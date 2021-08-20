@@ -1,3 +1,4 @@
+
 from django.http.request import QueryDict
 from django.http.response import Http404
 from django.shortcuts import render, redirect
@@ -14,6 +15,8 @@ from django.shortcuts import get_object_or_404
 import datetime
 from django.contrib.auth.models import Permission
 from django.db.models import Q
+from hashlib import sha1
+
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -433,8 +436,27 @@ class Dexuatchuaduyet(LoginRequiredMixin, View):
 
 
                                        ).order_by('created_at', 'id')
+        dexuat_lq = Dexuat.objects.filter(Q(trangthaiduyet_tp=False) | Q(trangthaiduyet_sep=False),
+                                       tinhtranghuy=False,)
+        
+        nv = Nhanvien.objects.get(username = request.user)
+        id = nv.id
+        # lst = []
+        # for item in dexuat_lq:
+        #     for key,value in item.nhanviencc:
+        #         lst.append(key)
+        #     for i in lst :
+        #         if i == str(id):
+        #             dx = item
+        #         else:
+        #             dx = None
+       
         context = {
             'dexuat': dexuat,
+            'dexuat_lq':dexuat_lq,
+            'id_nv':str(id)
+            
+            
         }
         return render(request, 'dexuat/dexuat_chua_duyet.html', context)
 
@@ -452,8 +474,20 @@ class Dexuatdaduyet(LoginRequiredMixin, View):
             tinhtrangxem=True,
             tinhtranghuy=False,
         )
+        dexuat_lq = Dexuat.objects.filter(
+            
+            trangthaiduyet_tp=True,
+            trangthaiduyet_sep=True,
+            tinhtrangxem=True,
+            tinhtranghuy=False,
+        )
+        
+        nv = Nhanvien.objects.get(username = request.user)
+        id = nv.id
         context = {
             'dexuat': dexuat,
+            'dexuat_lq':dexuat_lq,
+            'id_nv':str(id),
         }
         return render(request, 'dexuat/dexuat_da_duyet.html', context)
 
@@ -664,7 +698,7 @@ class View_dexuat(LoginRequiredMixin, View):
         us = User.objects.get(username=user)
         nv = Nhanvien.objects.get(username=us)
         cv = Chucvu_Congviec.objects.filter(phongban=nv.phongban)
-
+        
         for item in cv:
             if str(item.tencongviec) == "TP":
                 gc = Giaichi.objects.all()
@@ -704,6 +738,14 @@ class View_dexuat(LoginRequiredMixin, View):
             return HttpResponse("<strong>Bạn Không có Quyền</strong> <a href='javascript:history.back()'> Quay lại</a> ")
 
 
+class View_dexuat_lq(LoginRequiredMixin,View):
+    login_url="/login/"
+    def get(self, request ,dexuat_id ,hash_id):
+        dexuat = Dexuat.objects.get(pk=dexuat_id)    
+        context ={
+            'dexuat':dexuat,
+        }    
+        return render(request,'dexuat/view_dexuat_lien_quan.html',context)
 class Xulyduyet_tp(LoginRequiredMixin, View):
     def get(self, request, dexuat_id):
         form = Formdexuat_tp(request.POST)
@@ -903,7 +945,7 @@ class Datamung(LoginRequiredMixin, View):
     login_url = "login/"
 
     def get(self, request):
-        pb = Phongban.objects.all()
+        pb = Phongban.objects.all().exclude(tenpb='SEP')
 
         dx = Dexuat.objects.filter(
             trangthaiduyet_tp=True,
@@ -1026,19 +1068,20 @@ class Giaichi_dx(LoginRequiredMixin, View):
     def get(self, request, dexuat_id):
 
         user = request.user
-        # form = Formtaogiaichi_dx({"noidunggiaichi":"<table align='center' border='1' cellpadding='1' cellspacing='1' class='table_giai_chi' id='table_giai_chi'  style='height:288px; width:786px'><caption>Nội Dung Giải Chi</caption><tbody><tr style='background-color: rgb(57, 201, 245);'><td style='background-color:#3399ff'><h2>STT</h2></td><td style='background-color:#3399ff'><h2>SBN</h2></td><td style='background-color:#3399ff'><h2>Nội Dung H&agrave;ng H&oacute;a</h2></td><td style='background-color:#3399ff'><h2>Số lượng</h2></td><td style='background-color:#3399ff'><h2>Đơn Gi&aacute;</h2></td><td style='background-color:#3399ff'><h2>Th&agrave;nh Tiền</h2></td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td colspan='5' rowspan='1'><span style='color:#3498db'><strong>Tổng</strong></span></td><td>&nbsp;</td></tr></tbody></table><p>&nbsp;</p><p>&nbsp;</p><style>#table_giai_chi{color:red; foat:left;} </style> "})
         form = Formtaogiaichi_dx()
         gc = Dexuat.objects.get(pk=dexuat_id)
         if gc.username == user:
-            if gc.tinhtranggiaichi == False:
-                nv = Nhanvien.objects.filter(username=gc.username).first
-                phongban = Phongban.objects.all()
+            if gc.tinhtranggiaichi == False :
+                nv = Nhanvien.objects.filter(username=gc.username).first               
+                phongban = Phongban.objects.all().exclude(tenpb='SEP')
+
                 context = {
                     'nhanvien': nv,
                     'giaichi': gc,
                     'phongban': phongban,
                     'form': form,
                 }
+
                 return render(request, "giaichi/form_giai_chi_dx.html", context)
             else:
                 return HttpResponse("Đã Giải Chi : <a href='javascript:history.back()'>Quay Lại</a>")
