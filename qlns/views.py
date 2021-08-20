@@ -1072,8 +1072,8 @@ class Giaichi_dx(LoginRequiredMixin, View):
         gc = Dexuat.objects.get(pk=dexuat_id)
         if gc.username == user:
             if gc.tinhtranggiaichi == False :
-                nv = Nhanvien.objects.filter(username=gc.username).first               
-                phongban = Phongban.objects.all().exclude(tenpb='SEP')
+                nv = Nhanvien.objects.get(username=gc.username)              
+                phongban = Phongban.objects.all().exclude(tenpb='SEP').exclude(tenpb=nv.phongban.tenpb)
 
                 context = {
                     'nhanvien': nv,

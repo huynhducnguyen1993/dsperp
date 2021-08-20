@@ -35,7 +35,7 @@
                     <h6>Giải Chi Thuộc Phòng Ban:
                         
                         <select name="phongbanguiduyet" id="phongbanguiduyet" required=true  class="form-control">
-                            <option value=""> -- Chọn Phòng Ban ---</option>
+                            <option value="{{nhanvien.phongban.id}}">{{nhanvien.phongban.tenpb}}</option>
                             {%for item in phongban%}
                             <option value="{{item.id}}"> {{item.tenpb}}</option>
                             {%endfor%}
@@ -398,7 +398,7 @@
                     <h6>Giải Chi Thuộc Phòng Ban:
                         
                         <select name="phongbanguiduyet" id="phongbanguiduyet"  required class="form-control">
-                            
+                            <option value="{{nhanvien.phongban.id}}">{{nhanvien.phongban.tenpb}}</option>
                            {% for item in phongban %}
                             <option value="{{item.id}}">{{item.tenpb}} </option>
                            {%endfor%}
@@ -502,7 +502,7 @@
                     <h6>Giải Chi Thuộc Phòng Ban:
                         
                         <select name="phongbanguiduyet" id="phongbanguiduyet" required class="form-control">
-                            <option value=""> -- Chọn Phòng Ban ---</option>
+                            <option value="{{nhanvien.phongban.id}}">{{nhanvien.phongban.tenpb}}</option>
                             {%for item in phongban%}
                             <option value="{{item.id}}"> {{item.tenpb}}</option>
                             {%endfor%}
