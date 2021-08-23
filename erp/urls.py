@@ -33,6 +33,9 @@ urlpatterns = [
     path('login/', Login.as_view(),name='login'),
     path('logout',Logout.as_view(),name='logout'),
     path('api-auth/', include('rest_framework.urls')),
+    path('nhan-vien/zoom/' ,Zoom.as_view(),name='zoom' ),
+
+
     path('giao-viec/', Giaoviec.as_view(),name='giaoviec'),
     path('nhanvien/', Nhanvientotal.as_view(), name='nhanvien'),
     path('get-nhan-vien/', Getnhanvien.as_view(),name='getnhanvien'),

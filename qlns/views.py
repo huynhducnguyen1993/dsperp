@@ -16,6 +16,7 @@ import datetime
 from django.contrib.auth.models import Permission
 from django.db.models import Q
 from hashlib import sha1
+from .sms import send_sms
 
 
 
@@ -56,6 +57,10 @@ class Logout(View):
     def get(self, request):
         logout(request)
         return redirect('login')
+
+class Zoom(View):
+   def get(self,request):
+       return render(request,'zoom/index.html')
 
 
 class Giaoviec(View):
@@ -353,6 +358,7 @@ class Dexuats(LoginRequiredMixin, View):
 
     def get(self, request):
         user = request.user
+        
         nhanvien = Nhanvien.objects.get(username=user)
         phongban = Phongban.objects.get(tenpb=nhanvien.phongban)
         form = Formdexuat(request.POST)
@@ -421,7 +427,7 @@ class Dexuats(LoginRequiredMixin, View):
                                   thoigianhoanthanh=tg,
                                   tientamung=0,
                                   )
-
+            
             return redirect("dexuat-chua-duyet")
 
 
