@@ -16,7 +16,7 @@ import datetime
 from django.contrib.auth.models import Permission
 from django.db.models import Q
 from hashlib import sha1
-from .sms import send_sms
+
 
 
 
