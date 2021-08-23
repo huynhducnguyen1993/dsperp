@@ -1,4 +1,4 @@
-twilio==1.7.1
+twilio==6.63.0
 appdirs==1.4.3
 #apturl==0.5.2
 asgiref==3.3.4
