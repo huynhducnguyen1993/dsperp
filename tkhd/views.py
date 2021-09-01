@@ -20,7 +20,7 @@ from .forms import *
 import os
 import io
 from django.conf import settings
-from docxtpl import DocxTemplate
+
 
 # Create your views here.
 
