@@ -3,3 +3,4 @@ from .models import Nhanvien
 class NhanvienSerializer(serializers.ModelSerializer):
     class Meta:
         model = Nhanvien
+        fields= '__all__'

@@ -2,16 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5072a00d-0748-41bb-9f7b-2b1a81be16e5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/nhaphangdapheduyet.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DONGSAPA.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DONGSAPA.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/django-excel" beforeDir="false" afterPath="$PROJECT_DIR$/django-excel" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/erp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/erp/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/erp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/erp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/khovan/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/khovan/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/zoom/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/zoom/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/nhaphangchuaduyetgap.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nhaphangchuaduyetgap.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/quanly.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/quanly.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/zoom/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/zoom/index.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,13 +38,13 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/erp/urls.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/erp/settings.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/templates/nhaphanggap.html" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/templates/quanly.html" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/qlns/views.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/khovan/views.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/erp/urls.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/templates/quanly.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/templates/nhaphanggap.html" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/templates/nhaphangdapheduyet.html" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/erp/settings.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/qlns/views.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1s7OMmQgV2JJi5dnZzg7PxTEYil" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -109,7 +107,7 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5072a00d-0748-41bb-9f7b-2b1a81be16e5" name="Default Changelist" comment="" />
+      <changelist id="" name="Default Changelist" comment="" />
       <created>1620220117577</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />

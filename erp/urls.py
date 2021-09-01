@@ -27,6 +27,8 @@ admin.site.index_title="Quản Trị Hệ Thống"
 urlpatterns = [
     path('admin/', admin.site.urls,name="admin"),
     path('pdf/', include('mergepdf.urls')),
+    path('tasks/', include('tasks.urls')),
+    path('trinh-ky-hop-dong/', include('tkhd.urls',namespace='trinh-ky')),
     path('report/',Report.as_view(),name='report'),
     path('ckeditor/',include('ckeditor_uploader.urls')),
     path('', Index.as_view(),name='index'),
@@ -38,6 +40,7 @@ urlpatterns = [
 
     path('giao-viec/', Giaoviec.as_view(),name='giaoviec'),
     path('nhanvien/', Nhanvientotal.as_view(), name='nhanvien'),
+    
     path('get-nhan-vien/', Getnhanvien.as_view(),name='getnhanvien'),
     path('profile/',Profile.as_view(),name='profile'),
     path('dsnhanvien/',Dsnhanvien.as_view(),name='dsnhanvien'),
@@ -49,7 +52,7 @@ urlpatterns = [
     path('phieu-luong/nhan-vien/<int:nhanvien_id>ed5511ad61be3b785518eddc96e4bc3f', Phieuluongcanhan.as_view(), name='xemphieuluong'),
     path('phieu-luong-user', Phieuluonguser.as_view(), name='xemphieuluonguser'),
 
-    path('nhan-vien/tao-de-xuat/',Dexuats.as_view(),name='form-de-xuat'),
+    path('nhan-vien/tao-de-xuat.chelsea',Dexuats.as_view(),name='form-de-xuat'),
     path('nhan-vien/de-xuat-chua-duyet/',Dexuatchuaduyet.as_view(),name='dexuat-chua-duyet'),
     path('nhan-vien/de-xuat-da-duyet/',Dexuatdaduyet.as_view(),name='dexuat-da-duyet'),
     path('nhan-vien/de-xuat-khong-phe-duyet/',Dexuathuy.as_view(),name='dexuat-huy'),

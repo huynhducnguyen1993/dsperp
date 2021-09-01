@@ -47,7 +47,10 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'khachhang',
     'mergepdf',
-    
+    'tasks',
+    'rest_framework.authtoken',
+    'tkhd',
+        
 ]
 
 CKEDITOR_UPLOAD_PATH="uploads/"
@@ -259,3 +262,11 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_PASSWORD = "qxospanyepzcdios"
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}

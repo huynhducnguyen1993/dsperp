@@ -17,8 +17,10 @@ from django.contrib.auth.models import Permission
 from django.db.models import Q
 from hashlib import sha1
 from .sms import send_sms
-
-
+from rest_framework import status 
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authtoken.models import Token
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
@@ -115,12 +117,15 @@ class Nhanvientotal(LoginRequiredMixin, View):
             return redirect('nhanvien')
 
 
-class Getnhanvien(APIView):
 
+class Getnhanvien(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         nv = Nhanvien.objects.all()
-        NhanvienSerializer(nv, many=True)
-        return Response(nv.data)
+        mydata = NhanvienSerializer(nv, many=True)
+        
+        return Response(mydata.data,status=status.HTTP_200_OK)
 
 
 class Viewnhanvien(LoginRequiredMixin, View):
