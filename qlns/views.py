@@ -16,17 +16,12 @@ import datetime
 from django.contrib.auth.models import Permission
 from django.db.models import Q
 from hashlib import sha1
-<<<<<<< HEAD
-from .sms import send_sms
+
+
 from rest_framework import status 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
-=======
-
-
-
->>>>>>> 278d50e650e4688b912e841f05b60a5346728089
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
