@@ -1,0 +1,190 @@
+{% extends 'base.html' %} {%load static%} {% block cssnhanvien %}
+<link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'%}">
+<link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css'%}">
+<link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css'%}">
+<!-- Theme style -->
+<link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css'%}">
+{%endblock%}
+
+{% block todo%}
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+
+				</div>
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="./">Home</a></li>
+						<li class="breadcrumb-item active">To do list</li>
+					</ol>
+				</div>
+			</div>
+		</div><!-- /.container-fluid -->
+	</section>
+
+
+	<section class="content">
+		<div class="container-fluid">
+
+
+
+			<!-- TO DO List -->
+
+			<div class="card">
+				<div class="card-header">
+					<h3 class="card-title">
+						<i class="ion ion-clipboard mr-1"></i>
+						To Do List
+					</h3>
+
+					<div class="card-tools">
+						<ul class="pagination pagination-sm">
+							<li class="page-item"><a href="#" class="page-link">&laquo;</a></li>
+							<li class="page-item"><a href="#" class="page-link">1</a></li>
+							<li class="page-item"><a href="#" class="page-link">2</a></li>
+							<li class="page-item"><a href="#" class="page-link">3</a></li>
+							<li class="page-item"><a href="#" class="page-link">&raquo;</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body ">
+					<ul class="todo-list" id="todo" data-widget="todo-list">
+						{% for task in tasks %}
+						{% if task.complete == True %}
+
+
+
+						<li>
+							<!-- drag handle -->
+							<span class="handle">
+								<i class="fas fa-ellipsis-v"></i>
+								<i class="fas fa-ellipsis-v"></i>
+							</span>
+							<!-- checkbox -->
+							<div class="icheck-primary d-inline ml-2">
+								<input type="checkbox" checked value="" name="todo{{ forloop.counter }}"
+									id="todoCheck{{ forloop.counter }}">
+								<label for="todoCheck{{ forloop.counter }}"></label>
+								<script>
+									$("#todoCheck{{ forloop.counter }}").change('checked', function () {
+										alert("Bạn chưa hoàn thành")
+
+										$.ajax({
+											url: "{% url 'uncomplete_task' %}",
+											data: {
+												'id': "{{ task.id }}",
+											},
+											success: function (data) {
+												location.reload();
+
+											}
+										});
+									});
+								</script>
+							</div>
+							<!-- todo text -->
+							<span class="text">{{task}}</span>
+							<!-- Emphasis label -->
+							<small class="badge badge-danger"><i class="far fa-clock"></i> {{task.created}}</small>
+							<!-- General tools such as edit or delete-->
+
+
+						</li>
+
+
+
+
+						{% else %}
+						<li>
+							<!-- drag handle -->
+							<span class="handle">
+								<i class="fas fa-ellipsis-v"></i>
+								<i class="fas fa-ellipsis-v"></i>
+							</span>
+							<!-- checkbox -->
+							<div class="icheck-primary d-inline ml-2">
+								<input type="checkbox" value="{{task.id}}" name="todo{{ forloop.counter }}"
+									id="todoCheck{{ forloop.counter }}">
+								<label for="todoCheck{{ forloop.counter }}"></label>
+								<script>
+									$("#todoCheck{{ forloop.counter }}").change('checked', function () {
+										alert("Bạn đã hòan thành")
+
+										$.ajax({
+											url: "{% url 'complete_task' %}",
+											data: {
+												'id': "{{ task.id }}",
+											},
+											success: function (data) {
+												location.reload(); 
+
+											}
+										});
+
+									});
+
+								</script>
+							</div>
+							<!-- todo text -->
+							<span class="text">{{task}}</span>
+							<!-- Emphasis label -->
+							{%if task.mucdo == '0'%}
+							<small class="badge badge-danger"><i class="far fa-clock"></i> -
+								{{task.ngayhoanthanh}}</small>
+
+							{%endif%}
+							{%if task.mucdo == '1'%}
+							<small class="badge badge-warning"><i class="far fa-clock"></i> -
+								{{task.ngayhoanthanh}}</small>
+
+							{%endif%}
+							{%if task.mucdo == '2'%}
+							<small class="badge badge-info"><i class="far fa-clock"></i> - {{task.ngayhoanthanh}}
+							</small>
+
+							{%endif%}
+
+
+							<div class="tools">
+								<a href="{% url 'update_task' task.id %}"><i class="fas fa-edit"></i></a>
+								<a href="{% url 'delete' task.id %}"><i class="fas fa-remove "></i></a>
+							</div>
+						</li>
+						{%endif%}
+						{%endfor%}
+					</ul>
+				</div>
+				<!-- /.card-body -->
+				<div class="card-footer clearfix">
+					<form method="POST" class="form-inline">
+						{% csrf_token %}
+						<div class="form-group">{{form.title}}</div>&nbsp;
+						<div class="form-group">{{form.mucdo}}</div>&nbsp;
+						<div class="form-group">{{form.ngayhoanthanh}}</div>&nbsp;
+
+
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary float-right" name="Create Task"><i
+									class="fas fa-plus"></i> Thêm Việc cần làm </button>
+						</div>
+
+					</form>
+				</div>
+			</div>
+			<!-- /.card -->
+
+		</div>
+	</section>
+
+
+</div>
+{%endblock%}
+
+{%block script-todo%}
+<script src="https://pagination.js.org/dist/2.1.5/pagination.js"></script>
+<script src="https://pagination.js.org/dist/2.1.5/pagination.min.js"></script>
+{%endblock%}

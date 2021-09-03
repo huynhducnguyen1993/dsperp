@@ -1,0 +1,164 @@
+{% extends 'base.html'%}
+{%load static%}
+{% block cssnhanvien %}
+<link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'%}">
+<link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css'%}">
+<link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css'%}">
+<!-- Theme style -->
+<link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css'%}">
+{%endblock%}
+
+{%block file-pdf%}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col col-4">
+
+
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                          <h3 class="card-title">
+                            <i class="far ion-scissors"></i>
+                            Tách Trang File PDF
+                          </h3>
+          
+                          <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                              <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div id="line-chart" style="height: 250px;">
+                            <form method="post" enctype="multipart/form-data" action="">{% csrf_token %}
+                                
+                                {{ form.file }}
+                                <br>
+                                <select  class="form-control" id="select_pdf" name="select_pdf">
+                                  <option value="0"> -- Chọn chức năng-- </option>
+                                  <option value="1">Ngắt từng trang </option>
+                                  <option value="2">Ngắt Trong khoản  </option>
+                                </select>
+                                <br>
+                                {{form.page}} <br>
+                                
+                                
+                                <input type="submit" id="test_button" name="extractpdf" class="form-control btn btn-dark" value="Xuất File" />
+                            </form>
+                           
+                        </div>
+                        </div>
+                        <!-- /.card-body-->
+                    </div>
+
+
+                </div>
+                <!-- end col-->
+                <!-- ? -->
+               <script>
+                 var input = document.getElementById("files");
+                  var reader = new FileReader();
+                  reader.readAsBinaryString(input.files[0]);
+                  reader.onloadend = function(){
+                      var count = reader.result.match(/\/Type[\s]*\/Page[^s]/g).length;
+                      console.log('Number of Pages:',count );
+                  }
+
+               </script>
+                <!--  -->
+                <div class="col col-4">
+
+
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
+                          <h3 class="card-title">
+                            <i class="far ion-pinpoint"></i>
+                            Gộp File PDF
+                          </h3>
+          
+                          <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                              <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <div class="card-body">
+                          <div id="line-chart" style="height: 250px;">
+                            <form method="post" enctype="multipart/form-data" action="">{% csrf_token %}
+                                {{ form_merge.as_p }}
+                                <input type="submit" id="test_button1" name="mergepdf" class="form-control btn btn-info" value="Nối File" />
+                            </form>
+                        
+                        </div>
+                        </div>
+                        <!-- /.card-body-->
+                    </div>
+
+
+                </div>
+                <!-- end col-->
+
+            </div>
+            <!--end row -->
+            
+        </div>
+    </section>
+    
+
+</div>
+
+
+
+
+<script>
+
+
+
+$(document).ready(function(){
+$("#id_page").hide();
+
+$("#select_pdf").change(function () {
+  $( "#select_pdf option:selected" ).each(function() {
+      var i = $(this).val();
+      if (i== 1){
+            $("#id_page").show();
+            $("#id_page").attr("placeholder", "Nhập số định dạng 1,2,3, or 1,5,7,..").placeholder();
+       
+         }
+      if (i==2){
+            $("#id_page").show();
+            $("#id_page").attr("placeholder", "Nhập số định dạng : pagestart-pageend ").placeholder();
+       
+         }
+      if (i==0){
+            $("#id_page").hide();
+           
+         }
+  });
+  
+});
+
+$("#test_button").click(function() {
+var test_value = $("#id_file").val();
+var extension = test_value.split('.').pop().toLowerCase();
+var page = $("#id_page").val();
+if ($.inArray(extension, ['pdf',]) == -1) {
+alert("File PDF không hợp lệ!");
+return false;
+} else {
+prompt("Bạn Đang cắt trang : " + page );
+return true;
+}
+});
+});
+</script>
+
+{% endblock%}

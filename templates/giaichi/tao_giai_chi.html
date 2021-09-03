@@ -1,0 +1,296 @@
+{% extends 'base.html'%}
+{%load static%}
+ {% block cssnhanvien %}
+  <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'%}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css'%}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css'%}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css'%}">
+  {%endblock%}
+{% block tao-giai-chi %}
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="./">Home</a></li>
+              <li class="breadcrumb-item active">Tạo Giải Chi</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+<section class="content">
+      <div class="container-fluid">
+<table class="table">
+                    <thead>
+                    <tr>
+                        <th>
+
+                        </th>
+
+                    </tr>
+
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td>
+
+
+                            <div class="row">
+                                
+                                
+                                <!-- ./col -->
+                                <div class="col-lg-12 col-12">
+                                    <!-- small box -->
+                                    <div class="small-box bg-info ">
+                                        <div class="inner">
+                                            <h3><a style="color: cornsilk;" href="#" id="clickhangmucs">Tạo Giải Chi Không Có Đề Xuất</a></h3>
+
+                                            <p><select style="background-color: rgb(148, 35, 7);color: rgb(253, 252, 252);" class="form-control" name="hangmuc" id="hangmuc">
+                                                <option value=""><trong style="background-color: brown;color: rgb(134, 6, 6);"> --- Chọn Hạng Mục ---  </trong></option>
+                                                <option value="0"> Hàng Hóa  </option>
+                                                <option value="1"> Mua sắm thiết bị</option>
+                                                <option value="2"> Khác</option>
+                                              </select></p>
+                                        </div>
+                                        <div class="icon">
+                                            <i class="ion ion-edit"></i>
+                                        </div>
+                                        <a href="#" id="clickhangmuc" class="clickhangmuc  small-box-footer">Click Tạo <i
+                                                class="fas ion-plus-round fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+
+                                <script>
+                                  $("#clickhangmuc").click("this",function (e) {
+                                    var i = $("#hangmuc").val()
+                                    if (i == ""){
+                                      alert("Bạn Hãy Chọn Hạng Mục Để  Giải Chi!")
+                                      e.preventDefault();
+                                    }
+                                    else{
+                                      if (i==0){
+                                          document.location.href = "{% url 'tao-giai-chi-hang-hoa-moi' %}" ;
+                                        }
+                                      if(i==1){
+                                        document.location.href="{% url 'tao-giai-chi-thiet-bi-moi' %}";
+                                      }
+                                      if(i==2){
+                                        document.location.href="{% url 'tao-giai-chi-khac-moi'%}"
+                                      }
+                                    }
+                                    
+                                  });
+                                  $("#clickhangmucs").click("this",function (e) {
+                                    var i = $("#hangmuc").val()
+                                    if (i == ""){
+                                      alert("Bạn Hãy Chọn Hạng Mục Để  Giải Chi!")
+                                      e.preventDefault();
+                                    }
+                                    else{
+                                      if (i==0){
+                                          document.location.href = "{% url 'tao-giai-chi-hang-hoa-moi' %}" ;
+                                        }
+                                      if(i==1){
+                                        document.location.href="{% url 'tao-giai-chi-thiet-bi-moi' %}";
+                                      }
+                                      if(i==2){
+                                        document.location.href="{% url 'tao-giai-chi-khac-moi'%}"
+                                      }
+                                    }
+                                    
+                                  });
+                                </script>
+                                <!-- ./col -->
+                                
+                                <!-- ./col -->
+                                
+                                <!-- ./col -->
+                            </div>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <style>
+                  .page-item.active .page-link{
+                      z-index: 3;
+                      color: #fff;
+                      background-color: #17a2b8;
+                      border-color: #17a2b8;
+              
+              
+                  }
+                  .btn-secondary {
+                  color: #fff;
+                  background-color: #17a2b8;
+                  border-color: #17a2b8;
+                  box-shadow: none;
+                  }
+                  .btn-secondary:hover{
+                      color: #fff;
+                      background-color: #17a2b8;
+                      border-color: #17a2b8;
+                  }
+              </style>
+              
+              
+      </div>
+    <!-- /.content -->
+ <!-- Main content -->
+ <section class="content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-12">
+             
+
+              <div class="card">
+                  <div class="card-header">
+                      <h3 class="card-title badge badge-pill badge-info ">DANH SÁCH ĐỀ XUẤT ĐÃ DUYỆT CẦN GIẢI CHI 
+
+                      </h3>
+                     
+
+                        
+                            
+
+                    </form>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                      <table id="example1" class="table table-bordered table-striped">
+                          <thead>
+                          <tr>
+                              <th>Mã</th>
+                              <th>Ngày Gửi</th>
+                              <th>Nhân Viên</th>
+                              <th>Phòng Ban</th>
+                              <th>Hạng Mục</th>
+                              <th>Nội Dung</th>
+                              <th>Số Tiền Dự Trù</th>
+                              <th>Tiền Đã Tạm Ứng</th>
+                              <th>Ghi Chú</th>
+                             
+                              <th>action</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          {%for item in dexuat %}
+                          
+                          <tr>
+                            <td><a href="{%url 'tao-giai-chi-dx' item.id%}">{{item.id}}</a></td>
+                              <td>
+
+                                  {{item.created_at|date:"d-m-y"}}
+                                  
+                              </td>
+                              <td>
+                                  {{item.nhanvien}}
+                              </td>
+                              <td>{{item.phongban}}</td>
+                              <td>{% if item.hangmuc == "0" %}Hàng Hóa {%endif%}
+                                  {% if item.hangmuc == "1" %}Mua Thiết Bị {%endif%}
+                                  {% if item.hangmuc == "2" %}Khác {%endif%}
+                                </td>
+                              <td>{{item.tieude}}</td>
+                              <td> {% load humanize %}
+                                  {{item.kinhphi|floatformat:0|intcomma}}</td>
+                              <td>{{item.tientamung}}</td>
+                              <td>{{item.ghichu}}</td>
+                             
+                              <td>
+                                
+                                <a href="{%url 'tao-giai-chi-dx' item.id%}" class="btn btn-sm btn-info">Giải Chi</a>
+                                
+
+                              </td>
+                          </tr>
+                          
+                          {%endfor%}
+
+                          </tbody>
+                          <tfoot>
+                          <tr>
+                              <th>Mã</th>
+                              <th>Ngày Gửi</th>
+                              <th>Nhân Viên</th>
+                              <th>Phòng Ban</th>
+                              <th>Hạng Mục</th>
+                              <th>Nội Dung</th>
+                              <th>Số Tiền Dự Trù</th>
+                              <th>Tiền Đã Tạm Ứng </th>
+                              <th>Ghi Chú</th>
+                              
+                              <th>action</th>
+                          </tr>
+                          </tfoot>
+                      </table>
+                  </div>
+                  <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+          </div>
+          <!-- /.col -->
+      </div>
+      <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+
+
+  </div>
+{%endblock%}
+
+{% block scripttable %}
+
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/jszip/jszip.min.js'%}"></script>
+<script src="{% static 'plugins/pdfmake/pdfmake.min.js'%}"></script>
+<script src="{% static 'plugins/pdfmake/vfs_fonts.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js'%}"></script>
+<!-- AdminLTE App -->
+<!--<script src="{% static 'dist/js/adminlte.min.js'%}"></script>-->
+<!--XOA-->
+
+
+
+
+<!-- AdminLTE for demo.html purposes -->
+<script src="{% static 'dist/js/demo.js'%}"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": [ "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+
+
+{% endblock%}

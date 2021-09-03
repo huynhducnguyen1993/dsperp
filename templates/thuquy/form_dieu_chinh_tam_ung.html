@@ -1,0 +1,142 @@
+{% extends 'base.html'%}
+{%load static%}
+
+{%block form-nhap-tam-ung%}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+    <div class="row" style="padding: 100;">
+                                
+                                
+        <!-- ./col -->
+        
+        <div class="col-lg-6 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning ">
+                <div class="inner">
+                    <h3>123</h3>
+
+                    <p>Đề Xuất Chưa Tạm Ứng </p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-edit"></i>
+                </div>
+                <a href="{% url 'nhap-tam-ung'%}" class="small-box-footer">Xem <i
+                        class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-6 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>112</h3>
+
+                    <p>Đề Xuất Đã Tạm Ứng</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-arrow-swap"></i>
+                </div>
+                <a href="{% url 'da-tam-ung'%}" class="small-box-footer">Xem <i
+                        class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        
+        <!-- ./col -->
+        
+        <!-- ./col -->
+    </div>
+ <div style="padding:50px">
+
+
+        <h1 style="color: rgb(11, 80, 9); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">Form Nhập Tạm Ứng  - Mã :{{dexuat.id}} </h1><br>
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{dexuat.nhanvien}}"  disabled class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{nhanvien.email}}" readonly name="email" type="text"  >
+
+                    </h6>
+
+                    <h6>Chi Phí Dự Trù:
+                        <input class="form-control " value="{{dexuat.kinhphi}}"  name="kinhphi"  disabled type="text" >
+                    </h6>
+                </div>
+                <div class="col col-4">
+                    <h6>Phòng Ban :
+                         <input type="text" value="{{dexuat.phongban}}" disabled class="form-control">
+
+                    </select></h6>
+                    <h6>Thời Gian Dự Kiến Hoàn Thành:<input type="text" disabled="True" name="thoigiandukien" value="{{dexuat.thoigianhoanthanh}}"  class="form-control"></h6>
+                    <h6>File Đính Kèm (nếu Có): {%if dexuat.files %}<a target="_blank" rel="noopener noreferrer" href="http://127.0.0.1:8000/media/{{dexuat.files}}" class="btn form-control" style="background-color: rgb(250, 248, 248); color: rgb(5, 5, 5);" >click xem chi tiết</a>
+                    {%else%}
+                    <a href="#" class="btn form-control hover" style="background-color: rgb(250, 248, 248); color: mediumblue;" >Không có files</a>
+                    {%endif%}
+                    </h6>
+                </div>
+                <div class="col col-4">
+
+                    
+                    <h6>Ghi chú:
+
+                    	<textarea name="ghichu" id="inputGhichu" class="form-control"  rows="3" >{{dexuat.ghichu}}</textarea>
+
+                    </h6>
+                    <h6 style="color: rgb(81, 125, 248);">
+                       Nhập Số Tiền Tạm Ứng 
+                       <input type="number" style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tientamung" value="{{dexuat.tientamung}}" class="form-control">
+                    </h6>
+                </div>
+                
+
+                          
+            </div>  
+            <div class="row">
+                <div class="col col-12">
+                   
+                    <table class="table table-hover border">
+                        <tr style="background-color: rgb(19, 107, 11); color: rgb(247, 241, 241);">
+                            <th> {{dexuat.tieude}} </th>
+                        </tr>
+                        <tr>
+                            <td>{{dexuat.noidung|safe }}</td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>    
+                
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: absolute;
+            left: 60%;margin-left: -60px;">
+                <button type="submit" class="btn btn-bg btn-success">Xác Nhận Điều Chỉnh Tạm Ứng</button>
+            </div>
+                
+            </div>
+
+        </form>
+    </div>
+    </div>
+    </section>
+    
+</div>
+
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+{%endblock%}

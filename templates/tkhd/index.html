@@ -1,0 +1,254 @@
+{% extends 'base.html'%}
+{%load static%}
+ 
+{% block tkhd%}
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Trình Ký Hợp Đồng </h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="./">Home</a></li>
+              <li class="breadcrumb-item active">Trình Ký Hợp Đồng</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Form Trình Ký</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form method="post" enctype="multipart/form-data" >
+                 {% csrf_token %}
+                <div class="card-body">
+                <div class="row">
+                  <div class="col mb-6"> 
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Tên Hợp Đồng</label>
+                        <input type="text" class="form-control" id="id_tieude" name='tieude' placeholder="Nhập Tên Hợp Đồng ">
+                      </div>
+                       <div class="form-group">
+                        <label for="exampleInputEmail1">Khách hàng</label>
+                        <input type="text" class="form-control" id="id_khachhang" name='khachhang' placeholder="Nhập Tên Hợp Đồng ">
+                      </div>
+                       <div class="form-group">
+                        <label for="exampleInputEmail1">Nhân Viên Phụ Trách</label>
+                        <input type="text" class="form-control"  value="{{nhanvien}}" readonly id="id_nhanvien" name='nhanvien' placeholder="Nhập nhân viên phụ trách">
+                      </div>
+                       <div class="form-group">
+                        <label for="exampleInputEmail1">Phòng Ban</label>
+                        <input type="text" class="form-control" value="{{phongban}}" readonly id="id_phongban" name='tieude' placeholder="Nhập phòng ban">
+                      </div>
+                  
+                   </div>
+                  <div class="col mb-6"> 
+
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Ghi chú</label>
+                    <input type="text " class="form-control"  id="id_ghichu" name ="ghichu" placeholder="Nhập ghi chú">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputFile">File Hơp Đồng( *.pdf ) </label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <input type="file" class="custom-file-input" required  name="file" id="id_file">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                      </div>
+                      <div class="input-group-append">
+                        <span class="input-group-text">Upload</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Gửi Duyệt</label>
+                    <select class="form-control" name='guiduyet' required='true'  id="id_guiduyet">
+                    <option> --- Chọn gửi --- </option>
+                    <option value="0">Gửi Anh Thắng Duyệt</option>
+                    <option value="1">Chỉ Gửi Trưởng Phòng</option>
+                    </select>
+                  </div>
+                </div>
+                
+                </div>
+
+                  
+                   <div class="card-footer">
+                  <button type="submit"  id ="submit" class="btn btn-primary">Gửi Hợp Đồng </button>
+                   </div>
+                  
+                   </div>
+                  
+              </form>
+            </div>
+      </div>
+    </section>
+
+
+    <section class="content-header">
+      <div class="container-fluid">
+         <div class="row">
+          <div class="col-12">
+            <h4>Nav Tabs inside Card Header <small>card-tabs / card-outline-tabs</small></h4>
+          </div>
+        </div>
+        <!-- ./row -->
+        <div class="row">
+          <div class="col-12 col-sm-12">
+            <div class="card card-info  card-tabs">
+              <div class="card-header p-0 pt-1">
+                <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                  <li class="nav-item"style="background-color:#0923;">
+                    <a class="nav-link active"  id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true"><strong>Hợp Đồng trình ký chưa duyệt</strong></a>
+                  </li>
+                  <li class="nav-item"  style="background-color:#73221323;">
+                    <a class="nav-link"  id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Hợp Đồng trình ký TP duyệt</a>
+                  </li>
+                  <li class="nav-item" style="background-color:#123543;">
+                    <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#custom-tabs-one-messages" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">Hợp Đồng trình ký đã duyệt có thể trình sếp ký</a>
+                  </li>
+                  <li class="nav-item"  style="background-color:#121243;">
+                    <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#custom-tabs-one-settings" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Hợp Đồng Cần bổ xung gửi lại</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content" id="custom-tabs-one-tabContent">
+                  <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
+                    
+                      <table id="example1" class="table table-bordered">
+                          <thead>
+                          <tr>
+                              <th>Ngày Gửi</th>
+                              <th>Nhân Viên</th>
+                              <th>Phòng Ban</th>
+                              <th>Nội Dung</th>
+                              <th>Số Tiền Giải Chi</th>
+                              <th>Ghi Chú</th>
+                              <th>Trang Thái Duyệt </th>
+                             
+                          </tr>
+                          </thead>
+                          <tbody>
+ 
+                          </tbody>
+                          <tfoot>
+                          <tr>
+                              <th>Ngày Gửi</th>
+                              <th>Nhân Viên</th>
+                              <th>Phòng Ban</th>
+                              <th>Nội Dung</th>
+                              <th>Số Tiền Giải Chi</th>
+                              <th>Ghi Chú</th>
+                              <th>Trang Thái Duyệt </th>
+                              
+                          </tr>
+                          </tfoot>
+                      </table>
+                  
+                  
+                  
+                  
+                  
+                   </div>
+                  <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
+                     ZXXZX tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam.
+                  </div>
+                  <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel" aria-labelledby="custom-tabs-one-messages-tab">
+                     Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna.
+                  </div>
+                  <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel" aria-labelledby="custom-tabs-one-settings-tab">
+                     Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis.
+                  </div>
+                </div>
+              </div>
+              <!-- /.card -->
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </section>
+</div>
+
+<script>
+    $(document).ready(function(){
+      $("#submit").click(function() {
+      var test_value = $("#exampleInputFile").val();
+      var extension = test_value.split('.').pop().toLowerCase();
+      if ($.inArray(extension, ['pdf',]) == -1) {
+      alert("File Upload không phải file pdf !");
+      return false;
+      } else {
+      return true
+      }
+});
+});
+
+</script>
+{%endblock%}
+
+{% block script-tkhd %}
+<script>
+$(function () {
+  bsCustomFileInput.init();
+});
+</script>
+
+<script src="{% static 'plugins/bs-custom-file-input/bs-custom-file-input.min.js'%}"></script>
+
+
+
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/jszip/jszip.min.js'%}"></script>
+<script src="{% static 'plugins/pdfmake/pdfmake.min.js'%}"></script>
+<script src="{% static 'plugins/pdfmake/vfs_fonts.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js'%}"></script>
+<!-- AdminLTE App -->
+<!--<script src="{% static 'dist/js/adminlte.min.js'%}"></script>-->
+<!--XOA-->
+
+
+
+
+<!-- AdminLTE for demo.html purposes -->
+<script src="{% static 'dist/js/demo.js'%}"></script>
+<script>
+$(function () {
+  $("#example1").DataTable({
+    "responsive": true, "lengthChange": false, "autoWidth": false,
+    "order": [[ 0, "desc" ]],
+  
+  }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+  $('#example2').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": false,
+    "ordering": true,
+    "info": true,
+    "autoWidth": false,
+    "responsive": true,
+  });
+});
+</script>
+
+
+
+{% endblock %}
+

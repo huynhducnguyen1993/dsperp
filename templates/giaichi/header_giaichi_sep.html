@@ -1,0 +1,107 @@
+<section class="content">
+    <div class="container-fluid">
+<table class="table">
+                  <thead>
+                  
+
+                  </thead>
+                  <tbody>
+
+                  <tr>
+                      <td>
+
+
+                          <div class="row">
+                            <div class="col-lg-2 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-teal">
+                                    <div class="inner">
+                                        <h3>
+                                            
+                                            {{gc_nv.gcseptckt}}
+                                                
+                                        
+                                        </h3>
+  
+                                        <p>GC Chờ TCKT Duyệt</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-edit"></i>
+                                    </div>
+                                    <a href="{% url 'quan-ly-giai-chi-tckt'%}" class="small-box-footer"> Xem <i
+                                            class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                              
+                              <div class="col-lg-3 col-6">
+                                  <!-- small box -->
+                                  <div class="small-box bg-orange">
+                                      <div class="inner">
+                                          <h3>{{gc_nv.gccdsep}}</h3>
+
+                                          <p>GC Chờ Sếp Duyệt</p>
+                                      </div>
+                                      <div class="icon">
+                                          <i class="ion ion-edit"></i>
+                                      </div>
+                                      <a href="{%url 'quan-ly-giai-chi-sep'%}" class="small-box-footer">  <i
+                                              class="fas fa-arrow-circle-right"></i></a>
+                                  </div>
+                              </div>
+                              <!-- ./col -->
+                              <div class="col-lg-2 col-6">
+                                  <!-- small box -->
+                                  <div class="small-box bg-success">
+                                      <div class="inner">
+                                          <h3>{{gc_nv.gcddsep}}</h3>
+
+                                          <p>Giải Chi Đã Duyệt</p>
+                                      </div>
+                                      <div class="icon">
+                                          <i class="ion ion-loop"></i>
+                                      </div>
+                                      <a href="{% url 'quan-ly-giaichi-da-duyet'%}" class="small-box-footer">Xem <i
+                                              class="fas fa-arrow-circle-right"></i></a>
+                                  </div>
+                              </div>
+                              <!-- ./col -->
+                              <div class="col-lg-3 col-6">
+                                  <!-- small box -->
+                                  <div class="small-box bg-info">
+                                      <div class="inner">
+                                          <h3>{{gc_nv.gchhsep}}</h3>
+
+                                          <p><strong> Giải Chi Hoàn Tất</strong></p>
+                                      </div>
+                                      <div class="icon">
+                                          <i class="ion ion-social-euro"></i>
+                                      </div>
+                                      <a href="{% url 'quan-ly-giaichi-da-hoan-thanh'%}" class="small-box-footer">Xem<i
+                                              class="fas fa-arrow-circle-right"></i></a>
+                                  </div>
+                              </div>
+                              <!-- ./col -->
+                              <div class="col-lg-2 col-6">
+                                  <!-- small box -->
+                                  <div class="small-box bg-danger">
+                                      <div class="inner">
+                                          <h3>{{gc_nv.gchuysep}}</h3>
+
+                                          <p>Đề Xuất Bị Từ Chối</p>
+                                      </div>
+                                      <div class="icon">
+                                          <i class="ion ion-checkmark"></i>
+                                      </div>
+                                      <a href="{% url 'quan-ly-giaichi-da-huy'%}" class="small-box-footer">Xem<i
+                                              class="fas fa-arrow-circle-right"></i></a>
+                                  </div>
+                              </div>
+                              <!-- ./col -->
+                          </div>
+
+                      </td>
+                  </tr>
+                  </tbody>
+              </table>
+    </div>
+    </section>

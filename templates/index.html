@@ -1,0 +1,119 @@
+{%extends 'base.html' %}
+  <!-- Content Wrapper. Contains page content -->
+{% block content1%}
+
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0"></h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{% url 'index' %}">Trang Chủ</a></li>
+              <li class="breadcrumb-item active">index</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        {% if cv.sep == True %}
+        <div class="card">
+          <div class="card-header" style="background-color: rgb(122, 120, 121);">
+            <h1 class="card-title" style="background-color:  rgb(120, 122, 120); color: floralwhite;"> <trong>Quản Lý Đề Xuất</trong></h1>
+            <div class="card-tools">
+             
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            </div>
+          
+          </div>
+         
+          <div class="card-body">  
+            {% include 'dexuat/header_dexuat_sep.html' %}
+          </div>
+        
+        {% endif %}
+
+     
+
+        {% if cv.tp == True %}
+        <div class="card">
+          <div class="card-header" style="background-color: rgb(120, 122, 120);">
+            <h1 class="card-title" style="background-color:  rgb(120, 122, 120); color: floralwhite;"> <trong>Quản Lý Đề Xuất</trong></h1>
+            <div class="card-tools">
+             
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            </div>
+          
+          </div>
+         
+          <div class="card-body">  
+            {% include 'dexuat/header_dexuat_tp.html' %}
+
+          <!-- ./col -->
+      </div>
+      </div>
+        {%endif%}
+      </div>
+    </section>
+   <!-- GIẢI CHI  -->
+    <section class="content">
+      <div class="container-fluid">
+        
+        {% if cv.sep == True %}
+        <div class="card">
+          <div class="card-header" style="background-color: rgb(69, 163, 69);">
+            <h1 class="card-title" style="background-color:  rgb(86, 173, 86); color: floralwhite;"> <trong>Quản Lý Giải Chi</trong></h1>
+            <div class="card-tools">
+             
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            </div>
+          
+          </div>
+         
+          <div class="card-body">  
+        
+            
+            {% include 'giaichi/header_giaichi_sep.html'%}
+           
+        </div>
+        {% endif %}
+
+     
+
+        {% if cv.tp == True %}
+        <h2 style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"></h2> 
+        <div class="card">
+          <div class="card-header" style="background-color: rgb(142, 17, 245);">
+            <h1 class="card-title" style="background-color:  rgb(142, 17, 245); color: floralwhite;"> <trong>Quản Lý Giải Chi</trong></h1>
+            <div class="card-tools">
+             
+              <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+            </div>
+          
+          </div>
+         
+          <div class="card-body">  
+            {% include 'giaichi/header_giaichi_tp.html'%}
+
+          <!-- ./col -->
+      </div>
+        {%endif%}
+      </div>
+      </div>
+    </section>  
+
+
+  </div>
+
+
+{% endblock%}
+  <!-- /.content-wrapper -->

@@ -1,0 +1,145 @@
+{% extends 'base.html'%}
+{%load static%}
+
+{%block form-giai-chi-khac-moi%}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+    
+ <div style="padding:50px">
+
+
+        <h1 style="color: rgb(12, 106, 134); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">Tạo Giải Chi Mới Không Có Đề Xuất </h1><br>
+        <form method="post" id="indexForm" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col col-4">
+
+                    <h6>
+                        Tên Nhân Viên
+                        <input type="text" value="{{nhanvien.tennv}}"  disabled class="form-control">
+                    </h6>
+
+                    <h6>
+                        Email
+                        <input class="form-control " value="{{nhanvien.email}}" readonly name="email" type="text"  >
+
+                    </h6>
+
+                    <h6>Giải Chi Thuộc Phòng Ban:
+                        
+                        <select name="phongbanguiduyet" id="phongbanguiduyet" required class="form-control">
+                            <option value=""> -- Chọn Phòng Ban ---</option>
+                            {%for item in phongban%}
+                            <option value="{{item.id}}"> {{item.tenpb}}</option>
+                            {%endfor%}
+                        </select>
+                    </h6>
+                </div>
+                <div class="col col-4">
+                    <h6>
+                        File Hóa Đơn chứng từ (nếu Có): 
+                        <input type="file" id="filegiaichi" name="filegiaichi" class="form-control" required>
+                    
+                    </h6>
+                    <h6 style="color: rgb(81, 125, 248);">
+                        Số Tiền Đã Tạm Ứng 
+                        <input type="number" value="{{giaichi.tientamung}}" disabled style="border: gold; color: rgb(107, 6, 45); border: ghostwhite;" name="tientamung" class="form-control">
+                     </h6>
+                     <h6> Số  Tiền Giải Chi :
+                        <div class="input-group">
+        
+        
+                          <input type="number" name="tiengiaichi" id="tiengiaichi" class="form-control" min=10000 max=100000000000
+                            style="font-size: 25px;color: blueviolet;">
+                          <div class="input-group-append">
+                            <span class="input-group-text" id="kp" style="color: blue;"> VND</span>
+                          </div>
+                        </div>
+                      </h6>
+                </div>
+                <div class="col col-4">
+
+                    
+                    <h6>Ghi chú:
+
+                    	<textarea name="ghichu" id="inputGhichu" class="form-control"  rows="3" placeholder="Nhập Ghi Chú"></textarea>
+
+                    </h6>
+                    <h6>
+                        Gửi Duyệt :
+                        <select class="form-control" id="guiduyet" name="guiduyet" style="background-color: deepskyblue;">
+                            <option value  = 0> Gửi Sếp Duyệt </option>
+                             <option value = 1 > Chỉ Gửi Trưởng Phòng Duyệt</option>
+                         </select>
+                         <input type="text"  value="0" name="hangmuc" id="hangmuc" hidden>
+                    </h6>
+                    
+                </div>
+                <table class="table table-hover border">
+                    <tr style="background-color: rgb(12, 106, 134);">
+                        <th><input type="text"  name="tieude" id="tieude" class="form-control" required placeholder="Nhập Tiêu Đề Giải Chi"> </th>
+                    </tr>
+                   <tr>
+                     <td>
+                        {{form.giaichihanghoa}}
+                     </td>
+                   </tr>
+                </table>
+                   
+                
+
+                          
+            </div>  
+                
+            <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; position: absolute;
+            left: 60%;margin-left: -60px;">
+                <button type="submit" class="btn btn-bg" style="background-color: rgb(12, 106, 134); color: rgb(252, 252, 252);">Gửi Giải Chi</button>
+            </div>
+                
+            </div>
+
+        </form>
+    </div>
+    </div>
+    </section>
+    
+</div>
+
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+
+<script>
+    function formatNumber(nStr, decSeperate, groupSeperate) {
+      nStr += '';
+      x = nStr.split(decSeperate);
+      x1 = x[0];
+      x2 = x.length > 1 ? '.' + x[1] : '';
+      var rgx = /(\d+)(\d{3})/;
+      while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
+      }
+      return x1 + x2;
+    }
+  
+    $(function () {
+      $('#tiengiaichi').keyup(function () {
+        updateTotal();
+      });
+      var updateTotal = function () {
+  
+        var kinhphi = $("#tiengiaichi").val();
+        $("#kp").text(formatNumber(kinhphi, '.', ',') + ' VND');
+      }
+  
+    });
+  </script>
+  
+{%endblock%}

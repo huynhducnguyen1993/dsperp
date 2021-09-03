@@ -1,0 +1,93 @@
+{% for task in tasks %}
+{% if task.complete == True %}
+
+
+
+<li>
+    <!-- drag handle -->
+    <span class="handle">
+        <i class="fas fa-ellipsis-v"></i>
+        <i class="fas fa-ellipsis-v"></i>
+    </span>
+    <!-- checkbox -->
+    <div class="icheck-primary d-inline ml-2">
+        <input type="checkbox" checked value="" name="todo{{ forloop.counter }}" id="todoCheck{{ forloop.counter }}">
+        <label for="todoCheck{{ forloop.counter }}"></label>
+        <script>
+            $("#todoCheck{{ forloop.counter }}").change('checked', function () {
+                alert("Bạn chưa hoàn thành")
+
+                $.ajax({
+                    url: "{% url 'uncomplete_task' %}",
+                    data: {
+                        'id': "{{ task.id }}",
+                    },
+                });
+            });
+        </script>
+    </div>
+    <!-- todo text -->
+    <span class="text">{{task}}</span>
+    <!-- Emphasis label -->
+    <small class="badge badge-danger"><i class="far fa-clock"></i> {{task.created}}</small>
+    <!-- General tools such as edit or delete-->
+
+
+</li>
+
+
+
+
+{% else %}
+<li>
+    <!-- drag handle -->
+    <span class="handle">
+        <i class="fas fa-ellipsis-v"></i>
+        <i class="fas fa-ellipsis-v"></i>
+    </span>
+    <!-- checkbox -->
+    <div class="icheck-primary d-inline ml-2">
+        <input type="checkbox" value="{{task.id}}" name="todo{{ forloop.counter }}" id="todoCheck{{ forloop.counter }}">
+        <label for="todoCheck{{ forloop.counter }}"></label>
+        <script>
+            $("#todoCheck{{ forloop.counter }}").change('checked', function () {
+                alert("Bạn đã hòan thành")
+
+                $.ajax({
+                    url: "{% url 'complete_task' %}",
+                    data: {
+                        'id': "{{ task.id }}",
+                    },
+                });
+
+            });
+
+        </script>
+    </div>
+    <!-- todo text -->
+    <span class="text">{{task}}</span>
+    <!-- Emphasis label -->
+    {%if task.mucdo == '0'%}
+    <small class="badge badge-danger"><i class="far fa-clock"></i> -
+        {{task.ngayhoanthanh}}</small>
+
+    {%endif%}
+    {%if task.mucdo == '1'%}
+    <small class="badge badge-warning"><i class="far fa-clock"></i> -
+        {{task.ngayhoanthanh}}</small>
+
+    {%endif%}
+    {%if task.mucdo == '2'%}
+    <small class="badge badge-info"><i class="far fa-clock"></i> - {{task.ngayhoanthanh}}
+    </small>
+
+    {%endif%}
+
+
+    <div class="tools">
+        <a href="{% url 'update_task' task.id %}"><i class="fas fa-edit"></i></a>
+        <a href="{% url 'delete' task.id %}"><i class="fas fa-remove "></i></a>
+    </div>
+</li>
+{%endif%}
+{%endfor%}

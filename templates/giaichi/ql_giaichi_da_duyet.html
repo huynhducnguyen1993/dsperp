@@ -1,0 +1,380 @@
+{% extends 'base.html'%}
+{% load humanize %}
+{%load static%}
+ {% block cssnhanvien %}
+  <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'%}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css'%}">
+  <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css'%}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css'%}">
+  {%endblock%}
+{% block giaichi-da-duyet%}
+ {%if cv.sep == True %}
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Quản Lý Phê Duyệt Giải Chi</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{%url 'index'%}">Home</a></li>
+              <li class="breadcrumb-item active">Giải Chi</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    {% include 'giaichi/header_giaichi_sep.html'%}
+    <section class="content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-12">
+             
+
+              <div class="card">
+                  <div class="card-header" style="background-color:#28a745;">
+                      <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: aliceblue;">DANH SÁCH GIẢI CHI ĐÃ DUYỆT  
+
+                      </h3>
+                      
+                        
+                      <form>
+                        <div class="col col-3">
+                        
+                          <select name="selectpb" id="selectpb" class="form-control">
+                         <option value="100">__xem tất cả__</option>
+  
+                          {%for item in phongban%}
+                          <option value="{{item.id}}"> {{item.tenpb}}</option>
+                          {%endfor%}
+                          </select>
+                          
+                          </div>
+  
+                          
+                              
+  
+                      </form>       
+
+                    
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                      <table id="example1" class="table table-bordered table-striped">
+                          <thead>
+                          <tr>
+                              <th>Mã Giải Chi</th>
+                              <th>Ngày Gửi</th>
+                              <th>Nhân Viên</th>
+                              <th>Phòng Ban</th>
+                               <th>Hạng Mục</th>
+                              <th>Nội Dung</th>
+                              <th>Số Tiền Giải Chi</th>
+                              <th>Ghi Chú</th>
+                              <th>Mã Đề Xuất(nếu có) </th>
+                             
+                          </tr>
+                          </thead>
+                          <tbody>
+
+                          {%for item in giaichi %}
+                          <tr><td><a href="{% url 'view-giai-chi' item.id %}">{{item.id}}</a></td>
+                              <td>
+
+                                  {{item.created_at|date:"d-m-y"}}
+                                  
+                              </td>
+                              <td>
+                                  {{item.nhanvien}}
+                              </td>
+                              <td>{{item.phongban}}</td>
+                              <td>
+                                  {%if item.hangmuc == '0'%}
+                                  Hàng Hóa 
+
+                                  {%endif%}
+                                  {%if item.hangmuc == '1'%}
+                                  Mua sắm thiết bị 
+                                  {%endif%}
+                                  {%if item.hangmuc == '2'%}
+                                   Khác 
+                                  {%endif%}
+
+                              </td>
+                              <td>{{item.tieude}}</td>
+                              <td> 
+                                  {{ item.tiengiaichi|apnumber }}</td>
+                              <td>{{item.ghichu}}</td>
+                              <td>
+                                  {%if item.dexuat%}
+                                  <a href="{%url 'view-dexuat' item.dexuat.id %}">{{item.dexuat.id}}</a>
+                                  {%else%}
+                                  <a> Giải Chi Ko Đề Xuất</a>
+                                  {%endif%}
+                              </td>
+                              
+                          </tr>
+                          {%endfor%}
+
+                          </tbody>
+                          <tfoot>
+                          <tr><th>Mã Giải Chi</th>
+                              <th>Ngày Gửi</th>
+                              <th>Nhân Viên</th>
+                              <th>Phòng Ban</th>
+                              <th>Hạng Mục</th>
+                              <th>Nội Dung</th>
+
+                              <th>Số Tiền Giải Chi</th>
+                              <th>Ghi Chú</th>
+                              <th>Mã Đề Xuất(nếu có) </th>
+                              
+                          </tr>
+                          </tfoot>
+                      </table>
+                  </div>
+                  <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+          </div>
+          <!-- /.col -->
+      </div>
+      <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<style>
+    .page-item.active .page-link{
+        z-index: 3;
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+
+
+    }
+    .btn-secondary {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    box-shadow: none;
+    }
+    .btn-secondary:hover{
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+</style>
+
+  </div>
+{% endif %}
+{% if cv.tp == True %}
+ <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Quản Lý Phê Duyệt Giải Chi</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="{%url 'index'%}">Home</a></li>
+              <li class="breadcrumb-item active">Giải Chi</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>{% include 'giaichi/header_giaichi_tp.html'%}
+ <section class="content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-12">
+             
+
+              <div class="card">
+                  <div class="card-header" style="background-color:#28a745;">
+                      <h3 style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: aliceblue;">DANH SÁCH GIẢI CHI ĐÃ DUYỆT  
+
+                      </h3>
+                      
+                        
+                        
+
+                    
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                      <table id="example1" class="table table-bordered table-striped">
+                          <thead>
+                          <tr>
+                              <th>Mã Giải Chi</th>
+                              <th>Ngày Gửi</th>
+                              <th>Nhân Viên</th>
+                              <th>Phòng Ban</th>
+                              <th>Hạng Mục</th>
+                              <th>Nội Dung</th>
+                              <th>Số Tiền Giải Chi</th>
+                              <th>Ghi Chú</th>
+                              <th>Mã Đề Xuất(nếu có) </th>
+                             
+                          </tr>
+                          </thead>
+                          <tbody>
+                          {%for item in giaichi_tp %}
+
+                          <tr><td><a href="{% url 'view-giai-chi-tp' item.id %}">{{item.id}}</a></td>
+                              <td>
+
+                                  {{item.created_at|date:"d-m-y"}}
+                                  
+                              </td>
+                              <td>
+                                  {{item.nhanvien}}
+                              </td>
+                              <td>{{item.phongban}}</td>
+                              <td>
+                                  {%if item.hangmuc == '0'%}
+                                  Hàng Hóa 
+
+                                  {%endif%}
+                                  {%if item.hangmuc == '1'%}
+                                  Mua sắm thiết bị 
+                                  {%endif%}
+                                  {%if item.hangmuc == '2'%}
+                                   Khác 
+                                  {%endif%}
+
+                              </td>
+                              <td>{{item.tieude}}</td>
+                              <td> 
+                                  {{ item.tiengiaichi|apnumber }}</td>
+                              <td>{{item.ghichu}}</td>
+                              <td>
+                                  {%if item.dexuat%}
+                                  <a href="{% url 'view-dexuat' item.dexuat.id %}">{{item.dexuat.id}}</a>
+                                  {%else%}
+                                  <a> Giải Chi Ko Đề Xuất</a>
+                                  {%endif%}
+                              </td>
+                              
+                          </tr>
+                          {%endfor%}
+
+                          </tbody>
+                          <tfoot>
+                          <tr><th>Mã Giải Chi</th>
+                              <th>Ngày Gửi</th>
+                              <th>Nhân Viên</th>
+                              <th>Phòng Ban</th>
+                              <th>Hạng Mục</th>
+                              <th>Nội Dung</th>
+                              <th>Số Tiền Giải Chi</th>
+                              <th>Ghi Chú</th>
+                              <th>Mã Đề Xuất(nếu có) </th>
+                              
+                          </tr>
+                          </tfoot>
+                      </table>
+                  </div>
+                  <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+          </div>
+          <!-- /.col -->
+      </div>
+      <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+
+<style>
+    .page-item.active .page-link{
+        z-index: 3;
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+
+
+    }
+    .btn-secondary {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+    box-shadow: none;
+    }
+    .btn-secondary:hover{
+        color: #fff;
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+</style>
+
+  </div>
+{% endif %}
+<script>
+     function formatNumber(nStr, decSeperate, groupSeperate) {
+                            nStr += '';
+                            x = nStr.split(decSeperate);
+                            x1 = x[0];
+                            x2 = x.length > 1 ? '.' + x[1] : '';
+                            var rgx = /(\d+)(\d{3})/;
+                            while (rgx.test(x1)) {
+                                x1 = x1.replace(rgx, '$1' + groupSeperate + '$2');
+                            }
+                            return x1 + x2;
+                        }
+
+</script>  
+{%endblock%}
+
+{% block scripttable %}
+
+<script src="{% static 'plugins/datatables/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js'%}"></script>
+<script src="{% static 'plugins/jszip/jszip.min.js'%}"></script>
+<script src="{% static 'plugins/pdfmake/pdfmake.min.js'%}"></script>
+<script src="{% static 'plugins/pdfmake/vfs_fonts.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js'%}"></script>
+<script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js'%}"></script>
+<!-- AdminLTE App -->
+<!--<script src="{% static 'dist/js/adminlte.min.js'%}"></script>-->
+<!--XOA-->
+
+
+
+
+<!-- AdminLTE for demo.html purposes -->
+<script src="{% static 'dist/js/demo.js'%}"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "order": [[ 0, "desc" ]],
+      "buttons": [ "excel", "pdf", "print", "colvis"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
+
+
+
+{% endblock%}

@@ -1,0 +1,47 @@
+<section class="content">
+    <div class="container-fluid">
+
+
+                          <div class="row">
+                              
+                              
+                              <!-- ./col -->
+                              <div class="col-lg-6 col-6">
+                                  <!-- small box -->
+                                  <div class="small-box bg-warning ">
+                                      <div class="inner">
+                                          <h3>{% if tamung %} {{tamung.dem_tamung_cn}}{%else%} 0 {%endif%} </h3>
+
+                                          <p>Đề Xuất Chưa Tạm Ứng</p>
+                                      </div>
+                                      <div class="icon">
+                                          <i class="ion ion-edit"></i>
+                                      </div>
+                                      <a href="{% url 'nhap-tam-ung'%}" class="small-box-footer">Xem <i
+                                              class="fas fa-arrow-circle-right"></i></a>
+                                  </div>
+                              </div>
+                              <!-- ./col -->
+                              <div class="col-lg-6 col-6">
+                                  <!-- small box -->
+                                  <div class="small-box bg-success">
+                                      <div class="inner">
+                                          <h3>{% if tamung %} {{tamung.dem_tamung_dn}}{%else%} 0 {%endif%}</h3>
+
+                                          <p>Đề Xuất Đã Tạm Ứng</p>
+                                      </div>
+                                      <div class="icon">
+                                          <i class="ion ion-arrow-swap"></i>
+                                      </div>
+                                      <a href="{% url 'da-tam-ung'%}" class="small-box-footer">Xem <i
+                                              class="fas fa-arrow-circle-right"></i></a>
+                                  </div>
+                              </div>
+                              <!-- ./col -->
+                              
+                              <!-- ./col -->
+                          </div>
+
+                     
+    </div>
+</section>
