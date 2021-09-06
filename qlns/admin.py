@@ -75,11 +75,11 @@ admin.site.register(Phongban, PhongbanAdmin)
 
 
 
-class NhanvienChucvuAdmin(admin.ModelAdmin):
-    list_display = ('nhanvien', 'phongban','tencongviec')
+# class NhanvienChucvuAdmin(admin.ModelAdmin):
+#     list_display = ('nhanvien', 'phongban','tencongviec')
 
 
-admin.site.register(Chucvu_Congviec, NhanvienChucvuAdmin)
+# admin.site.register(Chucvu_Congviec, NhanvienChucvuAdmin)
 
 class BaohiemxahoiAdmin(admin.ModelAdmin):
     list_display = ('nhanvien', 'masobhxh','ngaythamgia','noidangky')
@@ -94,11 +94,11 @@ class BaohiemytAdmin(admin.ModelAdmin):
 
 admin.site.register(Baohiemyte, BaohiemytAdmin)
 
-class HosoAdmin(admin.ModelAdmin):
-    list_display = ('nhanvien', 'masobh','ngaythuviec','ngaychinhthuc')
+# class HosoAdmin(admin.ModelAdmin):
+#     list_display = ('nhanvien', 'masobh','ngaythuviec','ngaychinhthuc')
 
 
-admin.site.register(Hosonhanvien, HosoAdmin)
+# admin.site.register(Hosonhanvien, HosoAdmin)
 
 class HosokinhdoanhAdmin(admin.ModelAdmin):
     list_display = ('masohopdong', 'tenhopdong','ngaytrinhky','filehopdong','nhanvien','created_at','updated_at')

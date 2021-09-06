@@ -63,7 +63,7 @@
                                 </li>
                             </ul>
 
-                            <a href="#" class="btn btn-primary btn-block"><b>Cập nhật avatar</b></a>
+                            <a href="#" class="btn btn-info btn-block"><b>Cập nhật chân dung</b></a>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -86,14 +86,14 @@
 
                             <strong><i class="fas fa-map-marker-alt mr-1"></i> Địa Chỉ </strong>
 
-                            <p class="text-muted">730/84 Lạc Long Quân ,P 9 Q TB ,HCM 7000000</p>
+                            <p class="text-muted">{{nv.diachi}}</p>
 
                             <hr>
 
                             <strong><i class="fas fa-map-marker-alt mr-1"></i> Quê Quán </strong>
 
                             <p class="text-muted">
-                                Bình Sơn - Quảng Ngãi
+                                {{nv.quequan}}
                             </p>
 
                             <hr>
@@ -101,6 +101,9 @@
                             <strong><i class="far ion-iphone mr-1"></i> CMND/CCID </strong>
 
                             <p class="text-muted"> <span class="tag tag-info"> 212327520 </span></p>
+
+                            <a href="#" class="btn btn-info btn-block"><b>Cập nhật hồ sơ </b></a>
+                            
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -112,20 +115,20 @@
                         <div class="card-header p-2">
                             <ul class="nav nav-pills">
                                 <li class="nav-item"><a class="nav-link " href="#activity" data-toggle="tab">
-                                        Lương + Thưởng </a></li>
+                                       Công - Lương  - Thưởng </a></li>
 
                                 <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Bảo Hiểm
                                     </a></li>
                                 <li class="nav-item"><a class="nav-link" href="#quytrinhcongty" data-toggle="tab">Quy
-                                        Trình CT
+                                        Trình 
                                     </a></li>
                                 <li class="nav-item"><a class="nav-link" href="#quidinhdinhcong" data-toggle="tab">Quy
-                                        Định / chế độ
+                                        Định - chế độ
                                     </a></li>
                                 <li class="nav-item"><a class="nav-link active" href="#thongbao" data-toggle="tab">Thông
-                                        Báo
+                                        Báo 
                                         CT</a></li>
-                                <li class="nav-item"><a class="nav-link " href="#thongbaopb" data-toggle="tab">TB PHÒNG
+                                <li class="nav-item"><a class="nav-link " href="#thongbaopb" data-toggle="tab">Thông Báo PB
                                     </a></li>
                             </ul>
                         </div>
@@ -138,6 +141,8 @@
                                     <section>
                                         <div class="card-header p-2">
                                             <ul class="nav nav-pills">
+                                                <li class="nav-item  "><a class="nav-link  " href="#cong"
+                                                    data-toggle="tab">BẢN CÔNG </a></li>
                                                 <li class="nav-item active "><a class="nav-link  active" href="#luong"
                                                         data-toggle="tab">PHIẾU LƯƠNG </a></li>
                                                 <li class="nav-item  "><a class="nav-link  " href="#luongtn"
@@ -151,344 +156,23 @@
                                         </div>
 
                                         <div class="tab-content">
+                                            <div class=" tab-pane " id="cong">
+                                                {%include 'nhanvien/include/bangcong.html'%}
+                                            </div>
                                             <div class=" tab-pane active actives" id="luong">
-                                                <br>
-                                                <section>
-                                                    <form action="enhanced-results.html">
-                                                        <div class="row">
-                                                            <div class="col-md-10 offset-md-1">
-                                                                <div class="row">
-                                                                    <div class="col-5">
-                                                                        <div class="form-group">
-
-                                                                            <select class="form-control select2bs4"
-                                                                                data-placeholder="Chọn Tháng "
-                                                                                style="width: 100%;">
-                                                                                <option>
-                                                                                    Chọn tháng để xem </option>
-                                                                                {% for i in 123456789111|make_list %}
-                                                                                <option value={{ forloop.counter }}>
-                                                                                    Tháng {{forloop.counter }}</option>
-                                                                                {% endfor %}
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4">
-                                                                        <div class="form-group">
-
-                                                                            <select class="form-control select2bs4"
-                                                                                style="width: 100%;">
-                                                                                <option selected>2021</option>
-                                                                                <option>2022</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-1">
-
-
-                                                                        <button type="submit" class="btn  btn-default">
-                                                                            <i class="fa fa-search"></i>
-                                                                        </button>
-
-
-                                                                    </div>
-                                                                    <div class="col-2">
-
-
-                                                                        <a id="refresh "
-                                                                            class="btn btn-default form-control">
-                                                                            Refresh </a>
-
-                                                                        </button>
-
-
-                                                                    </div>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </form><br>
-                                                    <div class="bangluong">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover table-bordered">
-
-                                                                <tbody>
-                                                                    <tr style="text-align: center;">
-                                                                        <td style=" background-color: rgb(67, 99, 241); font-size: larger; color: honeydew;"
-                                                                            rowspan="2">Bảng Lương tháng </td>
-                                                                        <td
-                                                                            style="background-color: rgb(66, 46, 94); color: ghostwhite;">
-                                                                            IT001</td>
-
-
-                                                                    </tr>
-                                                                    <tr style="text-align: center; ">
-
-                                                                        <td style="background-color: gold;">
-                                                                            {{nv.tennv}}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Ngày làm việc thực tế(từ - )</th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Ngày công chuẩn trong tháng </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Ngày công (+)(-) trong tháng </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Lương cơ bản </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Phụ Cấp </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Tiền điện thoại </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Tiền xăng </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Lương trách nhiệm </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Tiền điện thoại hổ trợ </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Ngày nghỉ phếp không đơn </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Hổ trợ BHXH trong lương </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Lương ngày chủ nhật x2 </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> TỔNG THU NHẬP </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Trừ tiền ứng lương giữa tháng (ngày 20)
-                                                                        </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Trừ tiền điện thoại công ty trả hộ </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Trừ nợ trong tháng </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Trừ tiền NLĐ nạp BHXH </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> Trừ tiền phạt </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th> TIỀN LƯƠNG THỰC NHẬN CUỐI THÁNG </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Nợ tháng trước còn lại </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Mượn nợ tháng này </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Trừ nợ trong lương </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Thu nợ bằng tiền mặt </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th>Thu nợ còn lại chuyển lại tháng sau </th>
-                                                                        <td></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </section>
+                                                {%include 'nhanvien/include/phieuluong.html'%}
                                             </div>
                                             <!-- lương thâm niên  -->
                                             <div class=" tab-pane" id="luongtn">
-                                                <br>
-                                                <form action="enhanced-results.html">
-                                                    <div class="row">
-                                                        <div class="col-md-10 offset-md-1">
-                                                            <div class="row">
-                                                                <div class="col-5">
-                                                                    <div class="form-group">
-
-                                                                        <select class="form-control select2bs4"
-                                                                            data-placeholder="Chọn Tháng "
-                                                                            style="width: 100%;">
-                                                                            <option>
-                                                                                Chọn tháng để xem </option>
-                                                                            {% for i in 123456789111|make_list %}
-                                                                            <option value={{ forloop.counter }}>
-                                                                                Tháng {{forloop.counter }}</option>
-                                                                            {% endfor %}
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-4">
-                                                                    <div class="form-group">
-
-                                                                        <select class="form-control select2bs4"
-                                                                            style="width: 100%;">
-                                                                            <option selected>2021</option>
-                                                                            <option>2022</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-1">
-
-
-                                                                    <button type="submit" class="btn  btn-default">
-                                                                        <i class="fa fa-search"></i>
-                                                                    </button>
-
-
-                                                                </div>
-                                                                <div class="col-2">
-
-
-                                                                    <a id="refresh "
-                                                                        class="btn btn-default form-control">
-                                                                        Refresh </a>
-
-                                                                    </button>
-
-
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </form><br>
+                                                {% include 'nhanvien/include/luongthamnien.html' %}
                                             </div>
                                             <!-- luong tham niên  -->
                                             <div class=" tab-pane" id="lthuongp">
-                                                <br>
-                                                <form action="enhanced-results.html">
-                                                    <div class="row">
-                                                        <div class="col-md-10 offset-md-1">
-                                                            <div class="row">
-                                                                <div class="col-5">
-                                                                    <div class="form-group">
-
-                                                                        <select class="form-control select2bs4"
-                                                                            data-placeholder="Chọn Tháng "
-                                                                            style="width: 100%;">
-                                                                            <option>
-                                                                                Chọn tháng để xem </option>
-                                                                            {% for i in 123456789111|make_list %}
-                                                                            <option value={{ forloop.counter }}>
-                                                                                Tháng {{forloop.counter }}</option>
-                                                                            {% endfor %}
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-4">
-                                                                    <div class="form-group">
-
-                                                                        <select class="form-control select2bs4"
-                                                                            style="width: 100%;">
-                                                                            <option selected>2021</option>
-                                                                            <option>2022</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-1">
-
-
-                                                                    <button type="submit" class="btn  btn-default">
-                                                                        <i class="fa fa-search"></i>
-                                                                    </button>
-
-
-                                                                </div>
-                                                                <div class="col-2">
-
-
-                                                                    <a id="refresh "
-                                                                        class="btn btn-default form-control">
-                                                                        Refresh </a>
-
-                                                                    </button>
-
-
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </form><br>
+                                                {%include 'nhanvien/include/thuongphongban.html'%}
                                             </div>
                                             <!--  -->
                                             <div class=" tab-pane" id="lthuongn">
-                                                <br>
-                                                <form action="enhanced-results.html">
-                                                    <div class="row">
-                                                        <div class="col-md-10 offset-md-1">
-                                                            <div class="row">
-
-                                                                <div class="col-9">
-                                                                    <div class="form-group">
-
-                                                                        <select class="form-control select2bs4"
-                                                                            style="width: 100%;">
-                                                                            <option selected>2021</option>
-                                                                            <option>2022</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-1">
-
-
-                                                                    <button type="submit" class="btn  btn-default">
-                                                                        <i class="fa fa-search"></i>
-                                                                    </button>
-
-
-                                                                </div>
-                                                                <div class="col-2">
-
-
-                                                                    <a id="refresh "
-                                                                        class="btn btn-default form-control">
-                                                                        Refresh </a>
-
-                                                                    </button>
-
-
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </form><br>
+                                                {%include 'nhanvien/include/thuongnam.html'%}
                                             </div>
                                             <!--  -->
                                         </div>
@@ -513,160 +197,8 @@
                                         </ul>
                                     </div>
                                     <div class="tab-content">
-
-                                        <div class=" tab-pane active" id="bhxh">
-                                            <!-- Bảo Hiểm Xã hội  -->
-                                            <div class="row">
-                                                <div class="col mb-3">
-                                                    <div class="info-box">
-                                                        <!-- Apply any bg-* class to to the icon to color it -->
-                                                        <span class="info-box-icon bg-red"><i
-                                                                class="fa ion-refresh fa-star-o"></i></span>
-                                                        <div class="info-box-content">
-                                                            <span class="info-box-text">Ngày Tham Gia </span>
-                                                            <span class="info-box-number">20-10-2010</span>
-                                                        </div>
-                                                        <!-- /.info-box-content -->
-                                                    </div>
-                                                </div>
-                                                <div class="col mb-3">
-                                                    <div class="info-box">
-                                                        <!-- Apply any bg-* class to to the icon to color it -->
-                                                        <span class="info-box-icon bg-info"><i
-                                                                class="fa ion-toggle-filled fa-star-o"></i></span>
-                                                        <div class="info-box-content">
-                                                            <span class="info-box-text">Tổng tiền đã đóng</span>
-                                                            <span class="info-box-number">16,000,000 VND</span>
-                                                        </div>
-                                                        <!-- /.info-box-content -->
-                                                    </div>
-                                                </div>
-                                                <div class="col mb-3">
-                                                    <div class="info-box">
-                                                        <!-- Apply any bg-* class to to the icon to color it -->
-                                                        <span class="info-box-icon bg-warning"><i
-                                                                class="fa  ion-gear-b fa-star-o"></i></span>
-                                                        <div class="info-box-content">
-                                                            <span class="info-box-text">Mã Số BH </span>
-                                                            <span class="info-box-number">BHQ32012</span>
-                                                        </div>
-                                                        <!-- /.info-box-content -->
-                                                    </div>
-                                                </div>
-                                                <div class="info-box ">
-                                                    <span class="info-box-icon"><i
-                                                            class="fa ion-ios-toggle fa-comments-o"></i></span>
-                                                    <div class="info-box-content">
-                                                        <span class="info-box-text">Địa Chỉ Đăng Ký </span>
-                                                        <span class="info-box-number">BẢO HIỂM XÃ HỘI QUẬN 3 </span>
-                                                        <!-- The progress section is optional -->
-                                                        <div class="progress">
-                                                            <div class="progress-bar" style="width: 0%"></div>
-                                                        </div>
-                                                        <span class="progress-description">
-                                                            386/79 Lê Văn Sỹ, Phường 14, Quận 3, Thành phố Hồ Chí Minh
-                                                        </span>
-                                                    </div>
-                                                    <!-- /.info-box-content -->
-                                                </div>
-
-                                            </div>
-                                            <br>
-                                            <div class="motabhxh">
-
-                                                <div class="tab-pane" id="timeline">
-                                                    <!-- The timeline -->
-                                                    <div class="timeline timeline-inverse">
-                                                        <div class="time-label">
-                                                            <span class="bg-info">
-                                                                Tháng 8 - 2021
-                                                            </span>
-                                                        </div>
-                                                        <div>
-                                                            <i class="fas ion-clipboard bg-primary"></i>
-
-                                                            <div class="timeline-item">
-                                                                <span class="time"><i class="far fa-clock"></i></span>
-
-                                                                <h3 class="timeline-header"><a href="#">Chi tiết đóng
-                                                                    </a></h3>
-
-                                                                <div class="timeline-body">
-                                                                    <table
-                                                                        class="table table-responsive table-bordered">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Thời gian đóng </th>
-                                                                                <th>Só tiền nhân viên đóng </th>
-                                                                                <th>Só tiền công ty đóng </th>
-                                                                                <th>Tổng tiền đóng tháng 8 </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-
-                                                            </div>
-
-                                                        </div>
-                                                        <!--  -->
-                                                        <div class="time-label">
-                                                            <span class="bg-info">
-                                                                Tháng 7 - 2021
-                                                            </span>
-                                                        </div>
-                                                        <div>
-                                                            <i class="fas ion-clipboard bg-primary"></i>
-
-                                                            <div class="timeline-item">
-                                                                <span class="time"><i class="far fa-clock"></i> </span>
-
-                                                                <h3 class="timeline-header"><a href="#">Chi tiết đóng
-                                                                    </a></h3>
-
-                                                                <div class="timeline-body">
-                                                                    <table
-                                                                        class="table table-responsive table-bordered">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Thời gian đóng </th>
-                                                                                <th>Só tiền nhân viên đóng </th>
-                                                                                <th>Só tiền công ty đóng </th>
-                                                                                <th>Tổng tiền đóng tháng 7 </th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-
-                                                            </div>
-
-                                                        </div>
-                                                        <!--  -->
-
-
-
-                                                    </div>
-
-                                                    <!--  -->
-
-                                                    <!--  -->
-                                                </div>
-                                            </div>
+                                        <br>
+                                        {% include 'nhanvien/include/bhxh.html' %}
 
                                             <!-- Bảo Hiểm Xã hội  -->
                                         </div>
@@ -675,185 +207,13 @@
 
                                         <div class=" tab-pane" id="bhyt">
                                             <!-- Bảo Hiểm Y tế  -->
-
-                                            <div class="info-box ">
-                                                <span class="info-box-icon"><i class="fa ion-ios-person"></i></span>
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text">Họ Và Tên </span>
-                                                    <span class="info-box-number">{{nv.tennv}}</span>
-                                                    <!-- The progress section is optional -->
-                                                    <div class="progress">
-                                                        <div class="progress-bar" style="width: 0%"></div>
-                                                    </div>
-                                                    <span class="progress-description">
-                                                        <a href="#">Ngày Sinh : {{nv.ngaysinh}}</a>
-                                                    </span>
-                                                </div>
-                                                <!-- /.info-box-content -->
-                                            </div>
-
-                                            <div class="info-box  ">
-                                                <span class="info-box-icon"><i
-                                                        class="fa ion-ios-plus fa-comments-o"></i></span>
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text">Thời Gian Đăng Ký </span>
-                                                    <span class="info-box-number">12-10-2020</span>
-                                                    <!-- The progress section is optional -->
-                                                    <div class="progress">
-                                                        <div class="progress-bar" style="width: 0%"></div>
-                                                    </div>
-                                                    <span class="progress-description">
-
-                                                    </span>
-                                                </div>
-                                                <!-- /.info-box-content -->
-                                            </div>
-                                            <div class="info-box">
-                                                <span class="info-box-icon"><i
-                                                        class="fa ion-ios-compose fa-comments-o"></i></span>
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text">Thời Gian Hết Hạn </span>
-                                                    <span class="info-box-number">12-10-2025</span>
-                                                    <!-- The progress section is optional -->
-                                                    <div class="progress">
-                                                        <div class="progress-bar" style="width: 0%"></div>
-                                                    </div>
-                                                    <span class="progress-description"
-                                                        style="background-color: lawngreen;">
-
-                                                    </span>
-                                                </div>
-                                                <!-- /.info-box-content -->
-                                            </div>
-
-                                            <div class="info-box ">
-                                                <span class="info-box-icon"><i
-                                                        class="fa ion-ios-toggle fa-comments-o"></i></span>
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text">Địa Chỉ Đăng Ký </span>
-                                                    <span class="info-box-number">Bệnh Viện 115 </span>
-                                                    <!-- The progress section is optional -->
-                                                    <div class="progress">
-                                                        <div class="progress-bar" style="width: 0%"></div>
-                                                    </div>
-                                                    <span class="progress-description">
-                                                        768 Sư Vạn Hạnh Phường 15 Quận 10 Hồ Chí Minh
-                                                    </span>
-                                                </div>
-                                                <!-- /.info-box-content -->
-                                            </div>
-
-
-                                            <div class="info-box ">
-                                                <span class="info-box-icon"><i
-                                                        class="fa ion-ios-pulse fa-comments-o"></i></span>
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text">Mã Số BHYT </span>
-                                                    <span class="info-box-number">DN202820281029</span>
-                                                    <!-- The progress section is optional -->
-                                                    <div class="progress">
-                                                        <div class="progress-bar" style="width: 0%"></div>
-                                                    </div>
-                                                    <span class="progress-description">
-                                                        <a href="#">click xem QR code</a>
-                                                    </span>
-                                                </div>
-                                                <!-- /.info-box-content -->
-                                            </div>
+                                            {%include 'nhanvien/include/bhyt.html'%}
                                             <!-- Bảo Hiểm Y tế  -->
 
                                         </div>
                                         <div class=" tab-pane" id="bh24h">
                                             <!-- Bảo Hiểm 24H -->
-                                            <!-- Bảo Hiểm Y tế  -->
-
-                                            <div class="info-box bg-info">
-                                                <span class="info-box-icon"><i class="fa ion-ios-person"></i></span>
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text">Họ Và Tên </span>
-                                                    <span class="info-box-number">{{nv.tennv}}</span>
-                                                    <!-- The progress section is optional -->
-                                                    <div class="progress">
-                                                        <div class="progress-bar" style="width: 25%"></div>
-                                                    </div>
-                                                    <span class="progress-description">
-                                                        Ngày Sinh : {{nv.ngaysinh}}
-                                                    </span>
-                                                </div>
-                                                <!-- /.info-box-content -->
-                                            </div>
-
-                                            <div class="info-box bg-maroon ">
-                                                <span class="info-box-icon"><i
-                                                        class="fa ion-ios-plus fa-comments-o"></i></span>
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text">Thời Gian Đăng Ký </span>
-                                                    <span class="info-box-number">12-10-2020</span>
-                                                    <!-- The progress section is optional -->
-                                                    <div class="progress">
-                                                        <div class="progress-bar" style="width: 50%"></div>
-                                                    </div>
-                                                    <span class="progress-description">
-
-                                                    </span>
-                                                </div>
-                                                <!-- /.info-box-content -->
-                                            </div>
-                                            <div class="info-box bg-primary">
-                                                <span class="info-box-icon"><i
-                                                        class="fa ion-ios-compose fa-comments-o"></i></span>
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text">Thời Gian Hết Hạn </span>
-                                                    <span class="info-box-number">12-10-2025</span>
-                                                    <!-- The progress section is optional -->
-                                                    <div class="progress">
-                                                        <div class="progress-bar" style="width: 75%"></div>
-                                                    </div>
-                                                    <span class="progress-description"
-                                                        style="background-color: lawngreen;">
-
-                                                    </span>
-                                                </div>
-                                                <!-- /.info-box-content -->
-                                            </div>
-
-                                            <div class="info-box bg-secondary">
-                                                <span class="info-box-icon"><i
-                                                        class="fa ion-ios-toggle fa-comments-o"></i></span>
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text">Địa Chỉ Đăng Ký </span>
-                                                    <span class="info-box-number">Bệnh Viện 115 </span>
-                                                    <!-- The progress section is optional -->
-                                                    <div class="progress">
-                                                        <div class="progress-bar" style="width: 0%"></div>
-                                                    </div>
-                                                    <span class="progress-description">
-                                                        768 Sư Vạn Hạnh Phường 15 Quận 10 Hồ Chí Minh
-                                                    </span>
-                                                </div>
-                                                <!-- /.info-box-content -->
-                                            </div>
-
-
-                                            <div class="info-box ">
-                                                <span class="info-box-icon"><i
-                                                        class="fa ion-ios-pulse fa-comments-o"></i></span>
-                                                <div class="info-box-content">
-                                                    <span class="info-box-text">Mã Số BH24H </span>
-                                                    <span class="info-box-number">DNDSP748732763</span>
-                                                    <!-- The progress section is optional -->
-                                                    <div class="progress progress-xxs ">
-                                                        <div class="progress-bar progress-xxs
-
-                                                        " style="width: 0%"></div>
-                                                    </div>
-                                                    <span class="progress-description">
-                                                        <a href="#">click xem QR code</a>
-                                                    </span>
-                                                </div>
-                                                <!-- /.info-box-content -->
-                                            </div>
-                                            <!-- Bảo Hiểm Y tế  -->
+                                            {%include 'nhanvien/include/bh24h.html' %}
 
                                             <!-- Bảo Hiểm 24H  -->
                                         </div>
@@ -864,119 +224,14 @@
                                 <!-- /.tab-pane -->
                                 <div class="tab-pane" id="quytrinhcongty">
                                     <!-- quy trình  -->
-                                    <div class="row">
-                                        <div class="col-5 col-sm-3">
-                                            <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab"
-                                                role="tablist" aria-orientation="vertical">
-                                                <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill"
-                                                    href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home"
-                                                    aria-selected="true">Trình Ký Hợp Đồng</a>
-                                                <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill"
-                                                    href="#vert-tabs-profile" role="tab"
-                                                    aria-controls="vert-tabs-profile" aria-selected="false">Đề Xuất </a>
-                                                <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill"
-                                                    href="#vert-tabs-messages" role="tab"
-                                                    aria-controls="vert-tabs-messages" aria-selected="false">Giải
-                                                    Chi</a>
-                                                <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill"
-                                                    href="#vert-tabs-settings" role="tab"
-                                                    aria-controls="vert-tabs-settings" aria-selected="false">Quy Trình
-                                                    4a</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-7 col-sm-9">
-                                            <div class="tab-content" id="vert-tabs-tabContent">
-                                                <div class="tab-pane text-left fade show active" id="vert-tabs-home"
-                                                    role="tabpanel" aria-labelledby="vert-tabs-home-tab">
-                                                    QUY TRÌNH TRÌNH KÝ HỢP ĐỒNG
-                                                    <div class="mxgraph"
-                                                        style="max-width:100%;border:1px solid transparent;"
-                                                        data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;xml&quot;:&quot;&lt;mxfile host=\&quot;app.diagrams.net\&quot; modified=\&quot;2021-09-01T01:54:49.014Z\&quot; agent=\&quot;5.0 (X11)\&quot; etag=\&quot;rVMfg07GuyD0uEWqD3rR\&quot; version=\&quot;15.0.3\&quot; type=\&quot;device\&quot;&gt;&lt;diagram id=\&quot;C5RBs43oDa-KdzZeNtuy\&quot; name=\&quot;Page-1\&quot;&gt;7Vpbd+I2EP41fkyP75hHbEJIk3LSDW02j8KWL11hsbII0F9fyZbvTiGACbttTkI8I2mkuX0ayUias9zeEbAKf8MeRJIqe1tJG0uqapkW++SMXcbQLSVjBCTyMlaF8Rz9DQVTFtx15MGk1pFijGi0qjNdHMfQpTUeIARv6t18jOqzrkAAW4xnF6A29yXyaCjUUgclfwqjIMxnVsxh1rIEeWehSRICD28qLO1W0hyCMc2ellsHIm673C4v97sX9PjNvPv19+Q7+MN+mM/+vMmETT4ypFCBwJgeLXq+fZhGd97A/TpL7qeBP9nJuhgivwG0FvaaSreKZNvSSH1iDZKjS0NZsIbq7E4qrEF3uYkJXsce5NPIkmZvwojC5xVweeuGxRTjhXSJGKWwRz9CyMEIk3Ss5hnQ8nTGTyjB32ClxVIXmmmyFrFESCjcNny6xyBK4SUW3RAvISU7Nk5IUWWhiohs5vuM3pRxouTqhpUYMQUPiNAMCtGl+dmD8MAHvKEYLdtCj0WzIDGhIQ5wDNBtybXr1i/7PGK8Ejb/C1K6E6kJ1hTXPdKy/GSisZ/C8nwJR9idqYHXxIX/pq/AA0ACSPdFaduPBCJAo7f64s7vlFaKSKqJ2HJtL3qrOcv8vuZYYPs4pjdJau4R68AMti0b2VMg/qO88/FS5kRyTMkuMnQSB7lgpmwmuz4fY6frrnOvQJWnUHI0yVZLDRakY/GH6NTEpxAvF+vkw9jk+77qul0Z4pkL0+gTm/QciwQ2WXIbmowOaCrw6vxpYF4JNlmyLF8Am9QfAZvUk7FpcJaE7pQyisO0Wjgxma9Gn3mYouxIGu1H2U5t+8EoaL6DUYPhopIp/WOUpnw6SGkd+dAErdgb8WMFo1wEkiRy9yCOLA+H50CcvUjyjrUr1uwyZs47GHDEDE84SpNBOFNTG8Ww3vBRBphiVPWY0RCk63VByqAhKLNDS1Dq70Lt40NA7ykE9PEFQkD9OUIgrxXyEDAuGwLm6SEAtxH9ysuWXwxBvVZaxltR0aTEThC9IcfZzlGfGl6G1givJjAcGl6G1RDU3E56Dq9BK7x2MGlFGNtsaSsoYhzDxh4uWABFQcxIBH0+jO/WkQvQSLApr5fthFUFURw8pn3Gesn5IrzFWZiN9VEa2mHkeTBO63AKKFika+MBueK2Sa1l2OyX2c/hkW6whTuMVkraGKfdCXVwzHQBURqwECR0AxPaZ3UxbHhZblcXZke0qmZPtYWit1Gk/wMQMyHZVZCIk6/VthKLUurzwcg6tNzRuv1/mZOT1bFHVE4aWZV+yF3oofV+S/icX3eMxi4/JIX5RNqKUQtAXOzB08QffxI55TYXQMvvPI2YrgUXfo94YTbqTk3vOI1c9ja3fbl+dB2SP7/WapLuOqSEjCpgVPDj6iDj0LsW61Prl8aGpB1dvzQE6dZl6xelfaP9fwFzfkAyjP2AdNkCpn07cj9j9A37m3/hu5HlzKaMeODPw7F07ld917M5XMGrvvYpYobfy8F37yb2p6PLzAZJR0IuWWqlJWqXE+tu7ssr2qB+gVh4oOIVvStDenNKuyr8DzqlAVsdr57O5BRGlt+eyHa38iso2u0/&lt;/diagram&gt;&lt;/mxfile&gt;&quot;,&quot;toolbar&quot;:&quot;pages zoom layers lightbox&quot;,&quot;page&quot;:0}">
-                                                    </div>
-                                                </div>
-                                                <div class="tab-pane fade" id="vert-tabs-profile" role="tabpanel"
-                                                    aria-labelledby="vert-tabs-profile-tab">
-                                                    QUY TRINH ĐỀ XUẤT
-
-                                                    <div class="mxgraph"
-                                                        style="max-width:100%;border:1px solid transparent;"
-                                                        data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;xml&quot;:&quot;&lt;mxfile host=\&quot;app.diagrams.net\&quot; modified=\&quot;2021-09-01T01:21:18.456Z\&quot; agent=\&quot;5.0 (X11)\&quot; etag=\&quot;s9VKhyGIJMzKrIqTig6z\&quot; version=\&quot;15.0.3\&quot; type=\&quot;device\&quot;&gt;&lt;diagram id=\&quot;C5RBs43oDa-KdzZeNtuy\&quot; name=\&quot;Page-1\&quot;&gt;7Vrbdps6EP0aHtMl7vBo7DhJ23SlTdqkjzIIwwlGDuDE7tdXAgkQyJckduKsU14sDcPoMntmtsCKPpwtzzI4jy5xgBJFA8FS0UeKpqmWa5IfKllVEsNRK8E0iwOm1Aiu4z+ICQGTLuIA5YJigXFSxHNR6OM0RX4hyGCW4SdRLcSJOOocTlFPcO3DpC+9jYMiqqSOZjfycxRPIz4yWXF1Zwa5MltJHsEAP7VE+qmiDzOMi6o1Ww5RQjeP78vtxeo2+XpvnX3+nj/An96Xm2+/Tipj4+c8Ui8hQ2mxX9NaZfoRJgu2X2ytxYpvYIYXaYCoEaDoXlTMEtJUSfM/VBQr5nC4KDAR4ayI8BSnMPmK8ZzphTgtmJpK+ygNBtSxpD9JsH9ficZxkrAxSI/pO6SXFxm+r31HDdSOoMoJnKDEg/79tJzoECc4I7dSnCJqKiBgYGtpJnfaSL0d95b5IMeLzEcb9HQGcZhN0SZ7VqVH59fCKfPcGcIzVGQropChBBbxowhmyGJiWus1ficN5vpnwECXwMBKyPy9IH4U4GA9LCjeS6ee5KWXBkRBNebL5iZpTdlvwpVfbuVbpAx1ZaClRONXXLYHtH2mnKqK5ymDUUx6ytBQXMBENEcBPvok686H7FE1pZ64XK4oPYIduFuU6xooA7PYx8LWRjiNrqcoLtD1HJYwfyJFQYz6djQTwHrTBOY5i8UtoRqSEOfxqWi6BQEIw/qx1h3dBmA4ZIO15GF5PTtoH1FWoOXGMON3edVixc5h3aemcqg2k0WtqmGAAwWm0QvM36SY/kvRr0nR1o4pmmNha45mYOE8YeeUzSxd4bhMDlwFh2FOJtaFTj3gy9Fk9tD0DffAtN0fHxpu7wQm+3lYUo8JS3Hx+VIzF+nlxeThx92Ph4v8zqij4xXIkWJDgqEWwojTstUdff6TYfL+77IP6v5oWcOG9lbt3hXKYrJ0lDHhe+UW7aj4n7WZ/1W84SZThpbicY7ljtPpNjKyjk5VoquS2HnaM+10i1+EZ5NFvp25iFyEpKAxnMUJRcc5Sh5REftQwm9gEk9T0vEJQChqZNmHDBmTRegjq+ndlIgmBZxQpAwGMRKYTGDauhv0ORGyAhAgGSdyXUt1zENyH0PkPjXRaZMfICE/zqHIj70WlYxO+/X2NIxZH5eXhIoLBwSTLlyk1RN+z6ML5IcLe9UCZ49fHweTHo8BuQ6IjZMONjRdgg3tLYmxswuV+dBEZXs1bRVDoRbWhXJdIVzGResx0qufIu3mIdrhz+y5TnL2sDfexIAKPunkErF6MCrV6LDR67HY0Ho3NVb7wp7aYMgwRUOG1jFU7VvPEAEnXLXU5lQhlyxqKe4Nn68tvEIkjcrgXg8hbi9yZUfaf6eQg4TTzrzzGM8hG5fewtM1K+veeK5o/WPKhySMYRi4ltUv/WEYar4vI4yBNbFM65CE0e6QAvcNCaP0TOq8Oo284Ei671DW+qEsXay5YyTv/QQpnY37Hlu/jgA1lEdOgN7LZcf10YdPW3K+mkgOTSSfEhXQ+RZxjssPMoB+kLmJWDsSj0yTYzsvWQC6qi1LmtrItgBP92/55cFwOsnUesMTlhSs/bra/8TWOUH7/NTsuBQOV7LqS/aj6JRZwQmMILU9xkS9wkp3l9TgZMBuzOIgKBOLDEhisjmUGzXXENyoSr4gGRIvdvn93ry45gPSLn7Zfb8zlMd/4KQ0RXeXHTuIXdNTzBG1RXJ3zmJ3ncsP5pPuiy3HeV+f9D/D9COrk2b98k2pTqOKy9UZSatwRrGdTvJ5uYHcxMCh71RflWzFjBk4ANi6LGMOTACM98iYurPmsL0tY1qH8utOb9G3uvpL9VbceO3bdQEoIjBe/rJ9C2pEiB3K8+bReV7tp9mbc77lBBbg+0/W8yxZ1P5/krEJTNF3Ep4j+4fFC5Ix6TZ/zqteNzR/cdRP/wI=&lt;/diagram&gt;&lt;/mxfile&gt;&quot;,&quot;toolbar&quot;:&quot;pages zoom layers lightbox&quot;,&quot;page&quot;:0}">
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="tab-pane fade" id="vert-tabs-messages" role="tabpanel"
-                                                    aria-labelledby="vert-tabs-messages-tab">
-                                                    QUY TRÌNH GIẢI CHI
-
-                                                    <div class="mxgraph"
-                                                        style="max-width:100%;border:1px solid transparent;"
-                                                        data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;xml&quot;:&quot;&lt;mxfile host=\&quot;app.diagrams.net\&quot; modified=\&quot;2021-09-01T01:27:20.503Z\&quot; agent=\&quot;5.0 (X11)\&quot; etag=\&quot;jmwEttmSxF-qi8UTTCOq\&quot; version=\&quot;15.0.3\&quot; type=\&quot;device\&quot;&gt;&lt;diagram id=\&quot;C5RBs43oDa-KdzZeNtuy\&quot; name=\&quot;Page-1\&quot;&gt;7Vtbd6o4FP41rDXz0FmBhIuPgrZ6etrTObWn7SMKCnOQWMRW59dPAolyU9GC2HZ8cJmdELN39v72JUGAxnR5FZgz5wZbtidIwFoKsCNIkqZo5JsSVjEBaWJMmASuFZMShHv3X5sRAaMuXMuepwaGGHuhO0sTR9j37VGYoplBgN/Sw8bYS//rzJzYOcL9yPTy1EfXCh3GlqRu6D3bnTj8n0WlFfdMTT6YcTJ3TAu/JUiwK0AjwDiMf02Xhu1R2XG5PPZXj97338rVt7/nL+aDfj24/XURT3Z5yCNrFgLbD4+e2g2/3Ujywr/pD19+Pv186c+f0IXImJ2HKy4w2yLyY00chA6eYN/0uhuqHuCFb9l0WkBamzHfMZ4RokiI/9hhuGLKYC5CTEhOOPVYL2EjWD3R5/+SefOZTRc1OstUa8VaJeXA5DXHi2Bk72Ke66MZTOxw10BmA1Q0Ca1icr6y8dQmyyQDAtszQ/c1rXom0+DJehx7tB0E5ioxYIZdP5wnZr6jBDKA2aIKmCYyU5RamR3PjNfgzvHkR7wC3kqwsiFFWnSIRjGuX01vweQgSIpHxKtb7iv5OQmjnYxJYxwteKN+yssC846LeaRAbTJARLPlpjOCCw8HqScECV5GnyQp/reB0BUFvS20wQ/y6FWfN6U+aRq9Pl8NYTheUHqRhFyw9Ma4MQQDCi1ImuaU2JvuD+ezeBrBQALZY8qdLmhks8HTA+cVDegAttBhUMBjGdYzWLFBAmrWb44b2vczMzK6N+JN0lY/dj3PWDNK2APkc7BVv9pBaC93WiHrVaS0+osqa79t/ICoMJqT8AEIbDfchPEcbhtrT3JStK0aNeWPhZot5SOgplwGNffjGLjuReiAbq/2mfseSHsXlOzCjMNQAgAZ2GNCn4cB/m2nesQOwcIYXBP0cfSpEVc0tQSuaKfEFVE5wucW+hzDiEA553N6fO9Ff0KevWGK0ZZHVBFd3gtdqoiOG7u5d3ubSlnI+8u622QR9DuyyDaIBBf91qH5v3TqkvbNggp34HCd1C+pLHSOZA0Lma7w2okUQhydnQZUGhsSNA3T0G567sQnv0cEkG2yLp1irktS9TbrmLqWFcc8NgmWzWE0FY16mI8n88q6IHfoXCTMiQPqaOq0d/Cxb9foANRsRCEVOABU4AC02gJL6TMElvXEi7kATwQovX9QkdNzxKEteyyzNRUEe1KzRZd14zldgTlR0UUrmT7wCl116vAuE4Ow0U1ruFJWdtOgdFabxte9LTA+vFRTTcGHpXOBYCiCzrOs1iUNEY8NAJplhXTcRWGNLkVxbuWFJgdPhwuiHgcWmSwNABXmAgTS05YB9QOnTx9V7m249xELogdYED2IYm3hA/rC2CZ9sFMAUczUNbkC1Vqgkg4q6w8PSUi21bkLygo0gWaVB3X1x4j3q34ixWvJ+6Emt77SmVUlnC0XEUhOOC8dypm3LrG4fx4Dn3t5+ki1exKji2klhyiPklIBSmZj+epAEuYs4PaHUFDS/7yJbwso6U1BeddV5LmkuhwXaiTvPZNMiidIex0XN6UzCcr5ugtcyTFgmkPmwnMRdp5BIlSN2DHoPDzziqAy2AOiabytEEUBUBQIa7RXpMEjQbQug+XokNj75+7910JRlVfr1iia35Wi6mFtKArzsV2hDRk8+NJIJAwGdxkjAl9rGxWQMS5+cSxpXPJJ91FtwhtW7NV4BenD1QcbKeo2JvzzCin4undnp/f8SLB7R8bioHTyR+teA4eGEBrc1OiSyRkom3SVrWPl6lVDpMgA5YOIsWmp5qhOd6Wm3RUquu5QFESIoDagQ0XbnTkPLnZEe8RemxDlTM2mZOYEaxNh/srIlwvEsje9UME57mkDsfxxxZfbFDVzOCuDhjcF5VOWr1b30VrpIwvUarru08iBRcXBFi/L7K/fwLMKtlA+XRz02rc9GiT9iCos4q2w5XpqPiA6pH6y4xBvy7HfqQ/3ENdMfjUIlgyWaqu4IOUzmAosayryeZlK/sxg/629/Ufw0nteHzmD11/etX4yvhfDDKAwM0jeSj/Zuyw5JJI6qgIKkEgBZktUG0Ci9bWC80Gi7e84HFP3v13fSTdoOn+9bqKHRD6+SdJ7bRq1/aLh9KDXX5cCit9lWN8Xbm/3ZKWPaDOKdqhqAcAOW099fJBVIbnonmtFKkSamzdp40sLm9eRYfc/&lt;/diagram&gt;&lt;/mxfile&gt;&quot;,&quot;toolbar&quot;:&quot;pages zoom layers lightbox&quot;,&quot;page&quot;:0}">
-                                                    </div>
-                                                    <script type="text/javascript"
-                                                        src="https://app.diagrams.net/js/viewer-static.min.js"></script>
-                                                </div>
-                                                <div class="tab-pane fade" id="vert-tabs-settings" role="tabpanel"
-                                                    aria-labelledby="vert-tabs-settings-tab">
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                   
+                                        {%include 'nhanvien/include/quytrinh.html'%}
                                     <!-- quy trình  -->
                                 </div>
                                 <!-- -------------------------------- -->
                                 <div class="tab-pane" id="quidinhdinhcong">
                                     <!--  -->
-                                    <div class="row">
-                                        <div class="col-5 col-sm-3">
-                                            <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab"
-                                                role="tablist" aria-orientation="vertical">
-                                                <a class="nav-link active" id="vert-tabs-home1-tab" data-toggle="pill"
-                                                    href="#vert-tabs-home1" role="tab" aria-controls="vert-tabs-home"
-                                                    aria-selected="true">Quy Định Đồng Phục </a>
-                                                <a class="nav-link" id="vert-tabs-profile1-tab" data-toggle="pill"
-                                                    href="#vert-tabs-profile1" role="tab"
-                                                    aria-controls="vert-tabs-profile1" aria-selected="false">Quy Định
-                                                    Giờ Làm + công </a>
-                                                <a class="nav-link" id="vert-tabs-messages1-tab" data-toggle="pill"
-                                                    href="#vert-tabs-messages1" role="tab"
-                                                    aria-controls="vert-tabs-messages1" aria-selected="false">Chế Độ
-                                                    Lương</a>
-                                                <a class="nav-link" id="vert-tabs-settings1-tab" data-toggle="pill"
-                                                    href="#vert-tabs-settings1" role="tab"
-                                                    aria-controls="vert-tabs-settings" aria-selected="false">Chế Độ Thai
-                                                    Sản</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-7 col-sm-9">
-                                            <div class="tab-content" id="vert-tabs-tabContent">
-                                                <div class="tab-pane text-left fade show active" id="vert-tabs-home1"
-                                                    role="tabpanel" aria-labelledby="vert-tabs-home-tab">
-                                                    QUY ĐỊNH ĐỒNG PHỤC
-
-                                                </div>
-                                                <div class="tab-pane fade" id="vert-tabs-profile1" role="tabpanel"
-                                                    aria-labelledby="vert-tabs-profile-tab">
-                                                    QUY ĐỊNH GIỜ LÀM + CÔNG
-
-                                                </div>
-                                                <div class="tab-pane fade" id="vert-tabs-messages1" role="tabpanel"
-                                                    aria-labelledby="vert-tabs-messages-tab">
-                                                    CHẾ ĐỘ LƯƠNG THƯỞNG
-
-
-
-                                                </div>
-                                                <div class="tab-pane fade" id="vert-tabs-settings1" role="tabpanel"
-                                                    aria-labelledby="vert-tabs-settings-tab">
-                                                    CHẾ ĐỌ THAI SẢN
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {%include 'nhanvien/include/quydinhchedo.html' %}
 
                                     <!--  -->
 
@@ -984,115 +239,14 @@
 
                                 <div class="active tab-pane" id="thongbao">
 
-                                    <br>
-                                    <h2 style="text-align: center; color: rgb(5, 107, 27);font-family: ;"> THÔNG BÁO CÔNG TY ĐÔNG SAPA 
-                                    </h2>
-                                    <br>
-                                    <div class="timeline timeline-inverse">
-                                        <!-- timeline time label -->
-                                        <div class="time-label">
-                                            <span class="bg-danger">
-                                                18-8-2021
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <i class="fas fa-envelope bg-primary"></i>
-
-                                            <div class="timeline-item">
-                                                <span class="time"><i class="far fa-clock"></i> </span>
-
-                                                <h3 class="timeline-header"><a href="#">Thông báo đi làm đeo
-                                                        khẩu trang
-                                                    </a></h3>
-
-                                                <div class="timeline-body">“Content is King” là câu nói kinh điển trong
-                                                    ngành SEO nói chung và marketing nói riêng, và cho đến bây giờ với
-                                                    những ảnh hưởng của các nội dung đặc biệt là trong môi trường trực
-                                                    tuyến thì câu nói trên vẫn rất đúng ở hiện tại và sẽ là cả trong
-                                                    tương lai nữa.
-                                                </div>
-                                                <div class="timeline-footer">
-                                                    <a href="#" class="btn btn-primary btn-sm">Xem chi tiết </a>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="time-label">
-                                            <span class="bg-warning">
-                                                10-8-2021
-                                            </span>
-
-
-                                        </div>
-                                        <div>
-                                            <i class="fas fa-user bg-info"></i>
-
-                                            <div class="timeline-item">
-                                                <span class="time"><i class="far fa-clock"></i></span>
-
-                                                <h3 class="timeline-header border-0"><a href="#">Mặc ĐỒng Phục</a>
-                                                    accept request
-                                                </h3>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {%include 'nhanvien/include/thongbaocongty.html'%}
                                 </div>
                                 <!-- /.tab-pane -->
 
                                 <!-- thong báo phòng ban  -->
                                 <div class=" tab-pane" id="thongbaopb">
-                                    <br>
-                                    <h3 style="text-align: center; color: rgb(250, 18, 18);"> THÔNG BÁO PHÒNG - BÁN SỈ
-                                    </h3>
-                                    <br>
-                                    <div class="timeline timeline-inverse">
-                                        <!-- timeline time label -->
-                                        <div class="time-label">
-                                            <span class="bg-secondary">
-                                                02-9-2021
-                                            </span>
-                                        </div>
-                                        <div>
-                                            <i class="fas fa-envelope bg-primary"></i>
 
-                                            <div class="timeline-item">
-                                                <span class="time"><i class="far fa-clock"></i> </span>
-
-                                                <h3 class="timeline-header"><a href="#">Đi Bơi Phú Quốc cuối tuần
-                                                    </a></h3>
-
-                                                <div class="timeline-body">“Content is King” là câu nói kinh điển trong
-                                                    ngành SEO nói chung và marketing nói riêng,
-                                                </div>
-                                                <div class="timeline-footer">
-                                                    <a href="#" class="btn btn-primary btn-sm">Xem chi tiết </a>
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="time-label">
-                                            <span class="bg-success">
-                                                10-8-2021
-                                            </span>
-
-
-                                        </div>
-                                        <div>
-                                            <i class="fas fa-user bg-info"></i>
-
-                                            <div class="timeline-item">
-                                                <span class="time"><i class="far fa-clock"></i></span>
-
-                                                <h3 class="timeline-header border-0"><a href="#">Mặc ĐỒng Phục</a>
-                                                    accept request
-                                                </h3>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {% include 'nhanvien/include/thongbaophongban.html' %}
 
                                 </div>
                                 <!-- /thong báo  -->

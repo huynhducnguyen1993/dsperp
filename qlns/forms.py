@@ -5,6 +5,8 @@ from django.forms import widgets
 from django.forms.widgets import FileInput
 from qlns.models import *
 from ckeditor.widgets import CKEditorWidget
+from django.contrib.admin.widgets import AdminDateWidget
+
 
 class AddnhanvienForm(forms.ModelForm):
     class Meta:
@@ -16,9 +18,17 @@ class AddnhanvienForm(forms.ModelForm):
                                            'title': 'Cmnd là so có 12 chữ số', 'id': 'cmnd'}),
 
         }
-class AddnhanvienAdmin(admin.ModelAdmin):
-    exclude = 'tennv'
-    form = AddnhanvienForm
+class AddnhanvienAdmin(forms.ModelForm):
+    class Meta:
+        model = Nhanvien
+        fields = "__all__" 
+        ngaysinh = forms.DateField(widget=AdminDateWidget())
+        widgets = {
+            'cmnd': forms.TextInput(attrs={'class': 'form-control', 'name': 'cmnd', 'pattern': '[0-9]{1,12}',
+                                           'title': 'Cmnd là so có 12 chữ số', 'id': 'cmnd'}),
+            
+        }
+
 
 class Changeformnhanvien(forms.ModelForm):
     class Meta:

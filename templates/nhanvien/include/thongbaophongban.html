@@ -1,0 +1,72 @@
+<br>
+
+
+<h2 style="text-align: center; color: rgb(13, 70, 155) ;"> THÔNG BÁO PHÒNG - {{nv.phongban}}
+</h2>
+<br>
+
+<div class="timeline timeline-inverse">
+    <!-- timeline time label -->
+    {%for item in tbpb %}
+    {%if item.danhmuc.id == 2 %}
+
+    <div class="time-label">
+        <span class="bg-warning">
+            {{item.created_at}}
+        </span>
+    </div>
+    <div>
+        <i class="fas ion-ios-alarm-outline bg-primary"></i>
+
+        <div class="timeline-item">
+            <span class="time"><i class="far ion-social-octocat"></i> {{item.tacgia}} </span>
+
+            <h3 class="timeline-header"><a href="#">{{item.tieude}}
+                </a></h3>
+
+            <div class="timeline-body">
+               <div id="readmorepb-{{item.id}}"> 
+                {{item.noidung|safe|truncatechars:200}}
+               </div> 
+               <div id="readfullpb-{{item.id}}"> 
+                {{item.noidung|safe}}
+               </div>
+                
+
+            </div>
+
+            <div class="timeline-footer">
+                <a onclick="xemchitietpb()" id="xemchitietpb-{{item.id}}" class="btn btn-primary btn-sm">Xem chi tiết </a>
+                <a onclick="thugonpb()" id="thugonpb-{{item.id}}" class="btn btn-dark btn-sm">Thu Gọn  </a>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+$( document ).ready(function() {
+   $('#readfullpb-{{item.id}}').hide()
+   $('#thugonpb-{{item.id}}').hide()
+});
+
+function xemchitietpb(){
+    $('#readmorepb-{{item.id}}').hide()
+    $('#readfullpb-{{item.id}}').show()
+    $('#xemchitietpb-{{item.id}}').hide()
+    $('#thugonpb-{{item.id}}').show()
+
+
+}
+
+function thugonpb(){
+    $('#readmorepb-{{item.id}}').show()
+    $('#readfullpb-{{item.id}}').hide()
+    $('#xemchitietpb-{{item.id}}').show()
+    $('#thugonpb-{{item.id}}').hide()
+
+
+}
+</script>    
+    {%endif%}
+    {%endfor%}
+</div>

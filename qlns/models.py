@@ -24,17 +24,25 @@ class Phongban(models.Model):
 
 class Nhanvien(models.Model):
     manv = models.CharField(default='',unique=True,max_length=255,verbose_name='Mã Nhân Viên')
-    username = models.OneToOneField(User,on_delete=models.CASCADE,verbose_name='Tài Khoản Nhân Viên')
+    username = models.ForeignKey(User,on_delete=models.CASCADE,verbose_name='Tài Khoản Nhân Viên') #OneToOneField
     tennv = models.CharField(default='', max_length=255, verbose_name='Họ Tên Nhân Viên')
     gioitinh = models.BooleanField(default='',verbose_name='Check - Nếu là nam')
     ngaysinh =models.DateField(verbose_name='Ngày Sinh')
     diachi = models.CharField(default='', max_length=255, verbose_name='Địa chỉ thường trú')
     quequan =models.CharField(default='', max_length=255, verbose_name='Quê Quán')
-    cmnd = models.CharField(default='', max_length=12, verbose_name='CCID')
-    cmnd_1 =models.ImageField(default='',null=True, blank=True,upload_to='img/', verbose_name='Ảnh mặt trước CCID')
-    cmnd_2 =models.ImageField(default='',null=True, blank=True, upload_to='img/', verbose_name='Ảnh mặt sau CCID')
+    masohs = models.CharField(default='',blank=True,null=True,max_length=255,verbose_name='Mã Số HDLD ')
+    ngaythuviec =  models.DateField(blank=True,null=True,verbose_name='Ngày thử việc')
+    ngaychinhthuc = models.DateField(blank=True,null=True,verbose_name='Ngày làm chính thức')
+    chuyenmon = models.CharField(default='',blank=True,null=True,max_length=255, verbose_name='Chuyên ngành')
+    vanhoa = models.CharField(default='',blank=True,null=True, max_length=255, verbose_name='Trình độ')
+    cmnd = models.CharField(default='', max_length=12, verbose_name='CMND/CCID')
+    cmnd_1 =models.ImageField(default='',null=True, blank=True,upload_to='img/', verbose_name='Ảnh mặt trước CMND/CCID')
+    cmnd_2 =models.ImageField(default='',null=True, blank=True, upload_to='img/', verbose_name='Ảnh mặt sau CMND/CCID')
+    ngaycap =  models.DateField(blank=True,null=True,verbose_name='Ngày Cấp')
+    noicap = models.CharField(default='',null=True, blank=True, max_length=255, verbose_name='Nơi Cấp ')
     avatar = models.ImageField(default='',null=True, blank=True, upload_to='img/', verbose_name='Ảnh chân dung')
     sdt = models.CharField(default='', unique=True, max_length=255, verbose_name='Số Điện Thoại')
+    sdt2 = models.CharField(default='',blank=True,null=True,max_length=255, verbose_name='Số Điện Thoại 2')
     line= models.CharField(default='', max_length=255, verbose_name='Line nội bộ')
     email =models.CharField(default='',unique=True, null=True,blank=True ,max_length=255, verbose_name='Email')
     phongban = models.ForeignKey(Phongban,default='',null=True,blank=True,on_delete=models.CASCADE)
@@ -52,6 +60,7 @@ class Nhanvien(models.Model):
 
     def __str__(self):
         return self.tennv
+
 class Chucvu_Congviec(models.Model):
 
     nhanvien = models.ForeignKey(Nhanvien ,on_delete=models.CASCADE,verbose_name='Nhân Viên')
@@ -104,23 +113,6 @@ class Quatrinhdongbhxh(models.Model):
         verbose_name_plural = "QUÁ TRÌNH ĐÓNG BẢO HIỂM XÃ HỘI"
     def __int__(self):
         return self.tennhanvien
-
-
-class Hosonhanvien(models.Model):
-    nhanvien = models.OneToOneField(Nhanvien, on_delete=models.CASCADE,verbose_name='Họ Tên Nhân Viên')
-    masobh = models.CharField(unique=True,max_length=255,verbose_name='Mã Số HDLD ')
-    ngaythuviec =  models.DateField(verbose_name='Ngày thử việc')
-    ngaychinhthuc = models.DateField(verbose_name='Ngày làm chính thức')
-    chuyenmon = models.CharField(default='', max_length=255, verbose_name='Chuyên ngành')
-    vanhoa = models.CharField(default='', max_length=255, verbose_name='Trình độ')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = "HỒ SƠ NHÂN VIÊN"
-        verbose_name_plural = 'HỒ SƠ NHÂN VIÊN'
-    def __int__(self):
-        return self.nhanvien
 
 
 class Loaihopdong(models.Model):

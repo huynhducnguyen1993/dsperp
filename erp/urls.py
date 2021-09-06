@@ -18,6 +18,7 @@ from django.views.static import serve
 from django.urls import path,include
 from qlns.views import *
 from khovan.views import *
+from cdqttb.views import *
 from khachhang.views import *
 from django.conf import settings
 from django.conf.urls import url 
@@ -29,7 +30,7 @@ urlpatterns = [
     path('pdf/', include('mergepdf.urls')),
     path('tasks/', include('tasks.urls')),
     path('trinh-ky-hop-dong/', include('tkhd.urls',namespace='trinh-ky')),
-    path('report/',Report.as_view(),name='report'),
+    
     path('ckeditor/',include('ckeditor_uploader.urls')),
     path('', Index.as_view(),name='index'),
     path('login/', Login.as_view(),name='login'),
@@ -37,9 +38,9 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('nhan-vien/zoom/' ,Zoom.as_view(),name='zoom' ),
 
-
-    path('giao-viec/', Giaoviec.as_view(),name='giaoviec'),
-    path('nhanvien/', Nhanvientotal.as_view(), name='nhanvien'),
+    path('load-bang-cong/', Loadbangcong.as_view(),name='load-bang-cong'),
+   
+    
     
     path('get-nhan-vien/', Getnhanvien.as_view(),name='getnhanvien'),
     path('profile/',Profile.as_view(),name='profile'),

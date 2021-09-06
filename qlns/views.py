@@ -26,6 +26,8 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import *
 from .forms import *
+from cdqttb.models import *
+from cdqttb.forms import *
 # Create your views here.
 
 
@@ -34,9 +36,7 @@ class Index(LoginRequiredMixin, View):
     redirect_field_name = 'redirect_to'
 
     def get(self, request):
-        nv = Nhanvien.objects.all()
-        us = User.objects.all()
-
+       
         return render(request, 'index.html')
 
 
@@ -64,59 +64,6 @@ class Logout(View):
 class Zoom(View):
    def get(self,request):
        return render(request,'zoom/index.html')
-
-
-class Giaoviec(View):
-    def get(self, request):
-        return render(request, 'kanban.html')
-
-
-class Report(LoginRequiredMixin, View):
-
-    def get(self, request):
-
-        return render(request, "report.html")
-
-
-class Nhanvientotal(LoginRequiredMixin, View):
-    login_url = '/login/'
-    redirect_field_name = 'redirect_to'
-
-    def get(self, request):
-        nv = Nhanvien.objects.all()
-
-        return render(request, 'nhanvien.html', {'nv': nv})
-
-    def post(self, request):
-        if request.method == 'POST':
-
-            manv = request.POST.get('manv')
-            tennv = request.POST.get('tennv')
-            username = User.objects.get(id=2)
-            ngaysinh = request.POST.get('ngaysinh')
-            diachi = request.POST.get('diachi')
-            quequan = request.POST.get('quequan')
-            cmnd = request.POST.get('cmnd')
-            cmnd_1 = request.FILES['cmndmt']
-
-            cmnd_2 = request.FILES['cmndms']
-            avatar = request.FILES['avatar']
-            sdt = request.POST.get('sdt')
-            line = request.POST.get('line')
-            email = request.POST.get('email')
-
-            Nhanvien.objects.create(manv=manv, tennv=tennv, username=username, ngaysinh=ngaysinh,
-                                    diachi=diachi, quequan=quequan, cmnd=cmnd, cmnd_1=cmnd_1,
-                                    cmnd_2=cmnd_2, avatar=avatar, sdt=sdt, line=line, email=email)
-            nv = Nhanvien.objects.all()
-
-            context = {
-                'ms': 'them thanh cong',
-                'nv': nv
-            }
-            messages.success(request, 'Thêm Thành Cong')
-            return redirect('nhanvien')
-
 
 
 class Getnhanvien(APIView):
@@ -153,21 +100,26 @@ class Profile(LoginRequiredMixin, View):
         idnv = nv.id
         nv = Nhanvien.objects.get(pk=idnv)
         nvcv = Chucvu_Congviec.objects.get(nhanvien=nv)
-
-        try:
-            hsld = Hosonhanvien.objects.get(nhanvien=nv.id)
-            now_year = datetime.datetime.now().year - hsld.ngaychinhthuc.year
-
-        except Hosonhanvien.DoesNotExist:
-            hsld = {'id': 'Đang cập nhật', 'masobh': 'Đang cập nhật'}
-            now_year = "Đang Cập Nhật Số "
+        tbct = Thongbao.objects.filter(huy=False,hienthi=True).order_by('-created_at') 
+        tbpb = Thongbao.objects.filter(huy=False,hienthi=True,phongban = nv.phongban).order_by('-created_at') 
+        qd = Quydinhcongty.objects.filter(huy=False,hienthi=True).order_by('-created_at')
+        qdpb = Quydinhphongban.objects.filter(huy=False,hienthi=True,phongban=nv.phongban).order_by('-created_at')
+        cdct = Chedocongty.objects.filter(huy=False,hienthi=True).order_by('-created_at')
+        cdpb = Chedophongban.objects.filter(huy=False,hienthi=True,phongban=nv.phongban).order_by('-created_at')
+       
         context = {
 
             'nv': nv,
             'id': id,
-            'hsld': hsld,
-            'now': now_year,
+            
             'nvcv': nvcv,
+            'tbct':tbct,
+            'tbpb':tbpb,
+            'qd':qd,
+            'qdpb':qdpb,
+            'cdct':cdct,
+            'cdpb':cdpb
+            
         }
         return render(request, 'nhanvien/profile.html', context)
 

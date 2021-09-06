@@ -1,0 +1,329 @@
+<div class="row">
+    <div class="col-5 col-sm-3">
+        <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="vert-tabs-home1-tab" data-toggle="pill" href="#vert-tabs-home1" role="tab"
+                aria-controls="vert-tabs-home" aria-selected="true">Quy Định </a>
+            <a class="nav-link" id="vert-tabs-profile1-tab" data-toggle="pill" href="#vert-tabs-profile1" role="tab"
+                aria-controls="vert-tabs-profile1" aria-selected="false">Chế Độ
+            </a>
+
+        </div>
+    </div>
+    <div class="col-7 col-sm-9">
+        <div class="tab-content" id="vert-tabs-tabContent">
+            <div class="tab-pane text-left fade show active" id="vert-tabs-home1" role="tabpanel"
+                aria-labelledby="vert-tabs-home-tab">
+                <div class="card-header p-2">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item active "><a class="nav-link  active" href="#qdct" data-toggle="tab">QUY
+                                ĐỊNH CÔNG TY </a></li>
+                        <li class="nav-item  "><a class="nav-link  " href="#qdpb" data-toggle="tab">QUY ĐỊNH PHÒNG
+                                -{{nv.phongban}}</a></li>
+
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class=" tab-pane active " id="qdct">
+                        <br><br>
+                        <!--  -->
+                        <div class="timeline  timeline-inverse">
+                            <!-- timeline time label -->
+                            {%for item in qd %}
+                            <div>
+
+
+                                <div class="timeline-item">
+                                    <span class="time"><i class="far ion-social-octocat"></i>
+
+                                        {{item.created_at|date:'d - m - y'}}
+                                    </span>
+
+                                    <h3 class="timeline-header"><a href="#">{{item.tenquydinh}}
+                                        </a></h3>
+
+                                    <div class="timeline-body">
+                                        <div id="readmoreqdct-{{item.id}}">
+                                            {{item.noidung|safe|truncatechars:200}}
+                                        </div>
+                                        <div id="readfullqdct-{{item.id}}">
+                                            {{item.noidung|safe}}
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="timeline-footer">
+                                        <a onclick="xemchitietqdct()" id="xemchitietqdct-{{item.id}}"
+                                            class="btn btn-primary btn-sm">Xem chi tiết </a>
+                                        <a onclick="thugonqdct()" id="thugonqdct-{{item.id}}"
+                                            class="btn btn-dark btn-sm">Thu
+                                            Gọn
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <script>
+                                $(document).ready(function () {
+                                    $('#readfullqdct-{{item.id}}').hide()
+                                    $('#thugonqdct-{{item.id}}').hide()
+                                });
+
+                                function xemchitietqdct() {
+                                    $('#readmoreqdct-{{item.id}}').hide()
+                                    $('#readfullqdct-{{item.id}}').show()
+                                    $('#xemchitietqdct-{{item.id}}').hide()
+                                    $('#thugonqdct-{{item.id}}').show()
+
+
+                                }
+
+                                function thugonqdct() {
+                                    $('#readmoreqdct-{{item.id}}').show()
+                                    $('#readfullqdct-{{item.id}}').hide()
+                                    $('#xemchitietqdct-{{item.id}}').show()
+                                    $('#thugonqdct-{{item.id}}').hide()
+
+
+                                }
+                            </script>
+
+                            {%endfor%}
+                        </div>
+                        <!--  -->
+                    </div>
+                    <div class=" tab-pane" id="qdpb">
+
+                        <br><br>
+                        <div class="timeline  timeline-inverse">
+                            <!-- timeline time label -->
+                            {%for item in qdpb %}
+                            <div>
+
+
+                                <div class="timeline-item">
+                                    <span class="time"><i class="far ion-social-octocat"></i>
+
+                                        {{item.created_at|date:'d - m - y'}}
+                                    </span>
+
+                                    <h3 class="timeline-header"><a href="#">{{item.tenquydinh}}
+                                        </a></h3>
+
+                                    <div class="timeline-body">
+                                        <div id="readmoreqdpb-{{item.id}}">
+                                            {{item.noidung|safe|truncatechars:200}}
+                                        </div>
+                                        <div id="readfullqdpb-{{item.id}}">
+                                            {{item.noidung|safe}}
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="timeline-footer">
+                                        <a onclick="xemchitietqdpb()" id="xemchitietqdpb-{{item.id}}"
+                                            class="btn btn-primary btn-sm">Xem chi tiết </a>
+                                        <a onclick="thugonqdpb()" id="thugonqdpb-{{item.id}}"
+                                            class="btn btn-dark btn-sm">Thu
+                                            Gọn
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <script>
+                                $(document).ready(function () {
+                                    $('#readfullqdpb-{{item.id}}').hide()
+                                    $('#thugonqdpb-{{item.id}}').hide()
+                                });
+
+                                function xemchitietqdpb() {
+                                    $('#readmoreqdpb-{{item.id}}').hide()
+                                    $('#readfullqdpb-{{item.id}}').show()
+                                    $('#xemchitietqdpb-{{item.id}}').hide()
+                                    $('#thugonqdpb-{{item.id}}').show()
+
+
+                                }
+
+                                function thugonqdpb() {
+                                    $('#readmoreqdpb-{{item.id}}').show()
+                                    $('#readfullqdpb-{{item.id}}').hide()
+                                    $('#xemchitietqdpb-{{item.id}}').show()
+                                    $('#thugonqdpb-{{item.id}}').hide()
+
+
+                                }
+                            </script>
+
+                            {%endfor%}
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <div class="tab-pane fade" id="vert-tabs-profile1" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
+                <!--  -->
+                <div class="card-header p-2">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item active "><a class="nav-link  active" href="#cdct" data-toggle="tab">
+
+                    CHẾ ĐỘ CÔNG TY </a></li>
+                        <li class="nav-item  "><a class="nav-link  " href="#cdpb" data-toggle="tab">CHẾ ĐỘ PHÒNG
+                                - {{nv.phongban}}</a></li>
+
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class=" tab-pane active " id="cdct">
+                        <br><br>
+                        <!--  -->
+                        <div class="timeline  timeline-inverse">
+                            <!-- timeline time label -->
+                            {%for item in cdct %}
+                            <div>
+
+
+                                <div class="timeline-item">
+                                    <span class="time"><i class="far ion-social-octocat"></i>
+
+                                        {{item.created_at|date:'d - m - y'}}
+                                    </span>
+
+                                    <h3 class="timeline-header"><a href="#">{{item.tenchedo}}
+                                        </a></h3>
+
+                                    <div class="timeline-body">
+                                        <div id="readmorecdct-{{item.id}}">
+                                            {{item.noidung|safe|truncatechars:200}}
+                                        </div>
+                                        <div id="readfullcdct-{{item.id}}">
+                                            {{item.noidung|safe}}
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="timeline-footer">
+                                        <a onclick="xemchitietcdct()" id="xemchitietcdct-{{item.id}}"
+                                            class="btn btn-primary btn-sm">Xem chi tiết </a>
+                                        <a onclick="thugoncdct()" id="thugoncdct-{{item.id}}"
+                                            class="btn btn-dark btn-sm">Thu
+                                            Gọn
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <script>
+                                $(document).ready(function () {
+                                    $('#readfullcdct-{{item.id}}').hide()
+                                    $('#thugoncdct-{{item.id}}').hide()
+                                });
+
+                                function xemchitietcdct() {
+                                    $('#readmorecdct-{{item.id}}').hide()
+                                    $('#readfullcdct-{{item.id}}').show()
+                                    $('#xemchitietcdct-{{item.id}}').hide()
+                                    $('#thugoncdct-{{item.id}}').show()
+
+
+                                }
+
+                                function thugoncdct() {
+                                    $('#readmorecdct-{{item.id}}').show()
+                                    $('#readfullcdct-{{item.id}}').hide()
+                                    $('#xemchitietcdct-{{item.id}}').show()
+                                    $('#thugoncdct-{{item.id}}').hide()
+
+
+                                }
+                            </script>
+
+                            {%endfor%}
+                        </div>
+                        <!--  -->
+                    </div>
+                    <div class=" tab-pane" id="cdpb">
+
+                        <br><br>
+                        <div class="timeline  timeline-inverse">
+                            <!-- timeline time label -->
+                            {%for item in cdpb %}
+                            <div>
+
+
+                                <div class="timeline-item">
+                                    <span class="time"><i class="far ion-social-octocat"></i>
+
+                                        {{item.created_at|date:'d - m - y'}}
+                                    </span>
+
+                                    <h3 class="timeline-header"><a href="#">{{item.tenchedo}}
+                                        </a></h3>
+
+                                    <div class="timeline-body">
+                                        <div id="readmorecdpb-{{item.id}}">
+                                            {{item.noidung|safe|truncatechars:200}}
+                                        </div>
+                                        <div id="readfullcdpb-{{item.id}}">
+                                            {{item.noidung|safe}}
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="timeline-footer">
+                                        <a onclick="xemchitietcdpb()" id="xemchitietcdpb-{{item.id}}"
+                                            class="btn btn-primary btn-sm">Xem chi tiết </a>
+                                        <a onclick="thugoncdpb()" id="thugoncdpb-{{item.id}}"
+                                            class="btn btn-dark btn-sm">Thu
+                                            Gọn
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <script>
+                                $(document).ready(function () {
+                                    $('#readfullcdpb-{{item.id}}').hide()
+                                    $('#thugoncdpb-{{item.id}}').hide()
+                                });
+
+                                function xemchitietcdpb() {
+                                    $('#readmorecdpb-{{item.id}}').hide()
+                                    $('#readfullcdpb-{{item.id}}').show()
+                                    $('#xemchitietcdpb-{{item.id}}').hide()
+                                    $('#thugoncdpb-{{item.id}}').show()
+
+
+                                }
+
+                                function thugoncdpb() {
+                                    $('#readmorecdpb-{{item.id}}').show()
+                                    $('#readfullcdpb-{{item.id}}').hide()
+                                    $('#xemchitietcdpb-{{item.id}}').show()
+                                    $('#thugoncdpb-{{item.id}}').hide()
+
+
+                                }
+                            </script>
+
+                            {%endfor%}
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
+            </div>
+
+        </div>
+    </div>
+</div>
