@@ -1,11 +1,11 @@
 ansicolors==1.1.8
 appdirs==1.4.3
-apturl==0.5.2
+#apturl==0.5.2
 asgiref==3.3.4
 bcrypt==3.1.7
 black==21.7b0
 blinker==1.4
-Brlapi==0.7.0
+#Brlapi==0.7.0
 certifi==2019.11.28
 chardet==3.0.4
 #chrome-gnome-shell==0.0.0

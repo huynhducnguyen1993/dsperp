@@ -22,6 +22,7 @@
       <span class="header-highlight">ĐÔNG SAPA Meetting Online </span>
     </h1>
     <br>
+<<<<<<< HEAD
     <div>
       <button class="button is-primary" v-if="!room" @click="createRoom">
         Tạo Phòng
@@ -34,6 +35,40 @@
       <button class="button is-info" v-if="room" @click="publish(true)">
         Chia Sẽ Màn Hình
       </button>
+=======
+    <div class="container has-text-centered" v-cloak id="app">
+      <h1 class="title">
+        
+        <span class="header-highlight">ĐÔNG SAPA Meetting Online </span>
+      </h1>
+    <br>
+      <div>
+        <button class="button is-primary" v-if="!room" @click="createRoom">
+          Tạo Phòng
+        </button>
+
+        <button class="button is-info" v-if="!room" @click="joinWithId">
+          Tham Gia Phòng
+        </button>
+
+        <button class="button is-info" v-if="room" @click="publish(true)">
+          Chia Sẽ Màn Hình 
+        </button>
+      </div>
+
+      <div v-if="roomId" class="info">
+        <p>Bạn đang ở trong room <strong>{{roomId}}</strong>.</p>
+        <p>
+          Gửi link này cho bạn bè cùng join room nhé
+
+          <a v-bind:href="roomUrl" target="_blank" id="url">  </a>.
+          
+          <a v-bind:href="roomUrl" target="_blank" id="url"> [[roomUrl]] </a>.
+          
+        </p>
+        <p>Hoặc bạn cũng có thể copy <code>{{roomId}}</code> để share.</p>
+      </div>
+>>>>>>> aba11fbc3476cea39bc9a7ba4e5a6c1540092a48
     </div>
 
     <div v-if="roomId" class="info">
