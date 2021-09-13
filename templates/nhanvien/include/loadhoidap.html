@@ -1,0 +1,51 @@
+{%for item in hoidap %}
+{%if item.traloi == None%}
+<div class="card collapsed-card">
+    <div class="card-header">
+        <h3 class="card-title">{{item.cauhoi}} -
+             <span class="btn btn-sm btn-info">{{item.created_at|date:'d - m -y'}}</span></h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+        <!-- /.card-tools -->
+    </div>
+    <!-- /.card-header -->
+
+    <div class="card-body">
+        Đang chở trả lời ...
+    </div>
+
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+</div>
+{%else %}
+<div class="card collapsed-card ">
+    <div class="card-header">
+        <h3 class="card-title" style="color: brown;">{{item.cauhoi}} -
+            <span class="btn btn-sm btn-success">{{item.created_at|date:'d - m -y'}}</span>
+        </h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+        <!-- /.card-tools -->
+    </div>
+    <!-- /.card-header -->
+
+    <div class="card-body">
+        <h3 style="color: mediumorchid;">Câu Trả Lời - {{item.nhanvientraloi}}</h3>
+        {{item.traloi|safe }}
+    </div>
+
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+{%endif%}
+{%endfor%}

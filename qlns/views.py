@@ -24,6 +24,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView 
+from django.core.paginator import Paginator
 from .models import *
 from .forms import *
 from cdqttb.models import *
@@ -99,6 +101,7 @@ class Profile(LoginRequiredMixin, View):
         nv = Nhanvien.objects.get(username=id)
         idnv = nv.id
         nv = Nhanvien.objects.get(pk=idnv)
+        phongban = Phongban.objects.all().exclude(tenpb='SEP')
         nvcv = Chucvu_Congviec.objects.get(nhanvien=nv)
         tbct = Thongbao.objects.filter(huy=False,hienthi=True).order_by('-created_at') 
         tbpb = Thongbao.objects.filter(huy=False,hienthi=True,phongban = nv.phongban).order_by('-created_at') 
@@ -106,46 +109,70 @@ class Profile(LoginRequiredMixin, View):
         qdpb = Quydinhphongban.objects.filter(huy=False,hienthi=True,phongban=nv.phongban).order_by('-created_at')
         cdct = Chedocongty.objects.filter(huy=False,hienthi=True).order_by('-created_at')
         cdpb = Chedophongban.objects.filter(huy=False,hienthi=True,phongban=nv.phongban).order_by('-created_at')
-       
+        mtcv = Motacongviec.objects.filter(phongban =nv.phongban,nhanvien=nv).order_by('-created_at')
+        ktn = Kienthucnen.objects.filter(phongban =nv.phongban).order_by('-created_at')
+        chtg = Cauhoithuonggap.objects.all().order_by("-created_at")
+        hd =Hoidap.objects.filter(idnhanvienhoi=nv.id).order_by('-updated_at')
         context = {
 
             'nv': nv,
             'id': id,
-            
+            'phongban':phongban,
             'nvcv': nvcv,
             'tbct':tbct,
             'tbpb':tbpb,
             'qd':qd,
             'qdpb':qdpb,
             'cdct':cdct,
-            'cdpb':cdpb
-            
+            'cdpb':cdpb,
+            'mtcv':mtcv,
+            'ktn':ktn,
+            'chtg':chtg,
+            'hd':hd
         }
         return render(request, 'nhanvien/profile.html', context)
 
+class Loadprofile(View):
+    def get(self,request):
+        idnv = request.GET.get('idnv')
+        nhanvien = Nhanvien.objects.get( pk= idnv)
+        form = ChangeAvatar(instance=nhanvien)
+        context={
+            'form':form,
+            'nhanvien':nhanvien,
 
-class Dsnhanvien(LoginRequiredMixin, View):
+            }
+        return render(request,'nhanvien/loadformprofile.html',context)
+def Change_avatar(request):
+    user  = request.user 
+    nhanvien = Nhanvien.objects.get(username=user)
+    form = ChangeAvatar(request.POST,request.FILES,instance=nhanvien)
+    print(form)
+
+    if form.is_valid():
+        form.save()
+    return redirect('profile')
+
+class ContactListView(ListView):
+    paginate_by = 2
+    model = Nhanvien
+
+class Danhba(LoginRequiredMixin, View):
     login_url = "login/"
     redirect_field_name = 'redirect_to'
 
     def get(self, request):
-        nv = Nhanvien.objects.all()
-        pb = Phongban.objects.get(tenpb="BÁN SỈ")
-        idbs = pb.id
-
-        nvbs = Nhanvien.objects.filter(phongban=idbs)
-        nvhcns = Nhanvien.objects.filter(phongban=2)  # HCNS
-        nvkt = Nhanvien.objects.filter(phongban=1)
-        nvit = Nhanvien.objects.filter(phongban=3)
+        nv = Nhanvien.objects.all().order_by('phongban')
+        phongban = Phongban.objects.all()
+        nvpage = Paginator(nv, 9)
+        page_number = request.GET.get('page')
+        page_obj = nvpage.get_page(page_number)
         context = {
-            'nv': nv,
-            'nvhcns': nvhcns,
-            'nvkt': nvkt,
-            'nvbs': nvbs,
-            'nvit': nvit,
-
+            'nv': page_obj,
+            'phongban':phongban
+            
         }
-        return render(request, 'dsnhanvien.html', context)
+        return render(request, 'nhanvien/danhba/danhba.html', context)
 
     def post(self, request):
         tennhanvien = request.POST.get('tennhanvien')
@@ -163,21 +190,7 @@ class Changenhanvien(LoginRequiredMixin, View):
     def get(self, request, nhanvien_id):
         nv = Nhanvien.objects.get(id=nhanvien_id)
 
-        try:
-            hsld = Hosonhanvien.objects.get(nhanvien=nv.id)
-            now_year = datetime.datetime.now().year - hsld.ngaychinhthuc.year
-
-        except Hosonhanvien.DoesNotExist:
-            hsld = {'id': 'Đang cập nhật', 'masobh': 'Đang cập nhật'}
-            now_year = "Đang Cập Nhật Số "
-        context = {
-            'nv': nv,
-            'id': nhanvien_id,
-            'hsld': hsld,
-            'now': now_year
-        }
-
-        return render(request, 'xemnhanvien.html', context)
+        return render(request, 'xemnhanvien.html')
 
     def post(self, request, nhanvien_id):
         if request.method == 'POST':
@@ -483,13 +496,10 @@ class Quanlydexuat(LoginRequiredMixin, View):
                 dx = Dexuat.objects.filter(
                     phongban=item.phongban,
                     trangthaiduyet_tp=False,
-
-
                     tinhtranghuy=False,
                 )
 
                 context = {
-
                     'dexuat': dx,
                 }
                 return render(request, 'dexuat/ql_dexuat_cho_xu_ly.html', context)

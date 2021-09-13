@@ -1,0 +1,337 @@
+<!-- --------------------------------------- -->
+
+
+<div class="row">
+    <div class="col-5 col-sm-3">
+        <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="vert-tabs-home1-tab" data-toggle="pill" href="#vert-tabs-home11" role="tab"
+                aria-controls="vert-tabs-home" aria-selected="true">Mô Tả </a>
+            <a class="nav-link" id="vert-tabs-profile1-tab" data-toggle="pill" href="#vert-tabs-profile11" role="tab"
+                aria-controls="vert-tabs-profile1" aria-selected="false">Kiến Thức Nền
+            </a>
+
+            <a class="nav-link" id="vert-tabs-profile2-tab" data-toggle="pill" href="#vert-tabs-profile22" role="tab"
+                aria-controls="vert-tabs-profile2" aria-selected="false">Câu Hỏi Thường Gặp
+            </a>
+            <a class="nav-link" id="vert-tabs-profile3-tab" data-toggle="pill" href="#vert-tabs-profile33" role="tab"
+                aria-controls="vert-tabs-profile3" aria-selected="false">Hỏi Đáp
+            </a>
+
+        </div>
+    </div>
+    <div class="col-7 col-sm-9">
+        <div class="tab-content" id="vert-tabs-tabContent">
+            <div class="tab-pane text-left fade show active" id="vert-tabs-home11" role="tabpanel"
+                aria-labelledby="vert-tabs-home-tab">
+
+
+                <br><br>
+                <!--  -->
+                {% for item in mtcv %}
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>
+                                <h3 class="timeline-header"><a href="#">{{item.tieude}}
+                                    </a></h3>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="timeline-body">
+                                    <div id="readmoremtcv-{{item.id}}">
+                                        {{item.motacongviec|safe|truncatechars:200}}
+                                    </div>
+                                    <div id="readfullmtcv-{{item.id}}">
+                                        {{item.motacongviec|safe}}
+                                    </div>
+
+
+                                </div>
+
+                                <div class="timeline-footer">
+                                    <a onclick="xemchitietmtcv()" id="xemchitietmtcv-{{item.id}}"
+                                        class="btn btn-primary btn-sm">Xem chi
+                                        tiết </a>
+                                    <a onclick="thugonmtcv()" id="thugonmtcv-{{item.id}}"
+                                        class="btn btn-dark btn-sm">Thu
+                                        Gọn
+                                    </a>
+                                </div>
+
+
+
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+                <script>
+                    $(document).ready(function () {
+                        $('#readfullmtcv-{{item.id}}').hide()
+                        $('#thugonmtcv-{{item.id}}').hide()
+                    });
+
+                    function xemchitietmtcv() {
+                        $('#readmoremtcv-{{item.id}}').hide()
+                        $('#readfullmtcv-{{item.id}}').show()
+                        $('#xemchitietmtcv-{{item.id}}').hide()
+                        $('#thugonmtcv-{{item.id}}').show()
+
+
+                    }
+
+                    function thugonmtcv() {
+                        $('#readmoremtcv-{{item.id}}').show()
+                        $('#readfullmtcv-{{item.id}}').hide()
+                        $('#xemchitietmtcv-{{item.id}}').show()
+                        $('#thugonmtcv-{{item.id}}').hide()
+
+
+                    }
+                </script>
+                <!--  -->
+                <br>
+                {%endfor%}
+
+
+
+
+
+
+
+            </div>
+
+            <div class="tab-pane fade" id="vert-tabs-profile11" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
+                <!--  -->
+
+
+
+
+                <div class="timeline  timeline-inverse">
+                    <!-- timeline time label -->
+                    {%for item in ktn %}
+                    <div>
+
+
+                        <div class="timeline-item">
+                            <span class="time"><i class="far ion-social-octocat"></i>
+
+                                {{item.created_at|date:'d - m - y'}}
+                            </span>
+
+                            <h3 class="timeline-header"><a href="#">{{item.tieude}}
+                                </a></h3>
+
+                            <div class="timeline-body">
+                                <div id="readmorecdpb-{{item.id}}">
+                                    {{item.noidung|safe|truncatechars:200}}
+                                </div>
+                                <div id="readfullktn-{{item.id}}">
+                                    {{item.noidung|safe}}
+                                </div>
+
+
+                            </div>
+
+                            <div class="timeline-footer">
+                                <a onclick="xemchitietktn()" id="xemchitietktn-{{item.id}}"
+                                    class="btn btn-primary btn-sm">Xem chi tiết </a>
+                                <a onclick="thugonktn()" id="thugonktn-{{item.id}}" class="btn btn-dark btn-sm">Thu
+                                    Gọn
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <script>
+                        $(document).ready(function () {
+                            $('#readfullktn-{{item.id}}').hide()
+                            $('#thugonktn-{{item.id}}').hide()
+                        });
+
+                        function xemchitietktn() {
+                            $('#readmorektn-{{item.id}}').hide()
+                            $('#readfullktn-{{item.id}}').show()
+                            $('#xemchitietktn-{{item.id}}').hide()
+                            $('#thugonktn-{{item.id}}').show()
+
+
+                        }
+
+                        function thugonktn() {
+                            $('#readmorektn-{{item.id}}').show()
+                            $('#readfullktn-{{item.id}}').hide()
+                            $('#xemchitietktn-{{item.id}}').show()
+                            $('#thugonktn-{{item.id}}').hide()
+
+
+                        }
+                    </script>
+
+                    {%endfor%}
+                </div>
+
+
+
+
+                <!--  -->
+            </div>
+            <div class="tab-pane fade" id="vert-tabs-profile22" role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
+
+                {%for item in chtg %}
+                <div class="card  collapsed-card">
+                    <div class="card-header">
+                        <h5 class="card-title " style="color: lightseagreen;"> Câu Hỏi : {{item.cauhoi}}</h5>
+
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-lg btn-tool btn-primary" data-card-widget="collapse"><i
+                                    class="fas fa-plus"></i>Click
+                            </button>
+                        </div>
+                        <!-- /.card-tools -->
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <H3>Trả Lời :</H3> <br>
+                        {{item.traloi|safe}}
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+                {%endfor%}
+
+            </div>
+            <div class="tab-pane fade" id="vert-tabs-profile33" role="tabpanel"
+                aria-labelledby="vert-tabs-profile3-tab">
+                <!-- hoi dap  -->
+
+                <div class="form-group">
+
+                    <textarea class="form-control" id="noidunghd" placeholder="Nhập Câu Hỏi Muốn Hỏi "></textarea>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" id="pbhd" name="pbhd">
+                        <option value="-1"> ---- Chọn Phòng Ban ------- </option>
+                        {%for item in phongban %}
+                        <option value="{{item.id}}"> {{item.tenpb}}</option>
+
+                        {%endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <a onclick="phongbanhoidap()" class="btn btn-dark "> Gửi Câu Hỏi </a>
+                </div>
+                <br>
+                <div id="loadhoidap">
+
+                </div>
+                <div id=hoidap>
+
+                    {%for item in hd %}
+                    {%if item.traloi == None%}
+                    <div class="card collapsed-card ">
+                        <div class="card-header">
+                            <h3 class="card-title" style="color: brown;">{{item.cauhoi}} - 
+                                <span
+                                    class="btn btn-sm btn-secondary"> {{item.created_at|date:'d - m -y'}}</span></h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+
+                        <div class="card-body">
+                            Đang chở trả lời ...
+                        </div>
+
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                    {%else %}
+                    <div class="card collapsed-card ">
+                        <div class="card-header">
+                            <h3 class="card-title" style="color: olivedrab;">{{item.cauhoi}} - <span
+                                    class="btn btn-sm btn-success">-- Đã Trả Lời Vào - {{item.created_at|date:'d - m -y'}}</span></h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                            <!-- /.card-tools -->
+                        </div>
+                        <!-- /.card-header -->
+
+                        <div class="card-body">
+                            <h3 style="color: mediumorchid;">Câu Trả Lời - {{item.nhanvientraloi}}</h3>
+                            {{item.traloi|safe }}
+                        </div>
+
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                    {%endif%}
+
+                    {%endfor%}
+                </div>
+                <script>
+
+
+
+                    function phongbanhoidap() {
+
+                        if ($("#noidunghd").val() == '') {
+                            alert('Vui Lòng Nhập Nội Dung Câu Hỏi')
+                            return false
+                        }
+                        if ($("#pbhd").val() == '-1') {
+                            alert('Vui Lòng Chọn Phòng Ban')
+                            return false
+                        }
+                        $.ajax({
+                            url: "{% url 'load-hoi-dap' %}",
+                            data: {
+
+                                'idpb': $('#pbhd').val(),
+                                'cauhoi': $("#noidunghd").val(),
+
+                                'nhanvien': '{{nv.id}}',
+
+
+
+                            },
+                            success: function (data) {
+                                $("#loadhoidap").html(data);
+
+                            }
+
+
+                        });
+
+                        $("#noidunghd").val('');
+                        $("#pbhd").val('-1')
+                        $('#hoidap').hide()
+
+                    }
+
+
+
+
+                </script>
+
+                <!--  -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-header p-2 ">
+        <legend>Cập Nhật Avatar </legend>
+    </div>
+    <div class="card-body ">
+        <img class="profile-user-img img-fluid img-circle" src="{{nhanvien.avatar.url}}" alt="{{nhanvien.tennv}}">
+        <div class="form-group">
+            <img id="avatar_moi"  class="profile-user-img img-fluid img-circle"  src="#" alt="" />
+        </div>
+        <form action="{%url 'change-avatar'%}" enctype="multipart/form-data" method="POST" class="form-horizontal" role="form">
+            <div class="form-group">
+                {% csrf_token %}
+                {{form.avatar}}
+
+            </div>
+
+            
+
+            <div class="form-group">
+                <div class="col-sm-10 col-sm-offset-2">
+                    <button type="submit" class="btn btn-primary">Cập Nhật </button>
+                </div>
+            </div>
+        </form>
+       
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('#avatar_moi').hide();
+    });
+    $("#id_avatar").change(function() {
+        $('#avatar_moi').show();
+        const [file] = id_avatar.files
+        
+        avatar_moi.src = URL.createObjectURL(file)        
+    })
+</script>

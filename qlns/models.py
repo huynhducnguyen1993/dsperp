@@ -7,6 +7,10 @@ from django.utils.html import format_html
 from django.contrib.auth.models import AbstractUser,User
 from ckeditor.fields import *
 from ckeditor_uploader.fields import *
+import qrcode
+from io import BytesIO
+from django.core.files import File
+from PIL import Image, ImageDraw
 
 
 class Phongban(models.Model):
@@ -16,8 +20,8 @@ class Phongban(models.Model):
     updated_at = models.DateTimeField(auto_now=True,null=True)
 
     class Meta:
-        verbose_name = "PHÒNG BAN"
-        verbose_name_plural = 'PHÒNG BAN'
+        verbose_name = "1. PHÒNG BAN"
+        verbose_name_plural = '1. PHÒNG BAN'
 
     def __str__(self):
         return self.tenpb
@@ -49,17 +53,36 @@ class Nhanvien(models.Model):
     tinhtrangcongviec = models.BooleanField(default='1',verbose_name='Check --- (nếu nhân viên chính thức) ')
     chuky1 =models.FileField(blank=True,null=True,verbose_name='Upload chữ ký 1 ')
     chuky2 = models.FileField(blank=True, null=True, verbose_name='Upload chữ ký 2 ')
+    qr_code = models.ImageField(upload_to='qr_codes/nhanvien/', blank=True,verbose_name="QR CODE - (Không thêm mới hoặc chỉnh sửa ")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
 
     class Meta:
-        verbose_name = "NHÂN VIÊN"
-        verbose_name_plural = 'NHÂN VIÊN'
+        verbose_name = "2. NHÂN VIÊN"
+        verbose_name_plural = '2. NHÂN VIÊN'
 
 
     def __str__(self):
         return self.tennv
+
+    def save(self, *args, **kwargs):
+        if self.qr_code =="":
+            noidung ={
+                'manv':self.manv,
+                'tennv':self.tennv,
+                'phongban':self.phongban.tenpb,
+
+            }
+            qrcode_img = qrcode.make(noidung)
+            canvas = Image.new('RGB', (460, 430), 'white')
+            canvas.paste(qrcode_img)
+            fname = f'ma-qr-code-{self.manv}.png'
+            buffer = BytesIO()
+            canvas.save(buffer,'PNG')
+            self.qr_code.save(fname, File(buffer), save=False)
+            canvas.close()
+            super().save(*args, **kwargs)
 
 class Chucvu_Congviec(models.Model):
 
@@ -84,8 +107,8 @@ class Baohiemyte(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     class Meta:
-        verbose_name = "BẢO HIỂM Y TẾ"
-        verbose_name_plural = 'BẢO HIỂM Y TẾ'
+        verbose_name = "4. BẢO HIỂM Y TẾ"
+        verbose_name_plural = '4. BẢO HIỂM Y TẾ'
     def __str__(self):
         return self.masobhyt
 
@@ -97,22 +120,10 @@ class Baohiemxahoi(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     class Meta:
-        verbose_name = "BẢO HIỂM XÃ HỘI"
-        verbose_name_plural = 'BẢO HIỂM XÃ HỘI'
+        verbose_name = "3. BẢO HIỂM XÃ HỘI"
+        verbose_name_plural = '3. BẢO HIỂM XÃ HỘI'
     def __str__(self):
         return self.masobhxh
-
-class Quatrinhdongbhxh(models.Model):
-    tennhanvien = models.ForeignKey(Nhanvien,on_delete=models.CASCADE,verbose_name='Nhân Viên Đóng BHXH')
-    thoigiandong = models.DateTimeField(verbose_name='Ngày-Tháng-Năm Đóng')
-    sotiendong   = models.CharField(default='',max_length=255,verbose_name='Số Tiền Đóng BHXH')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    class Meta:
-        verbose_name = "QUÁ TRÌNH ĐÓNG BẢO HIỂM XÃ HỘI"
-        verbose_name_plural = "QUÁ TRÌNH ĐÓNG BẢO HIỂM XÃ HỘI"
-    def __int__(self):
-        return self.tennhanvien
 
 
 class Loaihopdong(models.Model):
@@ -281,3 +292,65 @@ class Phanquyen(models.Model):
         return self.nhanvien
     
     
+class Motacongviec(models.Model):
+    tieude = models.CharField(default="",max_length=255,verbose_name="Tiêu Đề Công Việc")
+    motacongviec = RichTextUploadingField(verbose_name = "Nội Dung Công Việc")
+    phongban = models.ForeignKey(Phongban,on_delete=models.CASCADE,verbose_name="Phòng Ban")
+    nhanvien = models.ForeignKey(Nhanvien,on_delete=models.CASCADE,verbose_name="Nhân Viên Áp Dụng")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "5. MÔ TẢ CÔNG VIỆC"
+        verbose_name_plural = '5. MÔ TẢ CÔNG VIỆC'
+
+    def __int__(self):
+        return self.nhanvien
+
+  
+class Kienthucnen(models.Model):
+    tieude = models.CharField(default="",max_length=255,verbose_name="Tiêu Đề Công Việc")
+    noidung = RichTextUploadingField(verbose_name = "Nội Dung Công Việc")
+    phongban = models.ForeignKey(Phongban,on_delete=models.CASCADE,verbose_name="Phòng Ban Áp Dụng")
+    tacgia = models.ForeignKey(Nhanvien,on_delete=models.CASCADE,verbose_name="Tác Giả Bài Viết")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "6. KIẾN THỨC NÉN CHO NHÂN VIÊN "
+        verbose_name_plural = '6. KIẾN THỨC NÉN CHO NHÂN VIÊN '
+
+    def __int__(self):
+        return self.tieude
+
+
+class Cauhoithuonggap(models.Model):
+    cauhoi = models.CharField(default="",max_length=255,verbose_name="Tên Câu Hỏi Thường Gặp")
+    traloi = RichTextUploadingField(verbose_name = "Nội Dung Trả lời")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "7. CÂU HỎI THƯỜNG GẶP"
+        verbose_name_plural = '7. CÂU HỎI THƯỜNG GẶP'
+
+    def __int__(self):
+        return self.cauhoi
+
+
+class Hoidap(models.Model):
+    cauhoi = models.CharField(default="",max_length=255,verbose_name="Câu Hỏi của Nhân Viên")
+    idnhanvienhoi = models.IntegerField() 
+    nhanvienhoi = models.CharField(default="",max_length=255, verbose_name="Nhân Viên Đặt câu hỏi")
+    phongbantraloi = models.ForeignKey(Phongban,on_delete=models.CASCADE,verbose_name="Phòng Ban Phải Trả Lời")
+    traloi = RichTextUploadingField(blank =True,null=True,verbose_name = "Nội Dung trả lời")
+    nhanvientraloi = models.ForeignKey(Nhanvien,on_delete=models.CASCADE,blank =True,null=True,verbose_name="Nhân Viên Trả Lời")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "8. HỎI ĐÁP NHÂN VIÊN"
+        verbose_name_plural = '8. HỎI ĐÁP NHÂN VIÊN'
+
+    def __int__(self):
+        return self.cauhoi

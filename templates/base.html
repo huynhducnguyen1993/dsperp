@@ -5,7 +5,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ĐÔNG SAPA | Dashboard</title>
+  <title>ĐÔNG SAPA | Công Ty Cổ Phần Cơ Điện Lạnh Đông Sapa</title>
+  
   <link href='https://fonts.googleapis.com/css?family=Libre Barcode 39' rel='stylesheet'>
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -34,6 +35,9 @@
 
   {%block css-profile %}
   {%endblock%}
+  {%block css-danhba %}
+  {%endblock%}
+
   {%block cssthukho%} {%endblock%}
   {%block cssthukho-canxuly%} {%endblock%}
   {% block cssnhanvien %} {%endblock%}
@@ -75,7 +79,7 @@
         </li>
         <li class="nav-item d-none d-sm-inline-block">
 
-          <a href="{% url 'zoom'%}" class="nav-link">Meetting</a>
+          <a href="{% url 'qrcode'%}" class="nav-link">Tạo QR </a>
         </li>
       </ul>
 
@@ -169,7 +173,19 @@
                 <li class="nav-item">
                   <a href="{% url 'profile'%}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Profile</p>
+                    <p>Hồ Sơ Nhân Viên </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'danh-ba'%}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Danh Bạ </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'profile'%}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Test QUIZ</p>
                   </a>
                 </li>
                 
@@ -491,7 +507,37 @@
               </ul>
             </li>
             {%endif%}
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i style="background-color: rgb(6, 122, 16);" class="nav-icon ion-ios-people fas fa-copy"></i>
+                <p>
+                  THƯ VIỆN 
+                  <i class="fas ion-arrow-left-a right"></i>
+                  <span class="badge badge-info right"></span>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
 
+                <li class="nav-item">
+                  <a href="{% url 'nhap-khach-hang-lon'%}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Hình Ảnh - Video </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'danh-sach-khach-hang-lon'%}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Logo - HSNL </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'view-catalog' %}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Caltalog Sản Phẩm  </p>
+                  </a>
+                </li>
+              </ul>
+            </li>
             <!--
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -590,7 +636,7 @@
     {%block form-xu-ly-giai-chi-tp%} {% endblock %}
     {%block form-xu-ly-giai-chi-sep%} {%endblock%}
     {% block giaichi-duyet-tp%} {% endblock %}
-
+    
     {% block giaichi-da-duyet%} {%endblock%}
     {%block form-view-giai-chi%} {% endblock %}
     {%block form-edit-giai-chi%} {% endblock %}
@@ -604,6 +650,8 @@
     {%block zoom%} {%endblock%}
     {%block todo%} {%endblock%}
     {%block tkhd%} {%endblock%}
+
+    {%block danhba %}{% endblock %}
     <footer class="main-footer">
       <strong>Copyright &copy; 2021 <a href="https://zalo.me/0979754485">CHELSEA NGUYEN</a>.</strong> All rights
       reserved.
@@ -681,6 +729,8 @@
   {%block script-tkhd%}
   {%endblock%}
   {%block script-profile%}
+  {%endblock%}
+  {%block script-danhba%}
   {%endblock%}
 
   <script src="{% static 'dist/js/pages/dashboard.js'%}"></script>

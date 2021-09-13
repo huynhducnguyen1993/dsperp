@@ -1,0 +1,6 @@
+{% load qr_code %}
+
+
+<h5>Dùng Camera quét QR để kết nối Wifi : <strong>{{ wifi_config.ssid }}</strong> </h5>
+<img src="{% qr_url_for_wifi wifi_config options=options_example %}">
+e7fRksTB4BA

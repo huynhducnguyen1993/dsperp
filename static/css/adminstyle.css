@@ -6,7 +6,7 @@
 
 }
 :root {
-	--selected-row: #df9e9e;
+	--selected-row: #44400a;
 }
 #user-tools {
     float: right;
@@ -25,7 +25,7 @@
 	width: 75%;
 }    
 div.breadcrumbs {
-    background: #1490cf;
+    background: #ad0257;
     padding: 10px 40px;
     border: none;
     color: var(--breadcrumbs-fg);
@@ -33,7 +33,7 @@ div.breadcrumbs {
 }
 
 .module h2, .module caption, .inline-group h2 {
-	background: #2ab9ff;
+	background: #0473aa;
    
 }
 #content-related .module h2 {

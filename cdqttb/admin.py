@@ -43,32 +43,32 @@ class ThongbaoAdmins(ImportExportActionModelAdmin):
 admin.site.register(Thongbao, ThongbaoAdmins)
 
 
-class DanhmucAdmin(ImportExportActionModelAdmin):
-    list_display = ('id','tendanhmuc','view_baiviet')
-    import_id_fields = ('code',)
-    skip_unchanged = True
-    report_skipped = True
-    def view_baiviet(self,obj):
-        count = obj.thongbao_set.count()
-        url = (
-                reverse("admin:cdqttb_thongbao_changelist")
-                + "?"
-                + urlencode({"danhmuc__id": f"{obj.id}"})
-        )
-        return format_html('<a href="{}">{} Bài Viết</a>', url, count)
+# class DanhmucAdmin(ImportExportActionModelAdmin):
+#     list_display = ('id','tendanhmuc','view_baiviet')
+#     import_id_fields = ('code',)
+#     skip_unchanged = True
+#     report_skipped = True
+#     def view_baiviet(self,obj):
+#         count = obj.thongbao_set.count()
+#         url = (
+#                 reverse("admin:cdqttb_thongbao_changelist")
+#                 + "?"
+#                 + urlencode({"danhmuc__id": f"{obj.id}"})
+#         )
+#         return format_html('<a href="{}">{} Bài Viết</a>', url, count)
 
-    view_baiviet.short_description = "Số Thông Báo"
-    # tính tổng nhân viên trong 1 phòngs
+#     view_baiviet.short_description = "Số Thông Báo"
+#     # tính tổng nhân viên trong 1 phòngs
 
-    def before_save_instance(self, instance):
-        format_str = '%d/%m/%y'  # the format in which dates are stored in CSV file
-        instance.created_at = datetime.strptime(instance.created_at, format_str)
-        instance.updated_at = datetime.strptime(instance.updated_at, format_str)
-        return instance
+#     def before_save_instance(self, instance):
+#         format_str = '%d/%m/%y'  # the format in which dates are stored in CSV file
+#         instance.created_at = datetime.strptime(instance.created_at, format_str)
+#         instance.updated_at = datetime.strptime(instance.updated_at, format_str)
+#         return instance
 
 
 
-admin.site.register(Danhmucthongbao, DanhmucAdmin)
+# admin.site.register(Danhmucthongbao, DanhmucAdmin)
 
 
 

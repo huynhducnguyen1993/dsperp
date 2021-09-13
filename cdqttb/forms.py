@@ -3,6 +3,7 @@ from django.db import models
 from django import forms
 from django.forms import widgets
 from qlns.models import *
+
 # Import our custom widget and our model from where they're defined
 from .models import *
 from qlns.models import *
@@ -49,6 +50,14 @@ class ChedophongbanForm(forms.ModelForm):
         model = Chedophongban
         fields = "__all__"
 
+
+class Form_hoi_dap(forms.ModelForm):
+    class Meta:
+        model = Hoidap
+        fields =['idnhanvienhoi','nhanvienhoi','cauhoi','phongbantraloi']
+    def __init__(self, *args, **kwargs):
+        super(Form_hoi_dap, self).__init__(*args, **kwargs)
+    
 
 
 

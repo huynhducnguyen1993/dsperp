@@ -1,0 +1,91 @@
+<div class="card card-solid">
+    <div class="card-body pb-0">
+        <div class="row">
+            {%for item in nv %}
+            <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                <div class="card bg-light d-flex flex-fill">
+                    <div class="card-header text-muted border-bottom-0">
+                        {%if item.phongban.id == 1 %}
+                        <span style="color: rgb(15, 107, 35);">{{item.phongban}}</span>
+                        {%endif%}
+                        {%if item.phongban.id == 2 %}
+                        <span style="color: rgb(49, 22, 202);">{{item.phongban}}</span>
+                        {%endif%}
+                        {%if item.phongban.id == 3 %}
+                        <span style="color: rgb(28, 221, 38);">{{item.phongban}}</span>
+                        {%endif%}
+                        {%if item.phongban.id == 4 %}
+                        <span style="color: rgb(218, 20, 191);">{{item.phongban}}</span>
+                        {%endif%}
+                        {% if item.phongban.id != 1 and item.phongban.id != 2 and item.phongban.id != 3 and item.phongban.id != 4%}
+                        <span style="color: rgb(167, 39, 34);">{{item.phongban}}</span>
+                        {% endif %}
+                    </div>
+                    <div class="card-body pt-0">
+                        <div class="row">
+                            <div class="col-9">
+                                <h2 class="lead"><b style="color: cadetblue;">{{item.tennv}}</b></h2>
+                                <p class="text-muted text-sm"><b>Email: </b> {{item.email}} </p>
+                                <ul class="ml-4 mb-0 fa-ul text-muted">
+                                    <li class="small"><span class="fa-li"><i
+                                                class="fas ion-location"></i></span> {{item.diachi}}
+                                    </li>
+                                    <li class="small"><span class="fa-li"><i
+                                                class="fas ion-ios-telephone">
+                                            </i></span> Phone 1: {{item.sdt}}</li>
+                                    {%if item.sdt2%}<li class="small"><span class="fa-li"><i
+                                                class="fas ion-ios-telephone">
+                                            </i></span> Phone 2: {{item.sdt2}}</li>{%endif%}
+
+
+                                </ul>
+                                <p class="text-muted text-sm"><b>Line Nội Bộ : </b> <b
+                                        style="color: crimson;">{{item.line}}</b> </p>
+                            </div>
+                            <div class="col-3 text-center">
+                                {%if item.avatar %}
+                                <img src="{{item.avatar.url}}" alt="{{item.tennv}}"
+                                    class="img-circle img-fluid">
+                                {%else%}
+                                <img src="" alt="{{item.tennv}}" class="img-circle img-fluid">
+                                {%endif%}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="text-right">
+
+                            <a href="tel:{{item.sdt}}" class="btn btn-sm bg-teal">
+                                <i class="fas ion-ios-telephone-outline"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-primary">
+                                <i class="fas fa-user"></i> Xem thêm
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+        <!-- <nav aria-label="Contacts Page Navigation">
+            <ul class="pagination justify-content-center m-0">
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                <li class="page-item"><a class="page-link" href="#">7</a></li>
+                <li class="page-item"><a class="page-link" href="#">8</a></li>
+            </ul>
+        </nav> -->
+        
+    </div>
+    <!-- /.card-footer -->
+</div>

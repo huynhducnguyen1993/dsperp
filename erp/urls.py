@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from athuvien.models import DanhmucCatalog
 from django.contrib import admin
 from django.views.static import serve 
 from django.urls import path,include
@@ -20,9 +21,14 @@ from qlns.views import *
 from khovan.views import *
 from cdqttb.views import *
 from khachhang.views import *
+from athuvien.views import *
 from django.conf import settings
 from django.conf.urls import url 
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
+
+
+from qlns import views
 
 admin.site.index_title="Quản Trị Hệ Thống"
 urlpatterns = [
@@ -30,21 +36,26 @@ urlpatterns = [
     path('pdf/', include('mergepdf.urls')),
     path('tasks/', include('tasks.urls')),
     path('trinh-ky-hop-dong/', include('tkhd.urls',namespace='trinh-ky')),
-    
+    path('qr_code/', include('qr_code.urls', namespace="qr_code")),
+    path('tao-qr-code/',Qrcode.as_view(),name='qrcode'),
+    path('load-qr-code/',loadqrcode.as_view(),name='load-qr-code'),
     path('ckeditor/',include('ckeditor_uploader.urls')),
     path('', Index.as_view(),name='index'),
     path('login/', Login.as_view(),name='login'),
     path('logout',Logout.as_view(),name='logout'),
     path('api-auth/', include('rest_framework.urls')),
     path('nhan-vien/zoom/' ,Zoom.as_view(),name='zoom' ),
+    path('nhan-vien/profile/change-avatar',views.Change_avatar,name='change-avatar'),
 
     path('load-bang-cong/', Loadbangcong.as_view(),name='load-bang-cong'),
-   
-    
-    
+    path('load-hoi-dap/', Loadhoidap.as_view(),name='load-hoi-dap'),
+    path('load-danh-ba/', Loaddanhba.as_view(),name='load-danh-ba'),
+    path('nhan-vien/thu-vien/catalog',Catolog.as_view(),name='view-catalog'),
     path('get-nhan-vien/', Getnhanvien.as_view(),name='getnhanvien'),
     path('profile/',Profile.as_view(),name='profile'),
-    path('dsnhanvien/',Dsnhanvien.as_view(),name='dsnhanvien'),
+    
+    path('load-avatar',Loadprofile.as_view(),name='load-avatar'),
+    path('nhan-vien/danh-ba',Danhba.as_view(),name='danh-ba'),
     path('viewnhanvien/', Viewnhanvien.as_view(), name='viewnhanvien'),
     path('deletenhanvien/',Delete_checkbox.as_view(), name='delete-nhanvien'),
     path('phieu-luong-upload/',Phieuluongupload.as_view(), name='phieuluongupload'),

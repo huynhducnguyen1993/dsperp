@@ -8,6 +8,7 @@ from datetime import datetime
 from django.urls import reverse
 from django.utils.http import urlencode
 from django.utils.html import format_html
+from .forms import *
 # Register your models here.
 
 
@@ -27,12 +28,37 @@ class PhieuluongAdmins(ImportExportActionModelAdmin):
 
 admin.site.register(Phieuluong_upload, PhieuluongAdmins)
 admin.site.register(Loaihopdong)
+
+TEXT ="Ví Dụ "
 class NhanvienAdmins(ImportExportActionModelAdmin):
     list_display = ('id','manv', 'tennv', 'username', 'cmnd_1')
     search_fields = ('tennv',)
     list_filter = ('phongban',)
     list_per_page = 10
     resource_class = NhanvienResource
+    form = AddnhanvienAdmin
+    fieldsets= (('Thông Tin Nhân Viên ',{
+                            'fields':('manv','username','tennv','gioitinh','ngaysinh','diachi','quequan',),
+                             
+                       }),
+                   ('Hồ Sơ  Nhân Viên ',{
+                            'fields':('phongban','tinhtrangcongviec','masohs','ngaythuviec','ngaychinhthuc','chuyenmon','vanhoa',),
+                             
+        }),
+                     ('Chứng Minh Nhân Dân - Thẻ Căn Cước  ',{
+                            'fields':('cmnd','cmnd_1','cmnd_2','ngaycap','noicap',),
+                             
+        }),
+                     ('Liên Hệ   ',{
+                            'fields':('sdt','sdt2','line','email',),
+                             
+        }),
+                ('Chân Dung - Chử Ký -QR Code  ',{
+                            'fields':('avatar','chuky1','chuky2','qr_code',),
+                             
+        }),
+        )
+
 
 admin.site.register(Nhanvien, NhanvienAdmins)
 
@@ -106,16 +132,6 @@ class HosokinhdoanhAdmin(admin.ModelAdmin):
 
 admin.site.register(Quanlyhopdongkinhdoanh, HosokinhdoanhAdmin)
 
-class QtdbhxhAdmin(ImportExportActionModelAdmin):
-    list_display = ('tennhanvien','thoigiandong')
-    list_filter = ('tennhanvien','thoigiandong',)
-    list_per_page = 10
-    import_id_fields = ('code',)
-    skip_unchanged = True
-    report_skipped = True
-    exclude = ('id',)
-admin.site.register(Quatrinhdongbhxh,QtdbhxhAdmin)
-
 class DexuatAdmin(admin.ModelAdmin):
     list_display = ('id', 'nhanvien','phongban','tieude','files')
     list_filter = ('phongban',)
@@ -158,3 +174,63 @@ class QuyenAdmin(admin.ModelAdmin):
     exclude = ('id',)
 
 admin.site.register(Phanquyen, QuyenAdmin)
+
+
+class MotacongviecAdmin(admin.ModelAdmin):
+    list_display = ('id', 'nhanvien','phongban','tieude')
+    list_filter = ('phongban',)
+    search_fields = ('nhanvien',)
+    list_per_page = 10
+    import_id_fields = ('id',)
+    skip_unchanged = True
+    report_skipped = True
+    exclude = ('id',)
+    
+
+
+admin.site.register(Motacongviec, MotacongviecAdmin)
+
+
+
+class kienthucnenAdmin(admin.ModelAdmin):
+    list_display = ('id', 'tieude','phongban',)
+    list_filter = ('phongban',)
+    search_fields = ('tieude',)
+    list_per_page = 10
+    import_id_fields = ('id',)
+    skip_unchanged = True
+    report_skipped = True
+    exclude = ('id',)
+    
+
+
+admin.site.register(Kienthucnen, kienthucnenAdmin)
+
+
+class CauhoithuonggapAdmin(admin.ModelAdmin):
+    list_display = ('id', 'cauhoi','created_at',)
+    list_filter = ('created_at',)
+    search_fields = ('cauhoi',)
+    list_per_page = 10
+    import_id_fields = ('id',)
+    skip_unchanged = True
+    report_skipped = True
+    exclude = ('id',)
+    
+
+
+admin.site.register(Cauhoithuonggap, CauhoithuonggapAdmin)
+
+class HoidapAdmin(admin.ModelAdmin):
+    list_display = ('id', 'cauhoi','nhanvienhoi','phongbantraloi','nhanvientraloi','created_at',)
+    list_filter = ('created_at',)
+    search_fields = ('cauhoi',)
+    list_per_page = 10
+    import_id_fields = ('id',)
+    skip_unchanged = True
+    report_skipped = True
+    exclude = ('id',)
+    
+
+
+admin.site.register(Hoidap, HoidapAdmin)

@@ -15,48 +15,46 @@
 
 {%block zoom%}
 <div class="content-wrapper">
+  <br>
+  <div class="container has-text-centered" v-cloak id="app">
+    <h1 class="title">
+
+      <span class="header-highlight">ĐÔNG SAPA Meetting Online </span>
+    </h1>
     <br>
-    <div class="container has-text-centered" v-cloak id="app">
-      <h1 class="title">
-        
-        <span class="header-highlight">ĐÔNG SAPA Meetting Online </span>
-      </h1>
-    <br>
-      <div>
-        <button class="button is-primary" v-if="!room" @click="createRoom">
-          Tạo Phòng
-        </button>
+    <div>
+      <button class="button is-primary" v-if="!room" @click="createRoom">
+        Tạo Phòng
+      </button>
 
-        <button class="button is-info" v-if="!room" @click="joinWithId">
-          Tham Gia Phòng
-        </button>
+      <button class="button is-info" v-if="!room" @click="joinWithId">
+        Tham Gia Phòng
+      </button>
 
-        <button class="button is-info" v-if="room" @click="publish(true)">
-          Chia Sẽ Màn Hình 
-        </button>
-      </div>
-
-      <div v-if="roomId" class="info">
-        <p>Bạn đang ở trong room <strong>{{roomId}}</strong>.</p>
-        <p>
-          Gửi link này cho bạn bè cùng join room nhé
-<<<<<<< HEAD
-          <a v-bind:href="roomUrl" target="_blank" id="url">  </a>.
-          <script >
-            alert(this.roomUrl)
-          </script>
-=======
-          <a v-bind:href="roomUrl" target="_blank" id="url"> [[roomUrl]] </a>.
-          
->>>>>>> 278d50e650e4688b912e841f05b60a5346728089
-        </p>
-        <p>Hoặc bạn cũng có thể copy <code>{{roomId}}</code> để share.</p>
-      </div>
+      <button class="button is-info" v-if="room" @click="publish(true)">
+        Chia Sẽ Màn Hình
+      </button>
     </div>
 
-    <div class="container">
-      <div id="videos"></div>
+    <div v-if="roomId" class="info">
+      <p>Bạn đang ở trong room <strong>{{roomId}}</strong>.</p>
+      <p>
+        Gửi link này cho bạn bè cùng join room nhé
+
+        <a v-bind:href="roomUrl" target="_blank" id="url"> </a>.
+
+
+        <a v-bind:href="roomUrl" target="_blank" id="url"> [[roomUrl]] </a>.
+
+
+      </p>
+      <p>Hoặc bạn cũng có thể copy <code>{{roomId}}</code> để share.</p>
     </div>
+  </div>
+
+  <div class="container">
+    <div id="videos"></div>
+  </div>
 </div>
 {%endblock%}
 
