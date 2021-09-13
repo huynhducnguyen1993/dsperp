@@ -16,7 +16,7 @@ cm-rgb==0.3.6
 codecov==2.1.12
 collective.checkdocs==0.2
 colorama==0.4.3
-command-not-found==0.3
+#command-not-found==0.3
 coverage==5.5
 crayons==0.4.0
 cryptography==2.8
