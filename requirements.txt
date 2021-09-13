@@ -22,7 +22,7 @@ crayons==0.4.0
 cryptography==2.8
 #cupshelpers==1.0
 dbus-python==1.2.16
-defer==1.0.6
+#defer==1.0.6
 defusedxml==0.7.1
 diff-match-patch==20200713
 distlib==0.3.0
