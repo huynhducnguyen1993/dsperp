@@ -27,7 +27,7 @@ defusedxml==0.7.1
 diff-match-patch==20200713
 distlib==0.3.0
 distro==1.4.0
-distro-info===0.23ubuntu1
+#distro-info===0.23ubuntu1
 Django==3.2.3
 django-ckeditor==6.1.0
 django-cors-headers==3.7.0
